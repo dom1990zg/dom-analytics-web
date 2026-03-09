@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 
 const translations = {
   en: {
@@ -39,7 +38,7 @@ const translations = {
       info: 'Or reach us directly',
     },
     footer: {
-      rights: '© 2026 Dom Analytics. All rights reserved.',
+      rights: '\u00a9 2026 Dom Analytics. All rights reserved.',
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
     },
@@ -48,40 +47,40 @@ const translations = {
     nav: { services: 'Usluge', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
     hero: {
       tagline: 'INOVIRAJ. ANALIZIRAJ. USPIJ.',
-      headline: 'Gradimo inteligentna\nrješenja koja\ntransformiraju poslovanje',
-      sub: 'AI konzalting, analitika i razvoj prilagođenog softvera',
-      cta: 'Započni projekt',
-      scroll: 'Skrolaj za više',
+      headline: 'Gradimo inteligentna\nrje\u0161enja koja\ntransformiraju poslovanje',
+      sub: 'AI konzalting, analitika i razvoj prilago\u0111enog softvera',
+      cta: 'Zapo\u010dni projekt',
+      scroll: 'Skrolaj za vi\u0161e',
     },
     services: {
-      label: 'ŠTO RADIMO',
+      label: '\u0160TO RADIMO',
       title: 'Usluge',
       items: [
-        { num: '01', title: 'AI i strojno učenje', desc: 'Prilagođeni AI modeli, prediktivna analitika, NLP rješenja i inteligentna automatizacija za konkurentsku prednost.', tags: ['LLM Integracija', 'Prediktivni modeli', 'Računalni vid', 'NLP'] },
-        { num: '02', title: 'Analitika podataka i BI', desc: 'Pretvaramo sirove podatke u konkretne uvide. Dizajn dashboarda, praćenje KPI-eva i strateško izvještavanje.', tags: ['Dashboardi', 'Data Pipelines', 'KPI praćenje', 'Izvještaji'] },
-        { num: '03', title: 'Web i App razvoj', desc: 'Moderne, skalabilne web aplikacije i mobilna rješenja izgrađena s najnovijim frameworcima i cloud arhitekturom.', tags: ['React / Next.js', 'Mobilne aplikacije', 'Cloud Native', 'API dizajn'] },
-        { num: '04', title: 'IT konzalting', desc: 'Strateško tehnološko savjetovanje, planovi digitalne transformacije i optimizacija telekoma s 12+ godina iskustva.', tags: ['Digitalna strategija', 'Telekom', 'Arhitektura', 'Optimizacija'] },
+        { num: '01', title: 'AI i strojno u\u010denje', desc: 'Prilago\u0111eni AI modeli, prediktivna analitika, NLP rje\u0161enja i inteligentna automatizacija za konkurentsku prednost.', tags: ['LLM Integracija', 'Prediktivni modeli', 'Ra\u010dunalni vid', 'NLP'] },
+        { num: '02', title: 'Analitika podataka i BI', desc: 'Pretvaramo sirove podatke u konkretne uvide. Dizajn dashboarda, pra\u0107enje KPI-eva i strate\u0161ko izvje\u0161tavanje.', tags: ['Dashboardi', 'Data Pipelines', 'KPI pra\u0107enje', 'Izvje\u0161taji'] },
+        { num: '03', title: 'Web i App razvoj', desc: 'Moderne, skalabilne web aplikacije i mobilna rje\u0161enja izgra\u0111ena s najnovijim frameworcima i cloud arhitekturom.', tags: ['React / Next.js', 'Mobilne aplikacije', 'Cloud Native', 'API dizajn'] },
+        { num: '04', title: 'IT konzalting', desc: 'Strate\u0161ko tehnolo\u0161ko savjetovanje, planovi digitalne transformacije i optimizacija telekoma s 12+ godina iskustva.', tags: ['Digitalna strategija', 'Telekom', 'Arhitektura', 'Optimizacija'] },
       ],
     },
     tech: {
-      label: 'NAŠ STACK',
+      label: 'NA\u0160 STACK',
       title: 'Tehnologije',
-      sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rješenja.',
+      sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rje\u0161enja.',
     },
     contact: {
       label: 'KONTAKTIRAJTE NAS',
-      title: 'Izgradimo nešto\nveliko zajedno',
+      title: 'Izgradimo ne\u0161to\nveliko zajedno',
       sub: 'Spremni za transformaciju poslovanja s AI-em i podacima? Razgovarajmo.',
-      name: 'Vaše ime',
+      name: 'Va\u0161e ime',
       email: 'Email adresa',
-      message: 'Opišite nam svoj projekt',
-      send: 'Pošalji poruku',
+      message: 'Opi\u0161ite nam svoj projekt',
+      send: 'Po\u0161alji poruku',
       info: 'Ili nas kontaktirajte direktno',
     },
     footer: {
-      rights: '© 2026 Dom Analytics. Sva prava pridržana.',
+      rights: '\u00a9 2026 Dom Analytics. Sva prava pridr\u017eana.',
       privacy: 'Pravila privatnosti',
-      terms: 'Uvjeti korištenja',
+      terms: 'Uvjeti kori\u0161tenja',
     },
   },
 };
@@ -218,9 +217,9 @@ export default function Home() {
       <div className="noise" />
       <div className="cursor-glow" style={{ left: cursorPos.x, top: cursorPos.y }} />
 
+      {/* NAV */}
       <nav className="nav">
         <a href="/" className="nav-logo">
-          <img src="/logo-small.png" alt="Dom Analytics" />
           <span className="nav-logo-text">Dom<span>Analytics</span></span>
         </a>
         <div className="nav-links">
@@ -236,6 +235,7 @@ export default function Home() {
         </button>
       </nav>
 
+      {/* MOBILE MENU */}
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>{t.nav.services}</a>
         <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('tech'); }}>{t.nav.tech}</a>
@@ -243,14 +243,15 @@ export default function Home() {
         <button className="lang-toggle" onClick={() => { setLang((l) => (l === 'en' ? 'hr' : 'en')); setMenuOpen(false); }}>
           {lang === 'en' ? 'HR' : 'EN'}
         </button>
-        <a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }} style={{ fontSize: 16, color: 'var(--text-dim)', marginTop: 20 }}>✕ Close</a>
+        <a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }} style={{ fontSize: 16, color: 'var(--text-dim)', marginTop: 20 }}>{'\u2715'} Close</a>
       </div>
 
+      {/* HERO */}
       <section className="hero">
         <div className="hero-bg hero-bg-1" />
         <div className="hero-bg hero-bg-2" />
         <ParticleCanvas />
-        <div style={{ position: 'relative', zIndex: 2 }}>
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <p className="hero-tagline">{t.hero.tagline}</p>
           <h1 className="hero-headline">{t.hero.headline}</h1>
           <p className="hero-sub">{t.hero.sub}</p>
@@ -268,6 +269,7 @@ export default function Home() {
 
       <div className="section-divider" />
 
+      {/* SERVICES */}
       <section id="services" className="section" ref={servRef}>
         <div className={`reveal ${servVis ? 'visible' : ''}`}>
           <p className="section-label">{t.services.label}</p>
@@ -289,6 +291,7 @@ export default function Home() {
 
       <div className="section-divider" />
 
+      {/* TECHNOLOGIES */}
       <section id="tech" className="section" ref={techRef}>
         <div className={`reveal ${techVis ? 'visible' : ''}`}>
           <p className="section-label">{t.tech.label}</p>
@@ -305,6 +308,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CONTACT */}
       <section id="contact" className="contact-section" ref={contactRef}>
         <div className="section" style={{ paddingTop: 100, paddingBottom: 100 }}>
           <div className={`contact-layout reveal ${contactVis ? 'visible' : ''}`}>
@@ -328,6 +332,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className="footer">
         <div className="footer-left">{t.footer.rights}</div>
         <div className="footer-links">
