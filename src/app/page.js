@@ -1,0 +1,341 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+
+const translations = {
+  en: {
+    nav: { services: 'Services', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' },
+    hero: {
+      tagline: 'INNOVATE. ANALYZE. SUCCEED.',
+      headline: 'We build intelligent\nsolutions that transform\nyour business',
+      sub: 'AI-powered consulting, analytics & custom software development',
+      cta: 'Start a project',
+      scroll: 'Scroll to explore',
+    },
+    services: {
+      label: 'WHAT WE DO',
+      title: 'Services',
+      items: [
+        { num: '01', title: 'AI & Machine Learning', desc: 'Custom AI models, predictive analytics, NLP solutions, and intelligent automation that give your business a competitive edge.', tags: ['LLM Integration', 'Predictive Models', 'Computer Vision', 'NLP'] },
+        { num: '02', title: 'Data Analytics & BI', desc: 'Transform raw data into actionable insights. Dashboard design, KPI tracking, and strategic reporting for data-driven decisions.', tags: ['Dashboards', 'Data Pipelines', 'KPI Tracking', 'Reporting'] },
+        { num: '03', title: 'Web & App Development', desc: 'Modern, scalable web applications and mobile solutions built with cutting-edge frameworks and cloud-native architecture.', tags: ['React / Next.js', 'Mobile Apps', 'Cloud Native', 'API Design'] },
+        { num: '04', title: 'IT Consulting', desc: 'Strategic technology advisory, digital transformation roadmaps, and telecom optimization backed by 12+ years of industry expertise.', tags: ['Digital Strategy', 'Telecom', 'Architecture', 'Optimization'] },
+      ],
+    },
+    tech: {
+      label: 'OUR STACK',
+      title: 'Technologies',
+      sub: 'We leverage best-in-class tools and frameworks to deliver robust, scalable solutions.',
+    },
+    contact: {
+      label: 'GET IN TOUCH',
+      title: 'Let\'s build\nsomething great',
+      sub: 'Ready to transform your business with AI and data? Let\'s talk.',
+      name: 'Your name',
+      email: 'Email address',
+      message: 'Tell us about your project',
+      send: 'Send message',
+      info: 'Or reach us directly',
+    },
+    footer: {
+      rights: '© 2026 Dom Analytics. All rights reserved.',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
+    },
+  },
+  hr: {
+    nav: { services: 'Usluge', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
+    hero: {
+      tagline: 'INOVIRAJ. ANALIZIRAJ. USPIJ.',
+      headline: 'Gradimo inteligentna\nrješenja koja\ntransformiraju poslovanje',
+      sub: 'AI konzalting, analitika i razvoj prilagođenog softvera',
+      cta: 'Započni projekt',
+      scroll: 'Skrolaj za više',
+    },
+    services: {
+      label: 'ŠTO RADIMO',
+      title: 'Usluge',
+      items: [
+        { num: '01', title: 'AI i strojno učenje', desc: 'Prilagođeni AI modeli, prediktivna analitika, NLP rješenja i inteligentna automatizacija za konkurentsku prednost.', tags: ['LLM Integracija', 'Prediktivni modeli', 'Računalni vid', 'NLP'] },
+        { num: '02', title: 'Analitika podataka i BI', desc: 'Pretvaramo sirove podatke u konkretne uvide. Dizajn dashboarda, praćenje KPI-eva i strateško izvještavanje.', tags: ['Dashboardi', 'Data Pipelines', 'KPI praćenje', 'Izvještaji'] },
+        { num: '03', title: 'Web i App razvoj', desc: 'Moderne, skalabilne web aplikacije i mobilna rješenja izgrađena s najnovijim frameworcima i cloud arhitekturom.', tags: ['React / Next.js', 'Mobilne aplikacije', 'Cloud Native', 'API dizajn'] },
+        { num: '04', title: 'IT konzalting', desc: 'Strateško tehnološko savjetovanje, planovi digitalne transformacije i optimizacija telekoma s 12+ godina iskustva.', tags: ['Digitalna strategija', 'Telekom', 'Arhitektura', 'Optimizacija'] },
+      ],
+    },
+    tech: {
+      label: 'NAŠ STACK',
+      title: 'Tehnologije',
+      sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rješenja.',
+    },
+    contact: {
+      label: 'KONTAKTIRAJTE NAS',
+      title: 'Izgradimo nešto\nveliko zajedno',
+      sub: 'Spremni za transformaciju poslovanja s AI-em i podacima? Razgovarajmo.',
+      name: 'Vaše ime',
+      email: 'Email adresa',
+      message: 'Opišite nam svoj projekt',
+      send: 'Pošalji poruku',
+      info: 'Ili nas kontaktirajte direktno',
+    },
+    footer: {
+      rights: '© 2026 Dom Analytics. Sva prava pridržana.',
+      privacy: 'Pravila privatnosti',
+      terms: 'Uvjeti korištenja',
+    },
+  },
+};
+
+const techCategories = [
+  { name: 'AI & Data', items: ['Python', 'TensorFlow', 'PyTorch', 'OpenAI', 'LangChain', 'Pandas', 'Scikit-learn', 'Hugging Face'] },
+  { name: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Three.js', 'Framer Motion'] },
+  { name: 'Backend & Cloud', items: ['Node.js', 'PostgreSQL', 'AWS', 'Vercel', 'Docker', 'REST APIs', 'GraphQL'] },
+  { name: 'BI & Analytics', items: ['QlikSense', 'Power BI', 'Tableau', 'Salesforce', 'HubSpot', 'Google Analytics'] },
+];
+
+function ParticleCanvas() {
+  const canvasRef = useRef(null);
+  const animRef = useRef(null);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, particles;
+
+    const resize = () => {
+      w = canvas.width = canvas.offsetWidth;
+      h = canvas.height = canvas.offsetHeight;
+    };
+
+    const init = () => {
+      resize();
+      const count = Math.min(Math.floor((w * h) / 8000), 120);
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.8 + 0.5,
+      }));
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      const mx = mouseRef.current.x, my = mouseRef.current.y;
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+        const dM = Math.hypot(p.x - mx, p.y - my);
+        const glow = dM < 200 ? 1 - dM / 200 : 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r + glow * 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0,194,203,${0.3 + glow * 0.7})`;
+        ctx.fill();
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const d = Math.hypot(p.x - q.x, p.y - q.y);
+          if (d < 130) {
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = `rgba(0,194,203,${0.08 * (1 - d / 130)})`;
+            ctx.lineWidth = 0.5; ctx.stroke();
+          }
+        }
+      }
+      animRef.current = requestAnimationFrame(draw);
+    };
+
+    init(); draw();
+    window.addEventListener('resize', resize);
+    const handleMouse = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    };
+    canvas.addEventListener('mousemove', handleMouse);
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      window.removeEventListener('resize', resize);
+      canvas.removeEventListener('mousemove', handleMouse);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'auto' }} />;
+}
+
+function useReveal(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, visible];
+}
+
+function MagneticButton({ children, className, onClick }) {
+  const btnRef = useRef(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const handleMove = (e) => {
+    const rect = btnRef.current.getBoundingClientRect();
+    setOffset({ x: (e.clientX - rect.left - rect.width / 2) * 0.2, y: (e.clientY - rect.top - rect.height / 2) * 0.2 });
+  };
+  return (
+    <button ref={btnRef} className={className} onClick={onClick}
+      onMouseMove={handleMove} onMouseLeave={() => setOffset({ x: 0, y: 0 })}
+      style={{ transform: `translate(${offset.x}px, ${offset.y}px)`, transition: 'transform 0.3s cubic-bezier(0.23,1,0.32,1)' }}>
+      {children}
+    </button>
+  );
+}
+
+export default function Home() {
+  const [lang, setLang] = useState('en');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: -500, y: -500 });
+  const t = translations[lang];
+
+  const [servRef, servVis] = useReveal();
+  const [techRef, techVis] = useReveal();
+  const [contactRef, contactVis] = useReveal();
+
+  useEffect(() => {
+    const handler = (e) => setCursorPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handler);
+    return () => window.removeEventListener('mousemove', handler);
+  }, []);
+
+  const scrollTo = (id) => {
+    setMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <>
+      <div className="noise" />
+      <div className="cursor-glow" style={{ left: cursorPos.x, top: cursorPos.y }} />
+
+      <nav className="nav">
+        <a href="/" className="nav-logo">
+          <img src="/logo-small.png" alt="Dom Analytics" />
+          <span className="nav-logo-text">Dom<span>Analytics</span></span>
+        </a>
+        <div className="nav-links">
+          <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>{t.nav.services}</a>
+          <a href="#tech" onClick={(e) => { e.preventDefault(); scrollTo('tech'); }}>{t.nav.tech}</a>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>{t.nav.contact}</a>
+          <button className="lang-toggle" onClick={() => setLang((l) => (l === 'en' ? 'hr' : 'en'))}>
+            {lang === 'en' ? 'HR' : 'EN'}
+          </button>
+        </div>
+        <button className="menu-btn" onClick={() => setMenuOpen((o) => !o)}>
+          <span /><span /><span />
+        </button>
+      </nav>
+
+      <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+        <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>{t.nav.services}</a>
+        <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('tech'); }}>{t.nav.tech}</a>
+        <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>{t.nav.contact}</a>
+        <button className="lang-toggle" onClick={() => { setLang((l) => (l === 'en' ? 'hr' : 'en')); setMenuOpen(false); }}>
+          {lang === 'en' ? 'HR' : 'EN'}
+        </button>
+        <a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }} style={{ fontSize: 16, color: 'var(--text-dim)', marginTop: 20 }}>✕ Close</a>
+      </div>
+
+      <section className="hero">
+        <div className="hero-bg hero-bg-1" />
+        <div className="hero-bg hero-bg-2" />
+        <ParticleCanvas />
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <p className="hero-tagline">{t.hero.tagline}</p>
+          <h1 className="hero-headline">{t.hero.headline}</h1>
+          <p className="hero-sub">{t.hero.sub}</p>
+          <div className="hero-cta">
+            <MagneticButton className="cta-btn" onClick={() => scrollTo('contact')}>
+              {t.hero.cta}
+            </MagneticButton>
+          </div>
+        </div>
+        <div className="scroll-ind">
+          <span>{t.hero.scroll}</span>
+          <div className="scroll-line" />
+        </div>
+      </section>
+
+      <div className="section-divider" />
+
+      <section id="services" className="section" ref={servRef}>
+        <div className={`reveal ${servVis ? 'visible' : ''}`}>
+          <p className="section-label">{t.services.label}</p>
+          <h2 className="section-title">{t.services.title}</h2>
+        </div>
+        <div className="services-grid">
+          {t.services.items.map((s, i) => (
+            <div key={i} className={`service-card reveal ${servVis ? 'visible' : ''}`} style={{ transitionDelay: `${0.15 * (i + 1)}s` }}>
+              <div className="service-num">{s.num}</div>
+              <h3 className="service-title">{s.title}</h3>
+              <p className="service-desc">{s.desc}</p>
+              <div className="service-tags">
+                {s.tags.map((tag, j) => <span key={j} className="service-tag">{tag}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="section-divider" />
+
+      <section id="tech" className="section" ref={techRef}>
+        <div className={`reveal ${techVis ? 'visible' : ''}`}>
+          <p className="section-label">{t.tech.label}</p>
+          <h2 className="section-title">{t.tech.title}</h2>
+          <p className="section-sub">{t.tech.sub}</p>
+        </div>
+        <div className="tech-grid">
+          {techCategories.map((cat, i) => (
+            <div key={i} className={`tech-category reveal ${techVis ? 'visible' : ''}`} style={{ transitionDelay: `${0.12 * (i + 1)}s` }}>
+              <div className="tech-cat-name">{cat.name}</div>
+              {cat.items.map((item, j) => <div key={j} className="tech-item">{item}</div>)}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" className="contact-section" ref={contactRef}>
+        <div className="section" style={{ paddingTop: 100, paddingBottom: 100 }}>
+          <div className={`contact-layout reveal ${contactVis ? 'visible' : ''}`}>
+            <div>
+              <p className="section-label">{t.contact.label}</p>
+              <h2 className="section-title contact-title">{t.contact.title}</h2>
+              <p className="section-sub" style={{ marginTop: 16 }}>{t.contact.sub}</p>
+              <div className="contact-info">
+                <p>{t.contact.info}</p>
+                <a href="mailto:dom.krusic@gmail.com">dom.krusic@gmail.com</a>
+                <a href="tel:+385994385030">+385 99 438 5030</a>
+              </div>
+            </div>
+            <div className="contact-form">
+              <div className="form-field"><input type="text" placeholder={t.contact.name} /></div>
+              <div className="form-field"><input type="email" placeholder={t.contact.email} /></div>
+              <div className="form-field"><textarea placeholder={t.contact.message} /></div>
+              <MagneticButton className="submit-btn">{t.contact.send}</MagneticButton>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="footer-left">{t.footer.rights}</div>
+        <div className="footer-links">
+          <a href="#">{t.footer.privacy}</a>
+          <a href="#">{t.footer.terms}</a>
+          <a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </footer>
+    </>
+  );
+}
