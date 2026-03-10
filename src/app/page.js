@@ -113,11 +113,11 @@ function ParticleCanvas() {
 
     const init = () => {
       resize();
-      const count = Math.min(Math.floor((w * h) / 8000), 120);
+      const count = Math.min(Math.floor((w * h) / 10000), 90);
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * w, y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 1.8 + 0.5,
+        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.3,
       }));
     };
 
@@ -130,17 +130,17 @@ function ParticleCanvas() {
         if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
         const dM = Math.hypot(p.x - mx, p.y - my);
-        const glow = dM < 200 ? 1 - dM / 200 : 0;
+        const glow = dM < 180 ? 1 - dM / 180 : 0;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r + glow * 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,194,203,${0.3 + glow * 0.7})`;
+        ctx.arc(p.x, p.y, p.r + glow * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0,194,203,${0.2 + glow * 0.8})`;
         ctx.fill();
         for (let j = i + 1; j < particles.length; j++) {
           const q = particles[j];
           const d = Math.hypot(p.x - q.x, p.y - q.y);
-          if (d < 130) {
+          if (d < 120) {
             ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = `rgba(0,194,203,${0.08 * (1 - d / 130)})`;
+            ctx.strokeStyle = `rgba(0,194,203,${0.06 * (1 - d / 120)})`;
             ctx.lineWidth = 0.5; ctx.stroke();
           }
         }
@@ -162,7 +162,7 @@ function ParticleCanvas() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'auto' }} />;
+  return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'auto', zIndex: 2 }} />;
 }
 
 // ─── HOOKS ────────────────────────────────
@@ -179,7 +179,7 @@ function useReveal(threshold = 0.15) {
   return [ref, visible];
 }
 
-// ─── SPLIT TEXT COMPONENT ────────────────────────────────
+// ─── SPLIT TEXT ────────────────────────────────
 function SplitText({ children, className = '', center = false }) {
   const containerRef = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -200,11 +200,8 @@ function SplitText({ children, className = '', center = false }) {
   return (
     <span ref={containerRef} className={`split-text ${center ? 'center' : ''} ${className}`}>
       {words.map((word, i) => (
-        <span
-          key={i}
-          className={`split-word ${visible ? 'visible' : ''}`}
-          style={{ transitionDelay: `${i * 0.05}s` }}
-        >
+        <span key={i} className={`split-word ${visible ? 'visible' : ''}`}
+          style={{ transitionDelay: `${i * 0.05}s` }}>
           {word}
         </span>
       ))}
@@ -212,7 +209,7 @@ function SplitText({ children, className = '', center = false }) {
   );
 }
 
-// ─── LINE REVEAL COMPONENT ────────────────────────────────
+// ─── LINE REVEAL ────────────────────────────────
 function LineReveal({ children, delay = 0 }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -257,11 +254,8 @@ function StaggerChildren({ children, className = '' }) {
     <div ref={ref} className={className}>
       {Array.isArray(children)
         ? children.map((child, i) => (
-            <div
-              key={i}
-              className={`stagger-item ${visible ? 'visible' : ''}`}
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
+            <div key={i} className={`stagger-item ${visible ? 'visible' : ''}`}
+              style={{ transitionDelay: `${i * 0.1}s` }}>
               {child}
             </div>
           ))
@@ -309,16 +303,12 @@ export default function Home() {
       smoothWheel: true,
     });
     lenisRef.current = lenis;
-
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, []);
 
   // Cursor glow
@@ -372,18 +362,37 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero">
-        <div className="hero-bg hero-bg-1" />
-        <div className="hero-bg hero-bg-2" />
+        {/* Gradient mesh orbs */}
+        <div className="hero-mesh">
+          <div className="hero-mesh-orb" />
+          <div className="hero-mesh-orb" />
+          <div className="hero-mesh-orb" />
+          <div className="hero-mesh-orb" />
+          <div className="hero-mesh-orb" />
+        </div>
+
+        {/* Subtle grid overlay */}
+        <div className="hero-grid" />
+
+        {/* Pulsing ring */}
+        <div className="hero-ring" />
+
+        {/* Particle network */}
         <ParticleCanvas />
-        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+        {/* Horizon glow */}
+        <div className="hero-horizon" />
+
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <LineReveal>
-            <p className="hero-tagline" style={{ opacity: 1, animation: 'none' }}>{t.hero.tagline}</p>
+            <p className="hero-tagline">{t.hero.tagline}</p>
           </LineReveal>
-          <h1 className="hero-headline" style={{ opacity: 1, animation: 'none' }}>
+          <h1 className="hero-headline">
             <SplitText center>{t.hero.headline}</SplitText>
           </h1>
           <LineReveal delay={0.4}>
-            <p className="hero-sub" style={{ opacity: 1, animation: 'none', textAlign: 'center' }}>{t.hero.sub}</p>
+            <p className="hero-sub" style={{ textAlign: 'center' }}>{t.hero.sub}</p>
           </LineReveal>
           <div className="hero-cta" style={{ opacity: 0, animation: 'fadeUp 1s 0.8s forwards' }}>
             <MagneticButton className="cta-btn" onClick={() => scrollTo('contact')}>
