@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import Lenis from 'lenis';
 
+// ─── TRANSLATIONS ────────────────────────────────
 const translations = {
   en: {
     nav: { services: 'Services', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' },
     hero: {
       tagline: 'INNOVATE. ANALYZE. SUCCEED.',
-      headline: 'We build intelligent\nsolutions that transform\nyour business',
+      headline: 'We build intelligent solutions that transform your business',
       sub: 'AI-powered consulting, analytics & custom software development',
       cta: 'Start a project',
       scroll: 'Scroll to explore',
@@ -47,7 +49,7 @@ const translations = {
     nav: { services: 'Usluge', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
     hero: {
       tagline: 'INOVIRAJ. ANALIZIRAJ. USPIJ.',
-      headline: 'Gradimo inteligentna\nrje\u0161enja koja\ntransformiraju poslovanje',
+      headline: 'Gradimo inteligentna rje\u0161enja koja transformiraju poslovanje',
       sub: 'AI konzalting, analitika i razvoj prilago\u0111enog softvera',
       cta: 'Zapo\u010dni projekt',
       scroll: 'Skrolaj za vi\u0161e',
@@ -92,6 +94,7 @@ const techCategories = [
   { name: 'BI & Analytics', items: ['QlikSense', 'Power BI', 'Tableau', 'Salesforce', 'HubSpot', 'Google Analytics'] },
 ];
 
+// ─── PARTICLE CANVAS ────────────────────────────────
 function ParticleCanvas() {
   const canvasRef = useRef(null);
   const animRef = useRef(null);
@@ -162,6 +165,7 @@ function ParticleCanvas() {
   return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'auto' }} />;
 }
 
+// ─── HOOKS ────────────────────────────────
 function useReveal(threshold = 0.15) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -175,6 +179,98 @@ function useReveal(threshold = 0.15) {
   return [ref, visible];
 }
 
+// ─── SPLIT TEXT COMPONENT ────────────────────────────────
+function SplitText({ children, className = '', center = false }) {
+  const containerRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const words = String(children).split(' ');
+
+  return (
+    <span ref={containerRef} className={`split-text ${center ? 'center' : ''} ${className}`}>
+      {words.map((word, i) => (
+        <span
+          key={i}
+          className={`split-word ${visible ? 'visible' : ''}`}
+          style={{ transitionDelay: `${i * 0.05}s` }}
+        >
+          {word}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// ─── LINE REVEAL COMPONENT ────────────────────────────────
+function LineReveal({ children, delay = 0 }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div className="line-mask" ref={ref}>
+      <div className={`line-inner ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${delay}s` }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─── STAGGER CHILDREN ────────────────────────────────
+function StaggerChildren({ children, className = '' }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={className}>
+      {Array.isArray(children)
+        ? children.map((child, i) => (
+            <div
+              key={i}
+              className={`stagger-item ${visible ? 'visible' : ''}`}
+              style={{ transitionDelay: `${i * 0.1}s` }}
+            >
+              {child}
+            </div>
+          ))
+        : children}
+    </div>
+  );
+}
+
+// ─── MAGNETIC BUTTON ────────────────────────────────
 function MagneticButton({ children, className, onClick }) {
   const btnRef = useRef(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -191,26 +287,54 @@ function MagneticButton({ children, className, onClick }) {
   );
 }
 
+// ─── MAIN COMPONENT ────────────────────────────────
 export default function Home() {
   const [lang, setLang] = useState('en');
   const [menuOpen, setMenuOpen] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: -500, y: -500 });
+  const lenisRef = useRef(null);
   const t = translations[lang];
 
   const [servRef, servVis] = useReveal();
   const [techRef, techVis] = useReveal();
   const [contactRef, contactVis] = useReveal();
 
+  // Lenis smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+    });
+    lenisRef.current = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  // Cursor glow
   useEffect(() => {
     const handler = (e) => setCursorPos({ x: e.clientX, y: e.clientY });
     window.addEventListener('mousemove', handler);
     return () => window.removeEventListener('mousemove', handler);
   }, []);
 
-  const scrollTo = (id) => {
+  const scrollTo = useCallback((id) => {
     setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+    const el = document.getElementById(id);
+    if (el && lenisRef.current) {
+      lenisRef.current.scrollTo(el, { offset: -80 });
+    }
+  }, []);
 
   return (
     <>
@@ -252,10 +376,16 @@ export default function Home() {
         <div className="hero-bg hero-bg-2" />
         <ParticleCanvas />
         <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <p className="hero-tagline">{t.hero.tagline}</p>
-          <h1 className="hero-headline">{t.hero.headline}</h1>
-          <p className="hero-sub">{t.hero.sub}</p>
-          <div className="hero-cta">
+          <LineReveal>
+            <p className="hero-tagline" style={{ opacity: 1, animation: 'none' }}>{t.hero.tagline}</p>
+          </LineReveal>
+          <h1 className="hero-headline" style={{ opacity: 1, animation: 'none' }}>
+            <SplitText center>{t.hero.headline}</SplitText>
+          </h1>
+          <LineReveal delay={0.4}>
+            <p className="hero-sub" style={{ opacity: 1, animation: 'none', textAlign: 'center' }}>{t.hero.sub}</p>
+          </LineReveal>
+          <div className="hero-cta" style={{ opacity: 0, animation: 'fadeUp 1s 0.8s forwards' }}>
             <MagneticButton className="cta-btn" onClick={() => scrollTo('contact')}>
               {t.hero.cta}
             </MagneticButton>
@@ -271,13 +401,15 @@ export default function Home() {
 
       {/* SERVICES */}
       <section id="services" className="section" ref={servRef}>
-        <div className={`reveal ${servVis ? 'visible' : ''}`}>
+        <LineReveal>
           <p className="section-label">{t.services.label}</p>
-          <h2 className="section-title">{t.services.title}</h2>
-        </div>
-        <div className="services-grid">
+        </LineReveal>
+        <h2 className="section-title">
+          <SplitText>{t.services.title}</SplitText>
+        </h2>
+        <StaggerChildren className="services-grid">
           {t.services.items.map((s, i) => (
-            <div key={i} className={`service-card reveal ${servVis ? 'visible' : ''}`} style={{ transitionDelay: `${0.15 * (i + 1)}s` }}>
+            <div key={i} className="service-card">
               <div className="service-num">{s.num}</div>
               <h3 className="service-title">{s.title}</h3>
               <p className="service-desc">{s.desc}</p>
@@ -286,26 +418,30 @@ export default function Home() {
               </div>
             </div>
           ))}
-        </div>
+        </StaggerChildren>
       </section>
 
       <div className="section-divider" />
 
       {/* TECHNOLOGIES */}
       <section id="tech" className="section" ref={techRef}>
-        <div className={`reveal ${techVis ? 'visible' : ''}`}>
+        <LineReveal>
           <p className="section-label">{t.tech.label}</p>
-          <h2 className="section-title">{t.tech.title}</h2>
+        </LineReveal>
+        <h2 className="section-title">
+          <SplitText>{t.tech.title}</SplitText>
+        </h2>
+        <LineReveal delay={0.2}>
           <p className="section-sub">{t.tech.sub}</p>
-        </div>
-        <div className="tech-grid">
+        </LineReveal>
+        <StaggerChildren className="tech-grid">
           {techCategories.map((cat, i) => (
-            <div key={i} className={`tech-category reveal ${techVis ? 'visible' : ''}`} style={{ transitionDelay: `${0.12 * (i + 1)}s` }}>
+            <div key={i} className="tech-category">
               <div className="tech-cat-name">{cat.name}</div>
               {cat.items.map((item, j) => <div key={j} className="tech-item">{item}</div>)}
             </div>
           ))}
-        </div>
+        </StaggerChildren>
       </section>
 
       {/* CONTACT */}
@@ -313,9 +449,15 @@ export default function Home() {
         <div className="section" style={{ paddingTop: 100, paddingBottom: 100 }}>
           <div className={`contact-layout reveal ${contactVis ? 'visible' : ''}`}>
             <div>
-              <p className="section-label">{t.contact.label}</p>
-              <h2 className="section-title contact-title">{t.contact.title}</h2>
-              <p className="section-sub" style={{ marginTop: 16 }}>{t.contact.sub}</p>
+              <LineReveal>
+                <p className="section-label">{t.contact.label}</p>
+              </LineReveal>
+              <h2 className="section-title contact-title">
+                <SplitText>{t.contact.title}</SplitText>
+              </h2>
+              <LineReveal delay={0.3}>
+                <p className="section-sub" style={{ marginTop: 16 }}>{t.contact.sub}</p>
+              </LineReveal>
               <div className="contact-info">
                 <p>{t.contact.info}</p>
                 <a href="mailto:dom.krusic@gmail.com">dom.krusic@gmail.com</a>
