@@ -71,6 +71,15 @@ body{font-family:var(--font-b);background:var(--bg);color:var(--text);overflow-x
 @keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.6)}50%{opacity:1;transform:scaleY(1)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
+/* ─── MARQUEE TICKER ─── */
+.marquee-section{padding:40px 0;overflow:hidden;border-top:1px solid rgba(0,194,203,0.08);border-bottom:1px solid rgba(0,194,203,0.08);background:var(--bg2)}
+.marquee-track{display:flex;width:max-content;animation:marqueeScroll 30s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-item{font-family:var(--font-d);font-size:14px;font-weight:600;letter-spacing:2px;color:var(--text-dim);padding:0 40px;white-space:nowrap;display:flex;align-items:center;gap:12px;transition:color 0.3s}
+.marquee-item:hover{color:var(--teal)}
+.marquee-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);opacity:0.4}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
 /* SECTIONS */
 .section{padding:120px 40px;max-width:1200px;margin:0 auto;position:relative}
 .section-label{font-family:var(--font-d);font-size:12px;font-weight:600;letter-spacing:5px;color:var(--teal);margin-bottom:20px}
@@ -91,12 +100,15 @@ body{font-family:var(--font-b);background:var(--bg);color:var(--text);overflow-x
 
 .section-divider{width:100%;max-width:1200px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(0,194,203,0.2),transparent)}
 
-/* SERVICES */
+/* ─── 3D TILT SERVICE CARDS ─── */
 .services-grid{margin-top:64px;display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
-.service-card{background:var(--bg2);padding:48px 40px;position:relative;overflow:hidden;cursor:default;transition:background 0.4s;border:1px solid rgba(255,255,255,0.03)}
-.service-card:hover{background:var(--bg3)}
+.tilt-wrapper{perspective:800px}
+.service-card{background:var(--bg2);padding:48px 40px;position:relative;overflow:hidden;cursor:default;transition:background 0.4s,transform 0.3s,box-shadow 0.3s;border:1px solid rgba(255,255,255,0.03);transform-style:preserve-3d}
+.service-card:hover{background:var(--bg3);box-shadow:0 20px 40px rgba(0,0,0,0.3),0 0 30px rgba(0,194,203,0.05)}
 .service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);transform:scaleX(0);transition:transform 0.6s}
 .service-card:hover::before{transform:scaleX(1)}
+.service-card-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,203,0.12) 0%,transparent 70%);pointer-events:none;transition:opacity 0.3s;opacity:0;transform:translate(-50%,-50%)}
+.service-card:hover .service-card-glow{opacity:1}
 .service-num{font-family:var(--font-d);font-size:64px;font-weight:800;color:rgba(0,194,203,0.07);position:absolute;top:16px;right:24px;line-height:1}
 .service-title{font-family:var(--font-d);font-size:24px;font-weight:700;color:var(--text-bright);margin-bottom:16px}
 .service-desc{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:24px}
