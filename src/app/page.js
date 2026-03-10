@@ -40,40 +40,76 @@ const techCategories = [
 ];
 const marqueeItems = ['Artificial Intelligence', 'Machine Learning', 'Data Analytics', 'Business Intelligence', 'Web Development', 'Cloud Solutions', 'Digital Strategy', 'Predictive Modeling', 'Natural Language Processing', 'Computer Vision', 'API Design', 'Telecom Optimization'];
 
+// ─── SCROLL PROGRESS BAR ───
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
+  return <div className="scroll-progress" style={{ width: `${progress}%` }} />;
+}
+
 // ─── CUSTOM CURSOR ───
 function CustomCursor() {
   const cursorRef = useRef(null); const dotRef = useRef(null); const labelRef = useRef(null);
   const pos = useRef({ x: -100, y: -100 }); const target = useRef({ x: -100, y: -100 });
   const [hovering, setHovering] = useState(false); const [label, setLabel] = useState('');
-
   useEffect(() => {
     const move = (e) => { target.current = { x: e.clientX, y: e.clientY }; };
     const animate = () => {
-      pos.current.x += (target.current.x - pos.current.x) * 0.15;
-      pos.current.y += (target.current.y - pos.current.y) * 0.15;
+      pos.current.x += (target.current.x - pos.current.x) * 0.15; pos.current.y += (target.current.y - pos.current.y) * 0.15;
       if (cursorRef.current) { cursorRef.current.style.left = `${pos.current.x}px`; cursorRef.current.style.top = `${pos.current.y}px`; }
       if (dotRef.current) { dotRef.current.style.left = `${target.current.x}px`; dotRef.current.style.top = `${target.current.y}px`; }
       if (labelRef.current) { labelRef.current.style.left = `${pos.current.x}px`; labelRef.current.style.top = `${pos.current.y + 35}px`; }
       requestAnimationFrame(animate);
     };
     window.addEventListener('mousemove', move); requestAnimationFrame(animate);
-
-    const addHover = () => {
-      document.querySelectorAll('a, button, .service-card, .tech-category, .project-card').forEach(el => {
-        el.addEventListener('mouseenter', () => { setHovering(true); setLabel(el.dataset.cursorLabel || ''); });
-        el.addEventListener('mouseleave', () => { setHovering(false); setLabel(''); });
-      });
-    };
-    addHover(); const observer = new MutationObserver(addHover);
-    observer.observe(document.body, { childList: true, subtree: true });
+    const addHover = () => { document.querySelectorAll('a, button, .service-card, .tech-category').forEach(el => { el.addEventListener('mouseenter', () => { setHovering(true); setLabel(el.dataset.cursorLabel || ''); }); el.addEventListener('mouseleave', () => { setHovering(false); setLabel(''); }); }); };
+    addHover(); const observer = new MutationObserver(addHover); observer.observe(document.body, { childList: true, subtree: true });
     return () => { window.removeEventListener('mousemove', move); observer.disconnect(); };
   }, []);
+  return (<><div ref={cursorRef} className={`custom-cursor ${hovering ? 'hovering' : ''}`} /><div ref={dotRef} className={`custom-cursor-dot ${hovering ? 'hovering' : ''}`} /><div ref={labelRef} className={`custom-cursor-label ${label ? 'visible' : ''}`}>{label}</div></>);
+}
 
-  return (<>
-    <div ref={cursorRef} className={`custom-cursor ${hovering ? 'hovering' : ''}`} />
-    <div ref={dotRef} className={`custom-cursor-dot ${hovering ? 'hovering' : ''}`} />
-    <div ref={labelRef} className={`custom-cursor-label ${label ? 'visible' : ''}`}>{label}</div>
-  </>);
+// ─── PARALLAX HERO ───
+function ParallaxHero({ children }) {
+  const heroRef = useRef(null);
+  const contentRef = useRef(null);
+  const meshRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const heroHeight = heroRef.current?.offsetHeight || 1;
+      if (scrollY > heroHeight) return;
+      const ratio = scrollY / heroHeight;
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateY(${scrollY * 0.3}px)`;
+        contentRef.current.style.opacity = `${1 - ratio * 1.2}`;
+      }
+      if (meshRef.current) {
+        meshRef.current.style.transform = `translateY(${scrollY * -0.15}px) scale(${1 + ratio * 0.1})`;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <section className="hero" ref={heroRef}>
+      <div className="hero-mesh" ref={meshRef}><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /></div>
+      <div className="hero-grid" /><div className="hero-ring" /><ParticleCanvas /><div className="hero-horizon" />
+      <div ref={contentRef} style={{ position: 'relative', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {children}
+      </div>
+    </section>
+  );
 }
 
 // ─── COMPONENTS ───
@@ -91,15 +127,15 @@ function ParticleCanvas() {
   }, []);
   return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'auto', zIndex: 2 }} />;
 }
+
 function useReveal(th = 0.15) { const ref = useRef(null); const [v, setV] = useState(false); useEffect(() => { const el = ref.current; if (!el) return; const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: th }); obs.observe(el); return () => obs.disconnect(); }, [th]); return [ref, v]; }
 function SplitText({ children, className = '', center = false }) { const r = useRef(null); const [v, setV] = useState(false); useEffect(() => { const el = r.current; if (!el) return; const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: 0.2 }); obs.observe(el); return () => obs.disconnect(); }, []); const w = String(children).split(' '); return (<span ref={r} className={`split-text ${center ? 'center' : ''} ${className}`}>{w.map((word, i) => (<span key={i} className={`split-word ${v ? 'visible' : ''}`} style={{ transitionDelay: `${i * 0.05}s` }}>{word}</span>))}</span>); }
 function LineReveal({ children, delay = 0 }) { const r = useRef(null); const [v, setV] = useState(false); useEffect(() => { const el = r.current; if (!el) return; const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: 0.3 }); obs.observe(el); return () => obs.disconnect(); }, []); return (<div className="line-mask" ref={r}><div className={`line-inner ${v ? 'visible' : ''}`} style={{ transitionDelay: `${delay}s` }}>{children}</div></div>); }
 function StaggerChildren({ children, className = '' }) { const r = useRef(null); const [v, setV] = useState(false); useEffect(() => { const el = r.current; if (!el) return; const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: 0.1 }); obs.observe(el); return () => obs.disconnect(); }, []); return (<div ref={r} className={className}>{Array.isArray(children) ? children.map((child, i) => (<div key={i} className={`stagger-item ${v ? 'visible' : ''}`} style={{ transitionDelay: `${i * 0.1}s` }}>{child}</div>)) : children}</div>); }
 function MagneticButton({ children, className, onClick }) { const b = useRef(null); const [o, setO] = useState({ x: 0, y: 0 }); const hm = (e) => { const rect = b.current.getBoundingClientRect(); setO({ x: (e.clientX - rect.left - rect.width / 2) * 0.2, y: (e.clientY - rect.top - rect.height / 2) * 0.2 }); }; return (<button ref={b} className={className} onClick={onClick} onMouseMove={hm} onMouseLeave={() => setO({ x: 0, y: 0 })} style={{ transform: `translate(${o.x}px, ${o.y}px)`, transition: 'transform 0.3s cubic-bezier(0.23,1,0.32,1)' }}>{children}</button>); }
-function TiltCard({ children }) { const c = useRef(null); const g = useRef(null); const hm = (e) => { const card = c.current; if (!card) return; const rect = card.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; const rX = ((y - rect.height / 2) / (rect.height / 2)) * -6; const rY = ((x - rect.width / 2) / (rect.width / 2)) * 6; card.style.transform = `perspective(800px) rotateX(${rX}deg) rotateY(${rY}deg) scale(1.02)`; if (g.current) { g.current.style.left = `${x}px`; g.current.style.top = `${y}px`; } }; const hl = () => { if (c.current) c.current.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)'; }; return (<div className="tilt-wrapper" onMouseMove={hm} onMouseLeave={hl}><div ref={c} className="service-card"><div ref={g} className="service-card-glow" />{children}</div></div>); }
+function TiltCard({ children }) { const c = useRef(null); const g = useRef(null); const hm = (e) => { const card = c.current; if (!card) return; const rect = card.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; card.style.transform = `perspective(800px) rotateX(${((y - rect.height / 2) / (rect.height / 2)) * -6}deg) rotateY(${((x - rect.width / 2) / (rect.width / 2)) * 6}deg) scale(1.02)`; if (g.current) { g.current.style.left = `${x}px`; g.current.style.top = `${y}px`; } }; const hl = () => { if (c.current) c.current.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)'; }; return (<div className="tilt-wrapper" onMouseMove={hm} onMouseLeave={hl}><div ref={c} className="service-card"><div ref={g} className="service-card-glow" />{children}</div></div>); }
 function Marquee() { const d = [...marqueeItems, ...marqueeItems]; return (<div className="marquee-section"><div className="marquee-track">{d.map((item, i) => (<span key={i} className="marquee-item"><span className="marquee-dot" />{item}</span>))}</div></div>); }
 
-// ─── BIG FOOTER ───
 function BigFooter({ t }) {
   return (
     <footer className="big-footer">
@@ -114,36 +150,13 @@ function BigFooter({ t }) {
           <div className="big-footer-brand">
             <div className="big-footer-logo">Dom<span>Analytics</span></div>
             <p className="big-footer-desc">{t.footer.desc}</p>
-            <div className="big-footer-social">
-              <a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
-              <a href="mailto:dom.krusic@gmail.com" aria-label="Email">@</a>
-            </div>
+            <div className="big-footer-social"><a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">in</a><a href="mailto:dom.krusic@gmail.com">@</a></div>
           </div>
-          <div className="big-footer-col">
-            <h4>{t.footer.nav}</h4>
-            <Link href="/">{t.footer.home}</Link>
-            <Link href="/#services">{t.footer.servicesLink}</Link>
-            <Link href="/#tech">{t.footer.techLink}</Link>
-            <Link href="/about">{t.footer.aboutLink}</Link>
-            <Link href="/projects">{t.footer.projectsLink}</Link>
-          </div>
-          <div className="big-footer-col">
-            <h4>{t.footer.connect}</h4>
-            <a href="mailto:dom.krusic@gmail.com">dom.krusic@gmail.com</a>
-            <a href="tel:+385994385030">+385 99 438 5030</a>
-            <a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
-          <div className="big-footer-col">
-            <h4>Location</h4>
-            <a href="#">Pore\u010d, Croatia</a>
-            <a href="#">Zagreb, Croatia</a>
-            <a href="#">Global Remote</a>
-          </div>
+          <div className="big-footer-col"><h4>{t.footer.nav}</h4><Link href="/">{t.footer.home}</Link><Link href="/#services">{t.footer.servicesLink}</Link><Link href="/about">{t.footer.aboutLink}</Link><Link href="/projects">{t.footer.projectsLink}</Link></div>
+          <div className="big-footer-col"><h4>{t.footer.connect}</h4><a href="mailto:dom.krusic@gmail.com">dom.krusic@gmail.com</a><a href="tel:+385994385030">+385 99 438 5030</a><a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+          <div className="big-footer-col"><h4>Location</h4><a href="#">Pore\u010d, Croatia</a><a href="#">Zagreb, Croatia</a><a href="#">Global Remote</a></div>
         </div>
-        <div className="big-footer-bottom">
-          <span>{t.footer.rights}</span>
-          <div><a href="#">{t.footer.privacy}</a><a href="#">{t.footer.terms}</a></div>
-        </div>
+        <div className="big-footer-bottom"><span>{t.footer.rights}</span><div><a href="#">{t.footer.privacy}</a><a href="#">{t.footer.terms}</a></div></div>
       </div>
     </footer>
   );
@@ -163,6 +176,7 @@ export default function Home() {
   return (
     <>
       <div className="noise" />
+      <ScrollProgress />
       <CustomCursor />
       <div className="cursor-glow" style={{ left: cursorPos.x, top: cursorPos.y }} />
 
@@ -188,17 +202,13 @@ export default function Home() {
         <a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }} style={{ fontSize: 16, color: 'var(--text-dim)', marginTop: 20 }}>{'\u2715'} Close</a>
       </div>
 
-      <section className="hero">
-        <div className="hero-mesh"><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /><div className="hero-mesh-orb" /></div>
-        <div className="hero-grid" /><div className="hero-ring" /><ParticleCanvas /><div className="hero-horizon" />
-        <div style={{ position: 'relative', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <LineReveal><p className="hero-tagline">{t.hero.tagline}</p></LineReveal>
-          <h1 className="hero-headline"><SplitText center>{t.hero.headline}</SplitText></h1>
-          <LineReveal delay={0.4}><p className="hero-sub" style={{ textAlign: 'center' }}>{t.hero.sub}</p></LineReveal>
-          <div className="hero-cta" style={{ opacity: 0, animation: 'fadeUp 1s 0.8s forwards' }}><MagneticButton className="cta-btn" onClick={() => scrollTo('contact')}>{t.hero.cta}</MagneticButton></div>
-        </div>
+      <ParallaxHero>
+        <LineReveal><p className="hero-tagline">{t.hero.tagline}</p></LineReveal>
+        <h1 className="hero-headline"><SplitText center>{t.hero.headline}</SplitText></h1>
+        <LineReveal delay={0.4}><p className="hero-sub" style={{ textAlign: 'center' }}>{t.hero.sub}</p></LineReveal>
+        <div className="hero-cta" style={{ opacity: 0, animation: 'fadeUp 1s 0.8s forwards' }}><MagneticButton className="cta-btn" onClick={() => scrollTo('contact')}>{t.hero.cta}</MagneticButton></div>
         <div className="scroll-ind"><span>{t.hero.scroll}</span><div className="scroll-line" /></div>
-      </section>
+      </ParallaxHero>
 
       <Marquee />
 

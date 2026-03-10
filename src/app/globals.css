@@ -17,7 +17,10 @@ body{font-family:var(--font-b);background:var(--bg);color:var(--text);overflow-x
 body *{cursor:none}
 ::selection{background:var(--teal);color:var(--bg)}
 
-/* ─── CUSTOM CURSOR ─── */
+/* ─── SCROLL PROGRESS BAR ─── */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),#6366f1);z-index:101;transition:none;box-shadow:0 0 10px rgba(0,194,203,0.5),0 0 20px rgba(0,194,203,0.2)}
+
+/* CUSTOM CURSOR */
 .custom-cursor{position:fixed;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--teal);pointer-events:none;z-index:9999;transition:width 0.3s cubic-bezier(0.23,1,0.32,1),height 0.3s cubic-bezier(0.23,1,0.32,1),background 0.3s,border-color 0.3s,opacity 0.3s;transform:translate(-50%,-50%);mix-blend-mode:difference}
 .custom-cursor.hovering{width:50px;height:50px;background:rgba(0,194,203,0.15);border-color:var(--teal)}
 .custom-cursor-dot{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:opacity 0.3s}
@@ -104,6 +107,10 @@ body *{cursor:none}
 .stagger-item.visible{opacity:1;transform:translateY(0)}
 .section-divider{width:100%;max-width:1200px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(0,194,203,0.2),transparent)}
 
+/* PARALLAX */
+.parallax-section{position:relative;overflow:hidden}
+.parallax-bg{position:absolute;inset:-100px;z-index:0;transition:transform 0.1s linear}
+
 /* 3D TILT CARDS */
 .services-grid{margin-top:64px;display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
 .tilt-wrapper{perspective:800px}
@@ -145,7 +152,7 @@ body *{cursor:none}
 .contact-info a{color:var(--teal);text-decoration:none;font-size:15px;transition:opacity 0.3s;display:block;margin-top:8px}
 .contact-info a:hover{opacity:0.7}
 
-/* ─── BIG FOOTER ─── */
+/* BIG FOOTER */
 .big-footer{background:var(--bg2);border-top:1px solid rgba(0,194,203,0.1);padding:80px 40px 40px;position:relative;overflow:hidden}
 .big-footer-mesh{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .big-footer-orb{position:absolute;border-radius:50%;filter:blur(120px)}
@@ -170,7 +177,7 @@ body *{cursor:none}
 .big-footer-cta-title{font-family:var(--font-d);font-size:clamp(24px,4vw,40px);font-weight:800;color:var(--text-bright);margin-bottom:16px}
 .big-footer-cta-sub{font-size:16px;color:var(--text-dim);margin-bottom:32px}
 
-/* ─── PROJECTS PAGE ─── */
+/* PROJECTS PAGE */
 .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-top:56px}
 .project-card{position:relative;border-radius:20px;overflow:hidden;background:var(--bg2);border:1px solid rgba(255,255,255,0.04);transition:transform 0.5s cubic-bezier(0.23,1,0.32,1),box-shadow 0.5s;cursor:none}
 .project-card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.4),0 0 40px rgba(0,194,203,0.08)}
