@@ -18,7 +18,7 @@ body *{cursor:none}
 ::selection{background:var(--teal);color:var(--bg)}
 
 /* ─── SCROLL PROGRESS BAR ─── */
-.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),#6366f1);z-index:101;transition:none;box-shadow:0 0 10px rgba(0,194,203,0.5),0 0 20px rgba(0,194,203,0.2)}
+.scroll-progress{position:fixed;top:0;left:0;height:5px;background:linear-gradient(90deg,var(--teal),#6366f1,var(--teal));background-size:200% 100%;animation:gradientShift 3s linear infinite;z-index:101;transition:none;box-shadow:0 0 10px rgba(0,194,203,0.5),0 0 20px rgba(0,194,203,0.2)}
 
 /* CUSTOM CURSOR */
 .custom-cursor{position:fixed;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--teal);pointer-events:none;z-index:9999;transition:width 0.3s cubic-bezier(0.23,1,0.32,1),height 0.3s cubic-bezier(0.23,1,0.32,1),background 0.3s,border-color 0.3s,opacity 0.3s;transform:translate(-50%,-50%);mix-blend-mode:difference}
@@ -88,6 +88,7 @@ body *{cursor:none}
 .marquee-item:hover{color:var(--teal)}
 .marquee-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);opacity:0.4}
 @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes gradientShift{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
 /* SECTIONS */
 .section{padding:120px 40px;max-width:1200px;margin:0 auto;position:relative}
@@ -264,7 +265,13 @@ body *{cursor:none}
   .big-footer-top{grid-template-columns:1fr;gap:40px}
   .projects-grid{grid-template-columns:1fr}
   .cta-btn,.submit-btn,.lang-toggle,.service-card,.form-field input,.form-field textarea{cursor:auto}
+  .custom-cursor,.custom-cursor-dot{display:none}
 }
+/* CUSTOM CURSOR */
+.custom-cursor{position:fixed;width:20px;height:20px;border-radius:50%;border:2px solid rgba(0,194,203,0.8);pointer-events:none;z-index:9999;transition:width 0.3s,height 0.3s,background 0.3s;transform:translate(-50%,-50%)}
+.custom-cursor.hovering{width:50px;height:50px;background:rgba(0,194,203,0.15)}
+.custom-cursor-dot{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:opacity 0.3s}
+.custom-cursor-dot.hovering{opacity:0}
 @media(max-width:600px){
   .tech-grid{grid-template-columns:1fr}.hero{padding:100px 20px 60px}
   .big-footer-bottom{flex-direction:column;gap:12px;text-align:center}
