@@ -29,8 +29,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/logo-small.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#0a0a0f" />
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-RBG2NPZH10" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RBG2NPZH10');`}</Script>
