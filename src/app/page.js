@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Lenis from 'lenis';
+import MatrixGame from './matrix-game';
 
 const translations = {
   en: {
@@ -177,6 +178,8 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: -500, y: -500 });
   const [scrolled, setScrolled] = useState(false);
+  const [logoClicks, setLogoClicks] = useState(0);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
   const lenisRef = useRef(null);
   const t = translations[lang];
   const [servRef, servVis] = useReveal();
@@ -187,17 +190,19 @@ export default function Home() {
   useEffect(() => { const h = (e) => setCursorPos({ x: e.clientX, y: e.clientY }); window.addEventListener('mousemove', h); return () => window.removeEventListener('mousemove', h); }, []);
   useEffect(() => { const h = () => setScrolled(window.scrollY > 60); window.addEventListener('scroll', h, { passive: true }); return () => window.removeEventListener('scroll', h); }, []);
   useEffect(() => { if (menuOpen) { document.body.style.overflow = 'hidden'; } else { document.body.style.overflow = ''; } return () => { document.body.style.overflow = ''; }; }, [menuOpen]);
+  useEffect(() => { const h = (e) => { if (e.key === 'Escape' && showEasterEgg) setShowEasterEgg(false); }; window.addEventListener('keydown', h); return () => window.removeEventListener('keydown', h); }, [showEasterEgg]);
   const scrollTo = useCallback((id) => { setMenuOpen(false); const el = document.getElementById(id); if (el && lenisRef.current) lenisRef.current.scrollTo(el, { offset: -80 }); }, []);
 
   return (
     <>
       <div className="noise" />
+      {showEasterEgg && <MatrixGame onClose={() => setShowEasterEgg(false)} />}
       <ScrollProgress />
       <CustomCursor />
       <div className="cursor-glow" style={{ left: cursorPos.x, top: cursorPos.y }} />
 
       <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
-        <Link href="/" className="nav-logo"><span className="nav-logo-text">Dom<span>Analytics</span></span></Link>
+        <a href="/" className="nav-logo" onClick={(e) => { e.preventDefault(); const n = logoClicks + 1; setLogoClicks(n); if (n >= 5) { setShowEasterEgg(true); setLogoClicks(0); } }}><span className="nav-logo-text">Dom<span>Analytics</span></span></a>
         <div className="nav-links">
           <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>{t.nav.services}</a>
           <a href="#tech" onClick={(e) => { e.preventDefault(); scrollTo('tech'); }}>{t.nav.tech}</a>
