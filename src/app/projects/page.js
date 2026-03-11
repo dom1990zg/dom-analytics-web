@@ -118,12 +118,12 @@ export default function Projects() {
               <p className="big-footer-desc">AI-powered consulting, data analytics, and custom software development.</p>
               <div className="big-footer-social">
                 <a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">in</a>
-                <a href="mailto:dom.krusic@gmail.com">@</a>
+                <a href="mailto:info@domanalytics.com">@</a>
               </div>
             </div>
             <div className="big-footer-col"><h4>Navigation</h4><Link href="/">Home</Link><Link href="/about">About</Link><Link href="/projects">Projects</Link></div>
-            <div className="big-footer-col"><h4>Connect</h4><a href="mailto:dom.krusic@gmail.com">Email</a><a href="tel:+385994385030">Phone</a><a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
-            <div className="big-footer-col"><h4>Location</h4><a href="#">Pore\u010d, Croatia</a><a href="#">Zagreb, Croatia</a><a href="#">Global Remote</a></div>
+            <div className="big-footer-col"><h4>Connect</h4><a href="mailto:info@domanalytics.com">Email</a><a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+            <div className="big-footer-col"><h4>Location</h4><a href="#">Poreč, Croatia</a><a href="#">Zagreb, Croatia</a><a href="#">Global Remote</a></div>
           </div>
           <div className="big-footer-bottom"><span>&copy; 2026 Dom Analytics</span><div><a href="#">Privacy</a><a href="#">Terms</a></div></div>
         </div>
