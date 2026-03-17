@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dom Analytics — Service Universe</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--teal:#00e5ff;--teal2:#00BCD4;--dark:#020810;--ui-bg:rgba(2,8,16,0.92)}
+body{background:var(--dark);overflow:hidden;font-family:'Space Mono',monospace;cursor:none;user-select:none}
+canvas{display:block;position:fixed;inset:0}
+#ui{position:fixed;inset:0;pointer-events:none;z-index:10}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--teal)}
+#cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(0,229,255,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.12s ease}
+
+/* INTRO SCREEN */
+#intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(2,8,16,0.97);backdrop-filter:blur(20px)}
+.intro-card{background:rgba(6,15,30,0.98);border:1px solid rgba(0,229,255,0.2);border-radius:16px;padding:52px 56px;max-width:600px;width:90%;position:relative;animation:cardIn 0.6s cubic-bezier(0.22,1,0.36,1) forwards}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(0.97)}to{opacity:1;transform:none}}
+.corner{position:absolute;width:20px;height:20px}
+.corner.tl{top:0;left:0;border-top:2px solid var(--teal);border-left:2px solid var(--teal)}
+.corner.tr{top:0;right:0;border-top:2px solid var(--teal);border-right:2px solid var(--teal)}
+.corner.bl{bottom:0;left:0;border-bottom:2px solid var(--teal);border-left:2px solid var(--teal)}
+.corner.br{bottom:0;right:0;border-bottom:2px solid var(--teal);border-right:2px solid var(--teal)}
+.intro-icon{font-size:2.8rem;text-align:center;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(0,229,255,0.5))}
+.intro-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.9rem;color:#e8edf5;text-align:center;margin-bottom:10px;letter-spacing:-0.01em}
+.intro-sub{color:#4a6080;font-size:0.8rem;text-align:center;line-height:1.6;margin-bottom:32px;letter-spacing:0.05em}
+.section-label{font-size:0.58rem;color:var(--teal);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:12px}
+.objectives{display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.obj{display:flex;gap:12px;align-items:flex-start}
+.obj-num{width:20px;height:20px;border-radius:50%;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:var(--teal);flex-shrink:0;margin-top:1px}
+.obj-text{font-size:0.78rem;color:#8899aa;line-height:1.55}
+.controls-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 20px;margin-bottom:30px}
+.ctrl{display:flex;gap:8px;align-items:center}
+.key{font-size:0.58rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);padding:2px 8px;border-radius:4px;color:#ccd6e0;white-space:nowrap;letter-spacing:0.04em}
+.key-desc{font-size:0.72rem;color:#4a6080}
+.launch-btn{width:100%;padding:15px;background:var(--teal);color:#020810;border:none;border-radius:8px;font-family:'Space Mono',monospace;font-size:0.82rem;font-weight:700;letter-spacing:0.14em;cursor:pointer;transition:all 0.2s;pointer-events:all;text-transform:uppercase}
+.launch-btn:hover{background:#33eeff;box-shadow:0 0 30px rgba(0,229,255,0.4);transform:translateY(-1px)}
+
+/* HUD */
+#hud{position:fixed;inset:0;z-index:20;pointer-events:none}
+.hud-tl{position:absolute;top:22px;left:22px}
+.hud-tr{position:absolute;top:22px;right:22px;display:flex;gap:10px;pointer-events:all}
+.hud-bc{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:14px;align-items:center}
+.hud-label{font-size:0.55rem;color:#2a4060;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:5px}
+.hp-bar-wrap{width:130px;height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;margin-bottom:8px}
+#hp-bar{height:100%;background:var(--teal);border-radius:3px;transition:width 0.3s,background 0.3s;box-shadow:0 0 8px var(--teal)}
+.score-val{font-size:0.9rem;color:var(--teal);letter-spacing:0.1em}
+.planet-dots{display:flex;gap:6px;margin-top:6px}
+.pdot{width:9px;height:9px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);transition:all 0.4s}
+.pdot.done{border-color:var(--teal);box-shadow:0 0 6px var(--teal)}
+.hud-btn{background:transparent;border:1px solid rgba(0,229,255,0.25);color:var(--teal);padding:6px 14px;border-radius:4px;font-family:'Space Mono',monospace;font-size:0.65rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s}
+.hud-btn:hover{background:rgba(0,229,255,0.1);border-color:var(--teal)}
+.hud-ctrl{display:flex;gap:5px;align-items:center}
+.hud-key{font-size:0.52rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;color:#99aabb}
+.hud-kdesc{font-size:0.52rem;color:#2a4060;letter-spacing:0.1em}
+
+/* ENEMY COUNTER */
+#enemy-count{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(2,8,16,0.88);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:8px 22px;font-size:0.65rem;color:#ef4444;letter-spacing:0.18em;display:none;pointer-events:none}
+
+/* PROXIMITY HINT */
+#proximity{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(2,8,16,0.9);border:1px solid rgba(0,229,255,0.25);border-radius:8px;padding:9px 24px;font-size:0.62rem;color:var(--teal);letter-spacing:0.15em;display:none;pointer-events:none;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+
+/* SERVICE MODAL */
+#modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,8,16,0.88);backdrop-filter:blur(18px)}
+#modal.open{display:flex}
+.modal-card{background:#060f1e;border-radius:16px;padding:44px 48px;max-width:650px;width:100%;position:relative;animation:modalIn 0.4s cubic-bezier(0.22,1,0.36,1);border-top:3px solid var(--teal);max-height:90vh;overflow-y:auto}
+@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(0.97)}to{opacity:1;transform:none}}
+.modal-bar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+.modal-close{position:absolute;top:16px;right:16px;background:transparent;border:1px solid rgba(255,255,255,0.12);color:#4a6080;width:32px;height:32px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;pointer-events:all}
+.modal-close:hover{border-color:var(--teal);color:var(--teal)}
+.modal-tag{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:12px}
+.modal-head{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.modal-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.modal-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.85rem;color:#e8edf5;line-height:1.1}
+.modal-desc{color:#4a6080;font-size:0.85rem;line-height:1.8;margin-bottom:22px;font-weight:400}
+.modal-features-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px}
+.modal-features{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-bottom:30px;list-style:none}
+.modal-features li{display:flex;gap:8px;font-size:0.78rem;color:#99aabb;line-height:1.5}
+.modal-features li::before{content:'›';flex-shrink:0;margin-top:1px}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+.m-btn{padding:11px 22px;border-radius:6px;font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-decoration:none;cursor:pointer;transition:all 0.2s;pointer-events:all;border:none;display:inline-flex;align-items:center;gap:6px}
+.m-btn.primary{font-weight:700}
+.m-btn.secondary{background:transparent}
+.m-btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#4a6080;margin-left:auto}
+.m-btn.ghost:hover{border-color:rgba(255,255,255,0.25);color:#99aabb}
+
+/* VICTORY */
+#victory{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(2,8,16,0.95);backdrop-filter:blur(20px)}
+#victory.open{display:flex}
+.victory-card{text-align:center;max-width:480px;padding:40px;animation:cardIn 0.6s cubic-bezier(0.22,1,0.36,1)}
+.victory-trophy{font-size:4rem;margin-bottom:20px;filter:drop-shadow(0 0 30px rgba(0,229,255,0.6))}
+.victory-title{font-family:'Syne',sans-serif;font-weight:800;font-size:2.5rem;color:var(--teal);margin-bottom:12px}
+.victory-sub{color:#4a6080;font-size:0.85rem;margin-bottom:32px;line-height:1.7}
+
+/* COMBAT ALERT */
+#combat-alert{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:50;pointer-events:none;opacity:0;transition:opacity 0.3s}
+#combat-alert.show{opacity:1}
+.alert-text{font-family:'Syne',sans-serif;font-weight:800;font-size:2.5rem;color:#ef4444;text-shadow:0 0 30px rgba(239,68,68,0.8);letter-spacing:0.05em;text-align:center}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="c"></canvas>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="intro-card">
+    <div class="corner tl"></div><div class="corner tr"></div>
+    <div class="corner bl"></div><div class="corner br"></div>
+    <div class="intro-icon">🚀</div>
+    <h1 class="intro-title">Dom Analytics Universe</h1>
+    <p class="intro-sub">Navigate your spacecraft through the universe.<br>Destroy enemies to unlock each planet's services.</p>
+    <p class="section-label">// Mission Objectives</p>
+    <div class="objectives">
+      <div class="obj"><div class="obj-num">1</div><div class="obj-text">Fly to any planet using WASD or arrow keys</div></div>
+      <div class="obj"><div class="obj-num">2</div><div class="obj-text">Destroy all enemies/asteroids guarding the planet</div></div>
+      <div class="obj"><div class="obj-num">3</div><div class="obj-text">Approach the cleared planet to reveal our services</div></div>
+      <div class="obj"><div class="obj-num">4</div><div class="obj-text">Complete all 4 planets to conquer the universe</div></div>
+    </div>
+    <p class="section-label">// Controls</p>
+    <div class="controls-grid">
+      <div class="ctrl"><span class="key">W A S D</span><span class="key-desc">Rotate ship</span></div>
+      <div class="ctrl"><span class="key">SPACE</span><span class="key-desc">Thrust forward</span></div>
+      <div class="ctrl"><span class="key">↑ ↓ ← →</span><span class="key-desc">Also rotate</span></div>
+      <div class="ctrl"><span class="key">F / ENTER</span><span class="key-desc">Fire laser</span></div>
+    </div>
+    <button class="launch-btn" onclick="launchGame()">Launch Mission ▶</button>
+  </div>
+</div>
+
+<!-- HUD -->
+<div id="hud" style="display:none">
+  <div class="hud-tl">
+    <div class="hud-label">Hull Integrity</div>
+    <div class="hp-bar-wrap"><div id="hp-bar" style="width:100%"></div></div>
+    <div class="hud-label">Score</div>
+    <div class="score-val" id="score-val">000000</div>
+    <div class="planet-dots" id="pdots"></div>
+  </div>
+  <div class="hud-tr">
+    <button class="hud-btn" id="lang-btn" onclick="toggleLang()">HR</button>
+    <a href="/" class="hud-btn">← Exit</a>
+  </div>
+  <div class="hud-bc">
+    <div class="hud-ctrl"><span class="hud-key">WASD</span><span class="hud-kdesc">ROTATE</span></div>
+    <div class="hud-ctrl"><span class="hud-key">SPACE</span><span class="hud-kdesc">THRUST</span></div>
+    <div class="hud-ctrl"><span class="hud-key">F</span><span class="hud-kdesc">FIRE</span></div>
+  </div>
+</div>
+
+<div id="enemy-count"></div>
+<div id="proximity"></div>
+<div id="combat-alert"><div class="alert-text" id="alert-text"></div></div>
+
+<!-- SERVICE MODAL -->
+<div id="modal">
+  <div class="modal-card" id="modal-card">
+    <div class="modal-bar" id="modal-bar"></div>
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-tag" id="modal-tag"></div>
+    <div class="modal-head">
+      <div class="modal-icon" id="modal-icon"></div>
+      <div class="modal-title" id="modal-title"></div>
+    </div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div class="modal-features-label" id="modal-feat-label">// Capabilities</div>
+    <ul class="modal-features" id="modal-feats"></ul>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<!-- VICTORY -->
+<div id="victory">
+  <div class="victory-card">
+    <div class="victory-trophy">🏆</div>
+    <div class="victory-title" id="v-title">Universe Conquered!</div>
+    <div class="victory-sub" id="v-sub">You've explored all Dom Analytics services.<br>Ready to build something extraordinary?</div>
+    <a href="mailto:dom.krusic@gmail.com" class="launch-btn" style="display:inline-block;text-decoration:none;pointer-events:all" id="v-btn">Contact Dom Analytics →</a>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// CORE STATE
+// ═══════════════════════════════════════════════
+const canvas = document.getElementById('c')
+const ctx = canvas.getContext('2d')
+let W, H, cx, cy
+let gameActive = false
+let lang = 'en'
+let score = 0
+let health = 100
+let frameCount = 0
+
+// ═══════════════════════════════════════════════
+// SERVICES DATA
+// ═══════════════════════════════════════════════
+const SERVICES = {
+  ai: {
+    color:'#00e5ff', icon:'🤖',
+    tag_en:'01 · ARTIFICIAL INTELLIGENCE', tag_hr:'01 · UMJETNA INTELIGENCIJA',
+    title_en:'AI & Machine Learning', title_hr:'AI i Strojno Učenje',
+    desc_en:'We design and deploy custom AI and ML solutions that automate processes, surface strategic insights, and create lasting competitive advantages for your business.',
+    desc_hr:'Dizajniramo i implementiramo AI rješenja koja automatiziraju procese i stvaraju konkurentske prednosti za vaše poslovanje.',
+    features_en:['Custom AI model development','Predictive analytics & forecasting','NLP & conversational AI chatbots','Computer vision solutions','Generative AI integration (LLMs)','AI strategy & roadmapping'],
+    features_hr:['Razvoj prilagođenih AI modela','Prediktivna analitika','NLP i AI chatboti','Computer vision rješenja','Integracija generativnog AI','AI strategija i roadmapa'],
+  },
+  consulting: {
+    color:'#a855f7', icon:'📊',
+    tag_en:'02 · DATA CONSULTING', tag_hr:'02 · DATA KONZULTING',
+    title_en:'BI & Data Strategy', title_hr:'BI & Podatkovna Strategija',
+    desc_en:'Transform raw data into strategic intelligence. We architect BI systems, build data pipelines, and align analytics capabilities with your long-term business objectives.',
+    desc_hr:'Pretvaramo podatke u stratešku inteligenciju. Arhitekturiramo BI sustave i usklađujemo analitiku s poslovnim ciljevima.',
+    features_en:['BI architecture (QlikSense, PowerBI)','Data warehouse design','KPI frameworks & dashboards','Telecom analytics & optimization','Revenue growth strategy','Data governance & quality'],
+    features_hr:['BI arhitektura (QlikSense, PowerBI)','Dizajn data warehouse-a','KPI framework i dashboardi','Telekomunikacijska analitika','Strategija rasta prihoda','Upravljanje podacima'],
+  },
+  dev: {
+    color:'#10b981', icon:'⚡',
+    tag_en:'03 · APP & WEB DEVELOPMENT', tag_hr:'03 · RAZVOJ APLIKACIJA',
+    title_en:'Web & App Development', title_hr:'Razvoj Weba i Aplikacija',
+    desc_en:'End-to-end development of web applications, mobile apps and digital platforms — from concept to deployment, engineered for performance, scalability and outstanding UX.',
+    desc_hr:'Cjeloviti razvoj web i mobilnih aplikacija — od koncepta do deploya, izgrađeno za performanse i izvrsno korisničko iskustvo.',
+    features_en:['Custom web apps (React, Next.js)','Mobile apps (iOS & Android)','AI-powered SaaS platforms','API design & microservices','E-commerce solutions','UI/UX design'],
+    features_hr:['Web aplikacije (React, Next.js)','Mobilne aplikacije (iOS i Android)','AI SaaS platforme','Dizajn API-ja i mikroservisi','E-commerce rješenja','UI/UX dizajn'],
+  },
+  it: {
+    color:'#f59e0b', icon:'🔧',
+    tag_en:'04 · IT SOLUTIONS', tag_hr:'04 · IT RJEŠENJA',
+    title_en:'IT Infrastructure & Support', title_hr:'IT Infrastruktura i Podrška',
+    desc_en:'Comprehensive IT solutions for businesses of all sizes — cloud infrastructure setup, digital transformation consulting, CRM implementation and ongoing technical support.',
+    desc_hr:'Sveobuhvatna IT rješenja — cloud infrastruktura, digitalna transformacija, implementacija CRM-a i kontinuirana tehnička podrška.',
+    features_en:['Cloud infrastructure (AWS, GCP, Azure)','IT audit & tech assessment','CRM setup (Salesforce, HubSpot)','Cybersecurity assessment','Digital transformation strategy','Technical project management'],
+    features_hr:['Cloud infrastruktura (AWS, GCP, Azure)','IT revizija i procjena','CRM postavljanje (Salesforce, HubSpot)','Procjena kibernetičke sigurnosti','Digitalna transformacija','Tehničko upravljanje projektima'],
+  }
+}
+
+// ═══════════════════════════════════════════════
+// PLANETS
+// ═══════════════════════════════════════════════
+let planets = []
+function initPlanets() {
+  planets = [
+    { key:'ai',         color:'#00e5ff', glow:'rgba(0,229,255,0.15)',  r:55, angle:0,    orbitR:0,   x:0, y:0, label:'AI Intelligence',  completed:false, hasRing:false, cloudColor:'rgba(0,180,200,0.08)' },
+    { key:'consulting', color:'#a855f7', glow:'rgba(168,85,247,0.15)', r:46, angle:0,    orbitR:0,   x:0, y:0, label:'Data Consulting',   completed:false, hasRing:true,  cloudColor:'rgba(150,60,220,0.08)' },
+    { key:'dev',        color:'#10b981', glow:'rgba(16,185,129,0.15)', r:42, angle:0,    orbitR:0,   x:0, y:0, label:'App & Web Dev',     completed:false, hasRing:false, cloudColor:'rgba(10,150,100,0.08)' },
+    { key:'it',         color:'#f59e0b', glow:'rgba(245,158,11,0.15)', r:62, angle:0,    orbitR:0,   x:0, y:0, label:'IT Solutions',      completed:false, hasRing:true,  cloudColor:'rgba(200,130,0,0.08)'  },
+  ]
+}
+function positionPlanets() {
+  const spread = Math.min(W, H) * 0.36
+  const positions = [
+    { ax: -0.65, ay: -0.55 },
+    { ax:  0.68, ay: -0.48 },
+    { ax: -0.60, ay:  0.58 },
+    { ax:  0.62, ay:  0.60 },
+  ]
+  planets.forEach((p, i) => {
+    p.x = cx + positions[i].ax * spread
+    p.y = cy + positions[i].ay * spread
+  })
+}
+
+// ═══════════════════════════════════════════════
+// STARS
+// ═══════════════════════════════════════════════
+let stars = [], dust = []
+function initStars() {
+  stars = Array.from({length:280}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: Math.random()*1.4+0.2,
+    a: Math.random()*0.8+0.1,
+    twinkleSpeed: Math.random()*0.02+0.005,
+    twinkleOffset: Math.random()*Math.PI*2,
+    color: Math.random() > 0.85 ? '#aad4ff' : '#ffffff'
+  }))
+  dust = Array.from({length:60}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: Math.random()*2.5+1,
+    a: Math.random()*0.04+0.01,
+    color: ['rgba(0,229,255,','rgba(168,85,247,','rgba(255,255,255,'][Math.floor(Math.random()*3)]
+  }))
+}
+
+// ═══════════════════════════════════════════════
+// SHIP
+// ═══════════════════════════════════════════════
+const ship = {
+  x:0, y:0, vx:0, vy:0,
+  angle: -Math.PI/2,
+  thrust: false,
+  trail: [],
+  shootCooldown: 0,
+}
+function initShip() {
+  ship.x = cx; ship.y = cy + 60
+  ship.vx = 0; ship.vy = 0
+  ship.angle = -Math.PI/2
+  ship.trail = []
+}
+
+// ═══════════════════════════════════════════════
+// INPUT
+// ═══════════════════════════════════════════════
+const keys = {}
+window.addEventListener('keydown', e => {
+  keys[e.key] = true
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key)) e.preventDefault()
+})
+window.addEventListener('keyup', e => { keys[e.key] = false })
+
+// ═══════════════════════════════════════════════
+// BULLETS
+// ═══════════════════════════════════════════════
+let bullets = []
+function shoot() {
+  if(ship.shootCooldown > 0) return
+  ship.shootCooldown = 10
+  const speed = 14
+  bullets.push({
+    x: ship.x + Math.cos(ship.angle)*18,
+    y: ship.y + Math.sin(ship.angle)*18,
+    vx: Math.cos(ship.angle)*speed + ship.vx*0.3,
+    vy: Math.sin(ship.angle)*speed + ship.vy*0.3,
+    life: 80, maxLife: 80
+  })
+}
+
+// ═══════════════════════════════════════════════
+// ENEMIES
+// ═══════════════════════════════════════════════
+let enemies = [], activePlanetKey = null, combatActive = false
+let enemyCountTotal = 0
+
+const COMBAT_TYPES = {
+  ai:         { type:'asteroid', count:7,  hp:1, speed:0.8,  size:18 },
+  consulting: { type:'ship',     count:5,  hp:3, speed:1.4,  size:14 },
+  dev:        { type:'bug',      count:10, hp:1, speed:2.2,  size:9  },
+  it:         { type:'boss',     count:1,  hp:18, speed:0.6, size:38 },
+}
+
+function spawnEnemies(planetKey) {
+  const p = planets.find(pl => pl.key === planetKey)
+  const cfg = COMBAT_TYPES[planetKey]
+  enemies = []
+  for(let i=0; i<cfg.count; i++) {
+    const angle = (i/cfg.count)*Math.PI*2 + Math.random()*0.4
+    const r = p.r + 60 + Math.random()*30
+    enemies.push({
+      x: p.x + Math.cos(angle)*r,
+      y: p.y + Math.sin(angle)*r,
+      vx: (Math.random()-0.5)*cfg.speed,
+      vy: (Math.random()-0.5)*cfg.speed,
+      hp: cfg.hp, maxHp: cfg.hp,
+      type: cfg.type, size: cfg.size,
+      angle: Math.random()*Math.PI*2,
+      orbitAngle: angle, orbitR: r,
+      planetX: p.x, planetY: p.y,
+      speed: cfg.speed
+    })
+  }
+  enemyCountTotal = enemies.length
+  updateEnemyCounter()
+}
+
+// ═══════════════════════════════════════════════
+// PARTICLES / EXPLOSIONS
+// ═══════════════════════════════════════════════
+let particles = []
+function explode(x, y, color, count=12, big=false) {
+  for(let i=0; i<count; i++) {
+    const angle = Math.random()*Math.PI*2
+    const speed = big ? Math.random()*5+2 : Math.random()*3+1
+    particles.push({
+      x, y,
+      vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed,
+      r: big ? Math.random()*4+2 : Math.random()*2.5+1,
+      life: big ? 50+Math.random()*30 : 30+Math.random()*20,
+      maxLife: big ? 80 : 50,
+      color, alpha: 1
+    })
+  }
+  // Shockwave ring
+  particles.push({ x, y, ring:true, r:big?40:20, maxR:big?100:60, life:20, maxLife:20, color, alpha:0.8 })
+}
+
+// ═══════════════════════════════════════════════
+// NEBULA DRAW
+// ═══════════════════════════════════════════════
+let nebulas = []
+function initNebulas() {
+  nebulas = [
+    { x:W*0.15, y:H*0.2,  r:180, color:'rgba(0,80,100,0.06)' },
+    { x:W*0.82, y:H*0.15, r:160, color:'rgba(80,20,120,0.05)' },
+    { x:W*0.75, y:H*0.82, r:200, color:'rgba(0,80,60,0.05)'  },
+    { x:W*0.22, y:H*0.78, r:170, color:'rgba(100,60,0,0.05)' },
+  ]
+}
+
+// ═══════════════════════════════════════════════
+// RESIZE
+// ═══════════════════════════════════════════════
+function resize() {
+  W = canvas.width = window.innerWidth
+  H = canvas.height = window.innerHeight
+  cx = W/2; cy = H/2
+  positionPlanets()
+  initNebulas()
+}
+window.addEventListener('resize', resize)
+
+// ═══════════════════════════════════════════════
+// DRAW HELPERS
+// ═══════════════════════════════════════════════
+function drawPlanet(p) {
+  // Orbit ring (very subtle)
+  ctx.beginPath()
+  ctx.arc(p.x, p.y, p.r + 22, 0, Math.PI*2)
+  ctx.strokeStyle = p.color.replace(')',',0.07)')
+  if(p.color.startsWith('#')) {
+    const hex = p.color
+    ctx.strokeStyle = `rgba(${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)},0.07)`
+  }
+  ctx.lineWidth = 1
+  ctx.setLineDash([4,8])
+  ctx.stroke()
+  ctx.setLineDash([])
+
+  // Outer glow
+  const gOuter = ctx.createRadialGradient(p.x, p.y, p.r*0.8, p.x, p.y, p.r*2.2)
+  gOuter.addColorStop(0, p.glow)
+  gOuter.addColorStop(1, 'transparent')
+  ctx.beginPath()
+  ctx.arc(p.x, p.y, p.r*2.2, 0, Math.PI*2)
+  ctx.fillStyle = gOuter
+  ctx.fill()
+
+  // Planet body gradient
+  const g = ctx.createRadialGradient(p.x - p.r*0.28, p.y - p.r*0.28, p.r*0.05, p.x, p.y, p.r)
+  const c = p.color
+  const rgb = hexToRgb(c)
+  g.addColorStop(0, `rgba(${rgb.r+60},${rgb.g+60},${rgb.b+60},1)`)
+  g.addColorStop(0.4, c)
+  g.addColorStop(1, `rgba(${Math.max(0,rgb.r-80)},${Math.max(0,rgb.g-80)},${Math.max(0,rgb.b-80)},1)`)
+  ctx.beginPath()
+  ctx.arc(p.x, p.y, p.r, 0, Math.PI*2)
+  ctx.fillStyle = g
+  ctx.fill()
+
+  // Surface clouds/texture
+  for(let i=0; i<3; i++) {
+    const ca = (frameCount*0.003 + i*1.8) % (Math.PI*2)
+    const cx2 = p.x + Math.cos(ca)*p.r*0.35
+    const cy2 = p.y + Math.sin(ca*0.7)*p.r*0.2
+    const cg = ctx.createRadialGradient(cx2, cy2, 0, cx2, cy2, p.r*0.4)
+    cg.addColorStop(0, p.cloudColor)
+    cg.addColorStop(1, 'transparent')
+    ctx.beginPath(); ctx.arc(cx2, cy2, p.r*0.4, 0, Math.PI*2)
+    ctx.fillStyle = cg; ctx.fill()
+  }
+
+  // Ring system
+  if(p.hasRing) {
+    ctx.save()
+    ctx.translate(p.x, p.y)
+    ctx.scale(1, 0.28)
+    ctx.beginPath()
+    ctx.arc(0, 0, p.r*1.72, 0, Math.PI*2)
+    ctx.lineWidth = p.r * 0.18
+    const rgb2 = hexToRgb(p.color)
+    ctx.strokeStyle = `rgba(${rgb2.r},${rgb2.g},${rgb2.b},0.35)`
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(0, 0, p.r*1.45, 0, Math.PI*2)
+    ctx.lineWidth = p.r * 0.06
+    ctx.strokeStyle = `rgba(${rgb2.r},${rgb2.g},${rgb2.b},0.15)`
+    ctx.stroke()
+    ctx.restore()
+  }
+
+  // Completed checkmark
+  if(p.completed) {
+    ctx.beginPath()
+    ctx.arc(p.x, p.y, p.r + 8, 0, Math.PI*2)
+    ctx.strokeStyle = `rgba(${hexToRgb(p.color).r},${hexToRgb(p.color).g},${hexToRgb(p.color).b},0.5)`
+    ctx.lineWidth = 2
+    ctx.stroke()
+    ctx.fillStyle = p.color
+    ctx.font = `bold ${p.r*0.5}px Space Mono`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText('✓', p.x, p.y)
+  }
+
+  // Planet label
+  ctx.font = '500 11px Space Mono'
+  ctx.fillStyle = 'rgba(200,220,240,0.7)'
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'top'
+  ctx.fillText(p.label.toUpperCase(), p.x, p.y + p.r + 14)
+}
+
+function drawShip() {
+  ctx.save()
+  ctx.translate(ship.x, ship.y)
+  ctx.rotate(ship.angle + Math.PI/2)
+
+  // Thruster glow
+  if(ship.thrust || keys[' '] || keys['Shift']) {
+    const tg = ctx.createRadialGradient(0, 16, 0, 0, 16, 20)
+    tg.addColorStop(0, 'rgba(255,120,0,0.8)')
+    tg.addColorStop(1, 'transparent')
+    ctx.beginPath(); ctx.arc(0, 16, 20, 0, Math.PI*2)
+    ctx.fillStyle = tg; ctx.fill()
+    // Flame
+    ctx.beginPath()
+    ctx.moveTo(-5, 12); ctx.lineTo(0, 28+Math.random()*6); ctx.lineTo(5, 12)
+    ctx.fillStyle = 'rgba(255,160,0,0.7)'; ctx.fill()
+    ctx.beginPath()
+    ctx.moveTo(-3, 12); ctx.lineTo(0, 22+Math.random()*4); ctx.lineTo(3, 12)
+    ctx.fillStyle = 'rgba(255,220,100,0.9)'; ctx.fill()
+  }
+
+  // Wings
+  ctx.beginPath()
+  ctx.moveTo(0, -14); ctx.lineTo(-16, 8); ctx.lineTo(-8, 4); ctx.lineTo(-6, 14)
+  ctx.fillStyle = '#007a8c'; ctx.fill()
+  ctx.beginPath()
+  ctx.moveTo(0, -14); ctx.lineTo(16, 8); ctx.lineTo(8, 4); ctx.lineTo(6, 14)
+  ctx.fillStyle = '#007a8c'; ctx.fill()
+
+  // Body
+  ctx.beginPath()
+  ctx.moveTo(0, -18); ctx.lineTo(7, 0); ctx.lineTo(6, 14); ctx.lineTo(0, 10); ctx.lineTo(-6, 14); ctx.lineTo(-7, 0)
+  ctx.closePath()
+  ctx.fillStyle = '#00BCD4'; ctx.fill()
+
+  // Cockpit
+  const cg = ctx.createRadialGradient(0, -8, 1, 0, -8, 6)
+  cg.addColorStop(0, 'rgba(0,229,255,0.5)')
+  cg.addColorStop(1, 'rgba(0,20,30,0.9)')
+  ctx.beginPath(); ctx.arc(0, -8, 5.5, 0, Math.PI*2)
+  ctx.fillStyle = cg; ctx.fill()
+  ctx.strokeStyle = 'rgba(0,229,255,0.4)'; ctx.lineWidth = 0.8; ctx.stroke()
+
+  ctx.restore()
+}
+
+function drawEnemy(e) {
+  ctx.save()
+  ctx.translate(e.x, e.y)
+  e.angle += 0.02
+
+  if(e.type === 'asteroid') {
+    ctx.rotate(e.angle)
+    const ag = ctx.createRadialGradient(0, 0, 0, 0, 0, e.size)
+    ag.addColorStop(0, '#666'); ag.addColorStop(1, '#333')
+    ctx.beginPath()
+    const pts = 7
+    for(let i=0; i<pts; i++) {
+      const a = (i/pts)*Math.PI*2
+      const r = e.size * (0.75 + Math.sin(i*2.3)*0.25)
+      if(i===0) ctx.moveTo(Math.cos(a)*r, Math.sin(a)*r)
+      else ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r)
+    }
+    ctx.closePath(); ctx.fillStyle = ag; ctx.fill()
+    ctx.strokeStyle = 'rgba(150,150,150,0.3)'; ctx.lineWidth = 1; ctx.stroke()
+
+  } else if(e.type === 'ship') {
+    ctx.rotate(e.angle)
+    ctx.beginPath()
+    ctx.moveTo(0, -e.size); ctx.lineTo(e.size*0.7, e.size); ctx.lineTo(0, e.size*0.5); ctx.lineTo(-e.size*0.7, e.size)
+    ctx.closePath()
+    ctx.fillStyle = '#cc2200'; ctx.fill()
+    ctx.strokeStyle = 'rgba(255,60,0,0.4)'; ctx.lineWidth = 1; ctx.stroke()
+    // Red glow
+    const sg = ctx.createRadialGradient(0,0,0,0,0,e.size*1.5)
+    sg.addColorStop(0,'rgba(255,50,0,0.15)'); sg.addColorStop(1,'transparent')
+    ctx.beginPath(); ctx.arc(0,0,e.size*1.5,0,Math.PI*2); ctx.fillStyle=sg; ctx.fill()
+
+  } else if(e.type === 'bug') {
+    const bpulse = 0.85 + Math.sin(frameCount*0.2)*0.15
+    ctx.beginPath()
+    for(let i=0; i<6; i++) {
+      const a = (i/6)*Math.PI*2
+      const r = e.size*(i%2===0?1:0.6)*bpulse
+      if(i===0) ctx.moveTo(Math.cos(a)*r, Math.sin(a)*r)
+      else ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r)
+    }
+    ctx.closePath(); ctx.fillStyle = '#00ff88'; ctx.fill()
+    ctx.shadowColor = '#00ff88'; ctx.shadowBlur = 8
+
+  } else if(e.type === 'boss') {
+    const bpulse = 1 + Math.sin(frameCount*0.05)*0.08
+    ctx.scale(bpulse, bpulse)
+    // Outer rings
+    for(let ring=0; ring<3; ring++) {
+      const ra = frameCount * 0.02 * (ring%2===0?1:-1) + ring*1.2
+      ctx.save(); ctx.rotate(ra)
+      ctx.beginPath(); ctx.arc(0, 0, e.size*0.85+ring*12, 0, Math.PI*2)
+      ctx.strokeStyle = `rgba(255,${50-ring*15},0,${0.2-ring*0.05})`
+      ctx.lineWidth = 2; ctx.stroke(); ctx.restore()
+    }
+    // Body
+    const bg = ctx.createRadialGradient(0,0,0,0,0,e.size)
+    bg.addColorStop(0,'#ff4400'); bg.addColorStop(0.5,'#cc2200'); bg.addColorStop(1,'#660000')
+    ctx.beginPath()
+    for(let i=0; i<8; i++) {
+      const a = (i/8)*Math.PI*2 + frameCount*0.01
+      const r = e.size*(0.8+Math.sin(i*1.5+frameCount*0.03)*0.2)
+      if(i===0) ctx.moveTo(Math.cos(a)*r, Math.sin(a)*r)
+      else ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r)
+    }
+    ctx.closePath(); ctx.fillStyle = bg; ctx.fill()
+    ctx.strokeStyle = 'rgba(255,80,0,0.5)'; ctx.lineWidth = 2; ctx.stroke()
+    // HP bar
+    const barW = e.size*3, barH = 7
+    ctx.fillStyle = 'rgba(0,0,0,0.6)'
+    ctx.fillRect(-barW/2, -e.size-22, barW, barH)
+    const hpRatio = e.hp/e.maxHp
+    const barColor = hpRatio > 0.5 ? '#ff4400' : hpRatio > 0.25 ? '#ff8800' : '#ffcc00'
+    ctx.fillStyle = barColor
+    ctx.fillRect(-barW/2, -e.size-22, barW*hpRatio, barH)
+    ctx.strokeStyle = 'rgba(255,80,0,0.4)'; ctx.lineWidth = 1
+    ctx.strokeRect(-barW/2, -e.size-22, barW, barH)
+  }
+  ctx.restore()
+  ctx.shadowBlur = 0
+}
+
+function drawBullet(b) {
+  const alpha = b.life/b.maxLife
+  // Laser beam trail
+  ctx.save()
+  ctx.globalAlpha = alpha
+  const trail = 16
+  const grad = ctx.createLinearGradient(b.x - b.vx*trail/b.vx, b.y - b.vy*trail/b.vy, b.x, b.y)
+  grad.addColorStop(0, 'transparent')
+  grad.addColorStop(1, 'rgba(0,229,255,0.9)')
+  ctx.beginPath()
+  ctx.moveTo(b.x - b.vx, b.y - b.vy)
+  ctx.lineTo(b.x, b.y)
+  ctx.strokeStyle = 'rgba(0,229,255,0.9)'; ctx.lineWidth = 2.5; ctx.stroke()
+  // Glow dot
+  ctx.beginPath(); ctx.arc(b.x, b.y, 3, 0, Math.PI*2)
+  ctx.fillStyle = '#00e5ff'; ctx.fill()
+  ctx.shadowColor = '#00e5ff'; ctx.shadowBlur = 12; ctx.fill()
+  ctx.restore()
+  ctx.shadowBlur = 0
+}
+
+function drawStar(s) {
+  const tw = Math.sin(frameCount*s.twinkleSpeed + s.twinkleOffset)*0.5+0.5
+  ctx.beginPath()
+  ctx.arc(s.x, s.y, s.r, 0, Math.PI*2)
+  ctx.fillStyle = s.color.replace(')',`,${s.a*tw})`) || `rgba(255,255,255,${s.a*tw})`
+  ctx.fill()
+}
+
+// ═══════════════════════════════════════════════
+// UPDATE
+// ═══════════════════════════════════════════════
+function update() {
+  frameCount++
+
+  // Ship controls
+  const ROT = 0.055, THRUST = 0.22, DRAG = 0.985
+  if(keys['ArrowLeft']||keys['a']||keys['A']) ship.angle -= ROT
+  if(keys['ArrowRight']||keys['d']||keys['D']) ship.angle += ROT
+  ship.thrust = keys[' ']||keys['Shift']
+  if(ship.thrust) {
+    ship.vx += Math.cos(ship.angle)*THRUST
+    ship.vy += Math.sin(ship.angle)*THRUST
+  }
+  ship.vx *= DRAG; ship.vy *= DRAG
+  ship.x += ship.vx; ship.y += ship.vy
+  // Wrap around
+  if(ship.x < -30) ship.x = W+30; if(ship.x > W+30) ship.x = -30
+  if(ship.y < -30) ship.y = H+30; if(ship.y > H+30) ship.y = -30
+
+  // Trail
+  ship.trail.push({x:ship.x, y:ship.y, a:1})
+  if(ship.trail.length > 28) ship.trail.shift()
+  ship.trail.forEach(t => t.a *= 0.88)
+
+  // Shoot
+  if(ship.shootCooldown > 0) ship.shootCooldown--
+  if(keys['f']||keys['F']||keys['Enter']) shoot()
+
+  // Bullets
+  bullets = bullets.filter(b => b.life > 0)
+  bullets.forEach(b => { b.x += b.vx; b.y += b.vy; b.life-- })
+
+  // Enemies update
+  enemies.forEach(e => {
+    if(e.type === 'asteroid') {
+      e.orbitAngle += 0.008 + e.speed*0.003
+      e.x = e.planetX + Math.cos(e.orbitAngle)*e.orbitR
+      e.y = e.planetY + Math.sin(e.orbitAngle)*e.orbitR
+    } else if(e.type === 'ship') {
+      const dx = ship.x - e.x, dy = ship.y - e.y
+      const dist = Math.sqrt(dx*dx+dy*dy)
+      if(dist > 1) { e.x += (dx/dist)*e.speed; e.y += (dy/dist)*e.speed }
+    } else if(e.type === 'bug') {
+      e.x += e.vx; e.y += e.vy
+      const p = planets.find(pl => pl.key === activePlanetKey)
+      if(p) {
+        const dx = e.x-p.x, dy = e.y-p.y
+        if(Math.sqrt(dx*dx+dy*dy) > p.r + 80) {
+          e.vx = (p.x-e.x)*0.02 + (Math.random()-0.5)*2
+          e.vy = (p.y-e.y)*0.02 + (Math.random()-0.5)*2
+        }
+      }
+    } else if(e.type === 'boss') {
+      const p = planets.find(pl => pl.key === activePlanetKey)
+      if(p) {
+        e.orbitAngle = (e.orbitAngle||0) + 0.008
+        e.x = p.x + Math.cos(e.orbitAngle)*(p.r+80)
+        e.y = p.y + Math.sin(e.orbitAngle*0.7)*(p.r+50)
+      }
+    }
+  })
+
+  // Bullet-enemy collision
+  bullets.forEach(b => {
+    enemies.forEach(e => {
+      const dx = b.x-e.x, dy = b.y-e.y
+      if(Math.sqrt(dx*dx+dy*dy) < e.size) {
+        e.hp--; b.life = 0
+        explode(e.x, e.y, e.type==='boss'?'#ff4400':'#ffffff', e.type==='boss'?8:5, e.type==='boss')
+        if(e.hp <= 0) {
+          explode(e.x, e.y, e.type==='asteroid'?'#888':(e.type==='bug'?'#00ff88':'#ff4400'), 15, e.type==='boss')
+          score += e.type==='boss'?500:e.type==='ship'?100:50
+          updateScore()
+        }
+      }
+    })
+  })
+  const prevCount = enemies.length
+  enemies = enemies.filter(e => e.hp > 0)
+  if(enemies.length < prevCount) updateEnemyCounter()
+  if(combatActive && enemies.length === 0) {
+    combatActive = false
+    const p = planets.find(pl => pl.key === activePlanetKey)
+    if(p) { p.completed = true; updatePlanetDots() }
+    showAlert(lang==='en'?'PLANET CLEARED!':'PLANET OSLOBOĐEN!', '#00e5ff')
+    setTimeout(() => { openModal(activePlanetKey) }, 1200)
+  }
+
+  // Enemy-ship collision damage
+  enemies.forEach(e => {
+    const dx = ship.x-e.x, dy = ship.y-e.y
+    if(Math.sqrt(dx*dx+dy*dy) < e.size+12) {
+      health = Math.max(0, health - (e.type==='boss'?0.4:0.15))
+      updateHP()
+    }
+  })
+
+  // Particles
+  particles.forEach(p => {
+    if(p.ring) { p.r += (p.maxR-p.r)*0.15; p.life--; p.alpha = p.life/p.maxLife }
+    else { p.x+=p.vx; p.y+=p.vy; p.vx*=0.93; p.vy*=0.93; p.life--; p.alpha=p.life/p.maxLife }
+  })
+  particles = particles.filter(p => p.life > 0)
+
+  // Proximity check
+  if(!combatActive) {
+    let near = null
+    planets.forEach(p => {
+      const dx = ship.x-p.x, dy = ship.y-p.y
+      if(Math.sqrt(dx*dx+dy*dy) < p.r+60) near = p
+    })
+    const prox = document.getElementById('proximity')
+    if(near && !near.completed) {
+      prox.style.display = 'block'
+      prox.textContent = lang==='en'
+        ? `CLICK PLANET or press E to engage ${near.label}`
+        : `KLIKNI PLANET ili pritisni E za napad ${near.label}`
+    } else if(near && near.completed) {
+      prox.style.display = 'block'
+      prox.textContent = lang==='en' ? `Press E to review ${near.label} services` : `Pritisni E za ${near.label} usluge`
+    } else {
+      prox.style.display = 'none'
+    }
+    // E key to engage
+    if(keys['e']||keys['E']) { keys['e']=keys['E']=false; if(near) engagePlanet(near.key) }
+  }
+}
+
+// ═══════════════════════════════════════════════
+// DRAW
+// ═══════════════════════════════════════════════
+function draw() {
+  // Background
+  ctx.fillStyle = '#020810'
+  ctx.fillRect(0, 0, W, H)
+
+  // Nebula clouds
+  nebulas.forEach(n => {
+    const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r)
+    g.addColorStop(0, n.color); g.addColorStop(1, 'transparent')
+    ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2)
+    ctx.fillStyle = g; ctx.fill()
+  })
+
+  // Dust
+  dust.forEach(d => {
+    ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI*2)
+    ctx.fillStyle = d.color + d.a + ')'; ctx.fill()
+  })
+
+  // Stars
+  stars.forEach(drawStar)
+
+  // Central sun
+  const sg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 45)
+  sg.addColorStop(0, 'rgba(255,250,220,1)')
+  sg.addColorStop(0.4, 'rgba(255,200,100,0.8)')
+  sg.addColorStop(1, 'rgba(255,150,50,0)')
+  ctx.beginPath(); ctx.arc(cx, cy, 45, 0, Math.PI*2)
+  ctx.fillStyle = sg; ctx.fill()
+  const sg2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, 120)
+  sg2.addColorStop(0, 'rgba(255,200,100,0.08)')
+  sg2.addColorStop(1, 'transparent')
+  ctx.beginPath(); ctx.arc(cx, cy, 120, 0, Math.PI*2)
+  ctx.fillStyle = sg2; ctx.fill()
+
+  // Planets
+  planets.forEach(drawPlanet)
+
+  // Ship trail
+  ship.trail.forEach((t, i) => {
+    if(i < 2) return
+    const prev = ship.trail[i-1]
+    ctx.beginPath()
+    ctx.moveTo(prev.x, prev.y); ctx.lineTo(t.x, t.y)
+    ctx.strokeStyle = `rgba(0,180,200,${t.a*0.35})`
+    ctx.lineWidth = (i/ship.trail.length)*3
+    ctx.stroke()
+  })
+
+  // Ship
+  drawShip()
+
+  // Bullets
+  bullets.forEach(drawBullet)
+
+  // Enemies
+  enemies.forEach(drawEnemy)
+
+  // Particles
+  particles.forEach(p => {
+    ctx.save(); ctx.globalAlpha = p.alpha
+    if(p.ring) {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2)
+      const rgb = hexToRgb(p.color)||{r:255,g:255,b:255}
+      ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${p.alpha})`
+      ctx.lineWidth = 2; ctx.stroke()
+    } else {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2)
+      ctx.fillStyle = p.color; ctx.fill()
+    }
+    ctx.restore()
+  })
+}
+
+// ═══════════════════════════════════════════════
+// GAME LOOP
+// ═══════════════════════════════════════════════
+function loop() {
+  if(gameActive) { update(); draw() }
+  requestAnimationFrame(loop)
+}
+
+// ═══════════════════════════════════════════════
+// UI FUNCTIONS
+// ═══════════════════════════════════════════════
+function launchGame() {
+  document.getElementById('intro').style.display = 'none'
+  document.getElementById('hud').style.display = 'block'
+  gameActive = true
+  updatePlanetDots()
+}
+
+function engagePlanet(key) {
+  const p = planets.find(pl => pl.key === key)
+  if(!p) return
+  if(p.completed) { openModal(key); return }
+  activePlanetKey = key
+  combatActive = true
+  spawnEnemies(key)
+  showAlert(lang==='en'?'COMBAT INITIATED!':'BORBA POČELA!', '#ef4444')
+}
+
+function openModal(key) {
+  const s = SERVICES[key]
+  const p = planets.find(pl => pl.key === key)
+  const modal = document.getElementById('modal')
+  document.getElementById('modal-bar').style.background = p.color
+  document.getElementById('modal-tag').style.color = p.color
+  document.getElementById('modal-tag').textContent = lang==='en' ? s.tag_en : s.tag_hr
+  const iconEl = document.getElementById('modal-icon')
+  iconEl.textContent = s.icon
+  iconEl.style.background = p.color+'22'
+  iconEl.style.border = `1px solid ${p.color}44`
+  document.getElementById('modal-title').textContent = lang==='en' ? s.title_en : s.title_hr
+  document.getElementById('modal-desc').textContent = lang==='en' ? s.desc_en : s.desc_hr
+  document.getElementById('modal-feat-label').style.color = p.color
+  const feats = lang==='en' ? s.features_en : s.features_hr
+  document.getElementById('modal-feats').innerHTML = feats.map(f=>`<li style="--c:${p.color}">${f}</li>`).join('')
+  document.querySelectorAll('.modal-features li::before').forEach(el => el.style.color = p.color)
+  const mailTxt = lang==='en' ? 'Get In Touch →' : 'Kontaktirajte nas →'
+  const moreTxt = lang==='en' ? 'Learn More' : 'Saznajte više'
+  const contTxt = lang==='en' ? 'Continue Mission ›' : 'Nastavi misiju ›'
+  document.getElementById('modal-actions').innerHTML = `
+    <a class="m-btn primary" href="mailto:dom.krusic@gmail.com?subject=Enquiry: ${s.title_en}" style="background:${p.color};color:#020810">${mailTxt}</a>
+    <a class="m-btn secondary" href="#" style="border:1px solid ${p.color}44;color:${p.color}">📄 PDF</a>
+    <button class="m-btn ghost" onclick="closeModal()">${contTxt}</button>
+  `
+  modal.classList.add('open')
+  if(planets.every(pl => pl.completed)) {
+    setTimeout(() => {
+      closeModal()
+      document.getElementById('victory').classList.add('open')
+      updateVictory()
+    }, 600)
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open')
+}
+
+function showAlert(text, color) {
+  const el = document.getElementById('combat-alert')
+  document.getElementById('alert-text').textContent = text
+  document.getElementById('alert-text').style.color = color
+  document.getElementById('alert-text').style.textShadow = `0 0 30px ${color}80`
+  el.classList.add('show')
+  setTimeout(() => el.classList.remove('show'), 1800)
+}
+
+function updateHP() {
+  const bar = document.getElementById('hp-bar')
+  bar.style.width = health + '%'
+  bar.style.background = health > 60 ? '#00e5ff' : health > 30 ? '#f59e0b' : '#ef4444'
+  bar.style.boxShadow = `0 0 8px ${health > 60 ? '#00e5ff' : health > 30 ? '#f59e0b' : '#ef4444'}`
+}
+
+function updateScore() {
+  document.getElementById('score-val').textContent = score.toString().padStart(6,'0')
+}
+
+function updatePlanetDots() {
+  const container = document.getElementById('pdots')
+  container.innerHTML = planets.map(p => `<div class="pdot${p.completed?' done':''}" style="${p.completed?`background:${p.color};border-color:${p.color};box-shadow:0 0 8px ${p.color}`:''}"></div>`).join('')
+}
+
+function updateEnemyCounter() {
+  const el = document.getElementById('enemy-count')
+  if(enemies.length > 0 && combatActive) {
+    el.style.display = 'block'
+    el.textContent = `⚠ ${enemies.length} ${lang==='en'?'ENEMIES REMAINING':'NEPRIJATELJA PREOSTALO'}`
+  } else {
+    el.style.display = 'none'
+  }
+}
+
+function toggleLang() {
+  lang = lang==='en'?'hr':'en'
+  document.getElementById('lang-btn').textContent = lang==='en'?'HR':'EN'
+}
+
+function updateVictory() {
+  document.getElementById('v-title').textContent = lang==='en'?'Universe Conquered!':'Svemir Osvojen!'
+  document.getElementById('v-sub').innerHTML = lang==='en'
+    ? "You've explored all Dom Analytics services.<br>Ready to build something extraordinary?"
+    : 'Istražili ste sve Dom Analytics usluge.<br>Spremi za izgradnju nečeg izvanrednog?'
+  document.getElementById('v-btn').textContent = lang==='en'?'Contact Dom Analytics →':'Kontaktirajte Dom Analytics →'
+}
+
+// Planet click
+canvas.addEventListener('click', e => {
+  if(!gameActive || combatActive) return
+  const rect = canvas.getBoundingClientRect()
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top
+  planets.forEach(p => {
+    const dx = mx-p.x, dy = my-p.y
+    if(Math.sqrt(dx*dx+dy*dy) < p.r+20) engagePlanet(p.key)
+  })
+})
+
+// Cursor
+const cur = document.getElementById('cur'), curRing = document.getElementById('cur-ring')
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'
+  curRing.style.left = e.clientX+'px'; curRing.style.top = e.clientY+'px'
+})
+
+// Helper
+function hexToRgb(hex) {
+  const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  return r ? {r:parseInt(r[1],16), g:parseInt(r[2],16), b:parseInt(r[3],16)} : {r:255,g:255,b:255}
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+initPlanets()
+resize()
+initStars()
+initShip()
+loop()
+</script>
+</body>
+</html>
