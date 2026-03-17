@@ -163,7 +163,7 @@ function BigFooter({ t }) {
         <div className="big-footer-top">
           <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">{t.footer.desc}</p><div className="big-footer-social"><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">in</a><a href="mailto:info@domanalytics.com">@</a></div></div>
           <div className="big-footer-col"><h4>{t.footer.nav}</h4><Link href="/">{t.footer.home}</Link><Link href="/#services">{t.footer.servicesLink}</Link><Link href="/about">{t.footer.aboutLink}</Link><Link href="/projects">{t.footer.projectsLink}</Link></div>
-          <div className="big-footer-col"><h4>{t.footer.connect}</h4><a href="mailto:info@domanalytics.com">info@domanalytics.com</a><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+          <div className="big-footer-col"><h4>{t.footer.connect}</h4><a href="/Dom_Analytics_Service_Portfolio_2026.pdf" target="_blank" download style={{color:'rgba(0,229,255,0.8)'}}>↓ Service Portfolio PDF</a><a href="mailto:info@domanalytics.com">info@domanalytics.com</a><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
           <div className="big-footer-col"><h4>Location</h4><a href="#">Pore&#269;, Croatia</a><a href="#">Zagreb, Croatia</a><a href="#">Global Remote</a></div>
         </div>
         <div className="big-footer-bottom"><span>{t.footer.rights}</span><div><a href="#">{t.footer.privacy}</a><a href="#">{t.footer.terms}</a></div></div>
@@ -210,6 +210,7 @@ export default function Home() {
           <a href="#tech" onClick={(e) => { e.preventDefault(); scrollTo('tech'); }}>{t.nav.tech}</a>
           <Link href="/about">{t.nav.about}</Link>
           <Link href="/projects">{t.nav.projects}</Link>
+          <a href="/Dom_Analytics_Service_Portfolio_2026.pdf" target="_blank" download style={{display:'inline-flex',alignItems:'center',gap:'5px',color:'rgba(0,229,255,0.7)',fontSize:'0.78rem',textDecoration:'none',letterSpacing:'0.08em',border:'1px solid rgba(0,229,255,0.25)',padding:'5px 12px',borderRadius:'4px',transition:'all 0.2s'}} onMouseEnter={e=>{e.currentTarget.style.borderColor='#00e5ff';e.currentTarget.style.color='#00e5ff'}} onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(0,229,255,0.25)';e.currentTarget.style.color='rgba(0,229,255,0.7)'}}>↓ Portfolio</a>
           <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>{t.nav.contact}</a>
           <button className="lang-toggle" onClick={() => setLang((l) => (l === 'en' ? 'hr' : 'en'))}>{lang === 'en' ? 'HR' : 'EN'}</button>
         </div>
@@ -250,6 +251,39 @@ export default function Home() {
             </TiltCard>
           ))}
         </StaggerChildren>
+        <div style={{ textAlign: 'center', marginTop: '48px' }}>
+          <a
+            href="/universe-game.html"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              background: 'transparent',
+              border: '1px solid rgba(0,229,255,0.35)',
+              color: '#00e5ff',
+              padding: '14px 36px',
+              borderRadius: '6px',
+              fontFamily: 'monospace',
+              fontSize: '0.78rem',
+              letterSpacing: '0.12em',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              transition: 'all 0.25s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'rgba(0,229,255,0.08)'
+              e.currentTarget.style.borderColor = '#00e5ff'
+              e.currentTarget.style.boxShadow = '0 0 24px rgba(0,229,255,0.2)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.borderColor = 'rgba(0,229,255,0.35)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
+          >
+            🚀 Explore on Your Own
+          </a>
+        </div>
       </section>
  
       <div className="section-divider" />

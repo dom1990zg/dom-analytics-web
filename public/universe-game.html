@@ -82,12 +82,19 @@ canvas{display:block;position:fixed;inset:0}
 .modal-features{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-bottom:30px;list-style:none}
 .modal-features li{display:flex;gap:8px;font-size:0.78rem;color:#99aabb;line-height:1.5}
 .modal-features li::before{content:'›';flex-shrink:0;margin-top:1px}
-.modal-actions{display:flex;gap:10px;flex-wrap:wrap}
-.m-btn{padding:11px 22px;border-radius:6px;font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-decoration:none;cursor:pointer;transition:all 0.2s;pointer-events:all;border:none;display:inline-flex;align-items:center;gap:6px}
-.m-btn.primary{font-weight:700}
+.modal-actions{display:flex;gap:8px;align-items:center;flex-wrap:nowrap}
+.m-btn{padding:10px 16px;border-radius:6px;font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;text-decoration:none;cursor:pointer;transition:all 0.2s;pointer-events:all;border:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}.m-btn.primary{font-weight:700}
 .m-btn.secondary{background:transparent}
 .m-btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#4a6080;margin-left:auto}
 .m-btn.ghost:hover{border-color:rgba(255,255,255,0.25);color:#99aabb}
+
+/* GAME OVER */
+#gameover{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(2,8,16,0.95);backdrop-filter:blur(20px)}
+#gameover.open{display:flex}
+.gameover-card{text-align:center;max-width:420px;padding:40px;animation:cardIn 0.6s cubic-bezier(0.22,1,0.36,1)}
+.gameover-icon{font-size:3.5rem;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(239,68,68,0.6))}
+.gameover-title{font-family:"Syne",sans-serif;font-weight:800;font-size:2.2rem;color:#ef4444;margin-bottom:10px}
+.gameover-sub{color:#4a6080;font-size:0.85rem;margin-bottom:28px;line-height:1.7}
 
 /* VICTORY */
 #victory{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(2,8,16,0.95);backdrop-filter:blur(20px)}
@@ -97,10 +104,38 @@ canvas{display:block;position:fixed;inset:0}
 .victory-title{font-family:'Syne',sans-serif;font-weight:800;font-size:2.5rem;color:var(--teal);margin-bottom:12px}
 .victory-sub{color:#4a6080;font-size:0.85rem;margin-bottom:32px;line-height:1.7}
 
+/* MOBILE CONTROLS */
+#mobile-controls{position:fixed;bottom:20px;left:0;right:0;z-index:30;display:none;justify-content:space-between;align-items:flex-end;padding:0 16px;pointer-events:none}
+@media(max-width:768px),(pointer:coarse){#mobile-controls{display:flex}body{cursor:auto}#cur,#cur-ring{display:none}}
+.mobile-dpad{display:grid;grid-template-columns:44px 44px 44px;grid-template-rows:44px 44px;gap:4px;pointer-events:all}
+.mobile-dpad .dpad-center{grid-column:2;grid-row:1/3;display:none}
+.m-dpad-btn{width:44px;height:44px;background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--teal);touch-action:none;user-select:none;-webkit-user-select:none}
+.mobile-actions{display:flex;flex-direction:column;gap:8px;pointer-events:all}
+.m-action-btn{width:64px;height:64px;background:rgba(0,229,255,0.12);border:1px solid rgba(0,229,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;touch-action:none}
+.m-action-btn.fire{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.4)}
+
 /* COMBAT ALERT */
 #combat-alert{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:50;pointer-events:none;opacity:0;transition:opacity 0.3s}
 #combat-alert.show{opacity:1}
 .alert-text{font-family:'Syne',sans-serif;font-weight:800;font-size:2.5rem;color:#ef4444;text-shadow:0 0 30px rgba(239,68,68,0.8);letter-spacing:0.05em;text-align:center}
+/* CONTACT MODAL */
+#contact-modal{position:fixed;inset:0;z-index:250;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,8,16,0.92);backdrop-filter:blur(20px)}
+#contact-modal.open{display:flex}
+.contact-card{background:#060f1e;border:1px solid rgba(0,229,255,0.2);border-radius:16px;padding:44px 48px;max-width:520px;width:100%;position:relative;animation:cardIn 0.4s cubic-bezier(0.22,1,0.36,1)}
+.contact-card .corner{position:absolute;width:16px;height:16px}
+.contact-title{font-family:"Syne",sans-serif;font-weight:800;font-size:1.6rem;color:#e8edf5;margin-bottom:6px}
+.contact-sub{color:#4a6080;font-size:0.8rem;margin-bottom:28px;line-height:1.5}
+.contact-field{margin-bottom:16px}
+.contact-field label{display:block;font-size:0.58rem;color:#00e5ff;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:7px}
+.contact-field input,.contact-field textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(0,229,255,0.15);border-radius:8px;padding:12px 16px;color:#e8edf5;font-family:"Space Mono",monospace;font-size:0.8rem;outline:none;transition:border-color 0.2s;resize:none}
+.contact-field input:focus,.contact-field textarea:focus{border-color:rgba(0,229,255,0.45);background:rgba(0,229,255,0.04)}
+.contact-field textarea{height:110px}
+.contact-send{width:100%;padding:14px;background:#00e5ff;color:#020810;border:none;border-radius:8px;font-family:"Space Mono",monospace;font-size:0.8rem;font-weight:700;letter-spacing:0.12em;cursor:pointer;transition:all 0.2s;margin-top:4px}
+.contact-send:hover{background:#33eeff;box-shadow:0 0 24px rgba(0,229,255,0.35)}
+.contact-send:disabled{background:#1a3a40;color:#4a6080;cursor:not-allowed}
+.contact-status{text-align:center;font-size:0.75rem;margin-top:12px;min-height:20px;letter-spacing:0.08em}
+.contact-close{position:absolute;top:16px;right:16px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:#4a6080;width:32px;height:32px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.contact-close:hover{border-color:var(--teal);color:var(--teal)}
 </style>
 </head>
 <body>
@@ -176,13 +211,66 @@ canvas{display:block;position:fixed;inset:0}
   </div>
 </div>
 
+<!-- GAME OVER -->
+<div id="gameover">
+  <div class="gameover-card">
+    <div class="gameover-icon">💀</div>
+    <div class="gameover-title" id="go-title">SHIP DESTROYED</div>
+    <div class="gameover-sub" id="go-sub">Your hull integrity reached zero. The universe awaits your return.</div>
+    <button class="launch-btn" onclick="restartGame()" id="go-btn" style="margin-bottom:12px">RESTART MISSION ↺</button>
+    <br>
+    <a href="/" class="launch-btn" style="display:inline-block;text-decoration:none;background:transparent;border:1px solid rgba(0,229,255,0.3);color:var(--teal);pointer-events:all" id="go-exit">← Return to Base</a>
+  </div>
+</div>
+
 <!-- VICTORY -->
 <div id="victory">
   <div class="victory-card">
     <div class="victory-trophy">🏆</div>
     <div class="victory-title" id="v-title">Universe Conquered!</div>
     <div class="victory-sub" id="v-sub">You've explored all Dom Analytics services.<br>Ready to build something extraordinary?</div>
-    <a href="mailto:dom.krusic@gmail.com" class="launch-btn" style="display:inline-block;text-decoration:none;pointer-events:all" id="v-btn">Contact Dom Analytics →</a>
+    <a href="/cdn-cgi/l/email-protection#1c78737132776e696f757f5c7b717d7570327f7371" class="launch-btn" style="display:inline-block;text-decoration:none;pointer-events:all" id="v-btn">Contact Dom Analytics →</a>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><!-- CONTACT MODAL -->
+<div id="contact-modal">
+  <div class="contact-card">
+    <div class="corner tl"></div><div class="corner tr"></div>
+    <div class="corner bl"></div><div class="corner br"></div>
+    <button class="contact-close" onclick="closeContact()">×</button>
+    <div id="contact-bar" style="position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;background:#00e5ff"></div>
+    <p style="font-size:0.58rem;color:#00e5ff;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:10px" id="contact-service-tag">GET IN TOUCH</p>
+    <h3 class="contact-title" id="contact-title">Start a Conversation</h3>
+    <p class="contact-sub" id="contact-sub">Tell us about your project and we will get back to you within 24 hours.</p>
+    <div class="contact-field">
+      <label>Your Name</label>
+      <input type="text" id="cf-name" placeholder="Domagoj Krušić" />
+    </div>
+    <div class="contact-field">
+      <label>Email Address</label>
+      <input type="email" id="cf-email" placeholder="your@email.com" />
+    </div>
+    <div class="contact-field">
+      <label>Message</label>
+      <textarea id="cf-message" placeholder="Tell us about your project..."></textarea>
+    </div>
+    <button class="contact-send" id="cf-send" onclick="sendContact()">SEND MESSAGE →</button>
+    <div class="contact-status" id="cf-status"></div>
+  </div>
+</div>
+
+<!-- MOBILE CONTROLS UI -->
+<div id="mobile-controls">
+  <div class="mobile-dpad">
+    <div></div><div class="m-dpad-btn" id="btn-up" style="grid-column:2;grid-row:1">▲</div><div></div>
+    <div class="m-dpad-btn" id="btn-left" style="grid-column:1;grid-row:2">◄</div>
+    <div class="m-dpad-btn" id="btn-thrust" style="grid-column:2;grid-row:2;background:rgba(0,229,255,0.2)">⚡</div>
+    <div class="m-dpad-btn" id="btn-right" style="grid-column:3;grid-row:2">►</div>
+  </div>
+  <div class="mobile-actions">
+    <div class="m-action-btn fire" id="btn-fire">🔴</div>
+    <div class="m-action-btn" id="btn-down">▼</div>
   </div>
 </div>
 
@@ -670,7 +758,7 @@ function update() {
   frameCount++
 
   // Ship controls
-  const ROT = 0.055, THRUST = 0.22, DRAG = 0.985
+  const ROT = 0.048, THRUST = 0.10, DRAG = 0.978
   if(keys['ArrowLeft']||keys['a']||keys['A']) ship.angle -= ROT
   if(keys['ArrowRight']||keys['d']||keys['D']) ship.angle += ROT
   ship.thrust = keys[' ']||keys['Shift']
@@ -678,7 +766,7 @@ function update() {
     ship.vx += Math.cos(ship.angle)*THRUST
     ship.vy += Math.sin(ship.angle)*THRUST
   }
-  ship.vx *= DRAG; ship.vy *= DRAG
+  const maxSpeed = 5; ship.vx *= DRAG; ship.vy *= DRAG; const spd = Math.sqrt(ship.vx*ship.vx+ship.vy*ship.vy); if(spd > maxSpeed){ship.vx=ship.vx/spd*maxSpeed; ship.vy=ship.vy/spd*maxSpeed}
   ship.x += ship.vx; ship.y += ship.vy
   // Wrap around
   if(ship.x < -30) ship.x = W+30; if(ship.x > W+30) ship.x = -30
@@ -874,7 +962,8 @@ function draw() {
 // GAME LOOP
 // ═══════════════════════════════════════════════
 function loop() {
-  if(gameActive) { update(); draw() }
+  draw()
+  if(gameActive) { update() }
   requestAnimationFrame(loop)
 }
 
@@ -919,8 +1008,8 @@ function openModal(key) {
   const moreTxt = lang==='en' ? 'Learn More' : 'Saznajte više'
   const contTxt = lang==='en' ? 'Continue Mission ›' : 'Nastavi misiju ›'
   document.getElementById('modal-actions').innerHTML = `
-    <a class="m-btn primary" href="mailto:dom.krusic@gmail.com?subject=Enquiry: ${s.title_en}" style="background:${p.color};color:#020810">${mailTxt}</a>
-    <a class="m-btn secondary" href="#" style="border:1px solid ${p.color}44;color:${p.color}">📄 PDF</a>
+    <button class="m-btn primary" onclick="openContact('${s.title_en}','${p.color}')" style="background:${p.color};color:#020810;cursor:pointer">${mailTxt}</button>
+    <a class="m-btn secondary" href="/Dom_Analytics_Service_Portfolio_2026.pdf" target="_blank" download style="border:1px solid ${p.color}44;color:${p.color}">📄 Download Portfolio PDF</a>
     <button class="m-btn ghost" onclick="closeModal()">${contTxt}</button>
   `
   modal.classList.add('open')
@@ -1009,14 +1098,185 @@ function hexToRgb(hex) {
   return r ? {r:parseInt(r[1],16), g:parseInt(r[2],16), b:parseInt(r[3],16)} : {r:255,g:255,b:255}
 }
 
+
+// GAME OVER (clean, no patches)
+function checkGameOver() {
+  if(health <= 0 && gameActive) {
+    gameActive = false
+    document.getElementById('gameover').classList.add('open')
+  }
+}
+
+function restartGame() {
+  health = 100; score = 0; combatActive = false
+  enemies = []; bullets = []; particles = []
+  activePlanetKey = null
+  initPlanets(); positionPlanets(); initShip()
+  updateHP(); updateScore(); updatePlanetDots()
+  document.getElementById('gameover').classList.remove('open')
+  document.getElementById('enemy-count').style.display = 'none'
+  gameActive = true
+}
+
+
 // ═══════════════════════════════════════════════
+// CONTACT FORM
+// ═══════════════════════════════════════════════
+let currentServiceForContact = ""
+
+function openContact(serviceTitle, serviceColor) {
+  currentServiceForContact = serviceTitle || ""
+  document.getElementById("contact-bar").style.background = serviceColor || "#00e5ff"
+  document.getElementById("contact-service-tag").style.color = serviceColor || "#00e5ff"
+  document.getElementById("contact-service-tag").textContent = serviceTitle ? "ENQUIRY · " + serviceTitle.toUpperCase() : "GET IN TOUCH"
+  document.getElementById("contact-title").textContent = lang==="en" ? "Start a Conversation" : "Pokrenite razgovor"
+  document.getElementById("contact-sub").textContent = lang==="en" ? "Tell us about your project. We reply within 24 hours." : "Recite nam o projektu. Odgovaramo u 24 sata."
+  document.getElementById("cf-name").value = ""
+  document.getElementById("cf-email").value = ""
+  document.getElementById("cf-message").value = ""
+  document.getElementById("cf-status").textContent = ""
+  document.getElementById("cf-send").disabled = false
+  document.getElementById("cf-send").textContent = lang==="en" ? "SEND MESSAGE →" : "POŠALJI PORUKU →"
+  document.getElementById("contact-modal").classList.add("open")
+}
+
+function closeContact() {
+  document.getElementById("contact-modal").classList.remove("open")
+}
+
+async function sendContact() {
+  const name = document.getElementById("cf-name").value.trim()
+  const email = document.getElementById("cf-email").value.trim()
+  const msg = document.getElementById("cf-message").value.trim()
+  const status = document.getElementById("cf-status")
+  const btn = document.getElementById("cf-send")
+  if(!name || !email || !msg) {
+    status.style.color = "#ef4444"
+    status.textContent = lang==="en" ? "Please fill in all fields." : "Molimo ispunite sva polja."
+    return
+  }
+  btn.disabled = true
+  btn.textContent = lang==="en" ? "SENDING..." : "ŠALJEM..."
+  status.textContent = ""
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        message: currentServiceForContact
+          ? "[" + currentServiceForContact + "] " + msg
+          : msg
+      })
+    })
+    const data = await res.json()
+    if(!res.ok) throw new Error(data.error || "Failed")
+    status.style.color = "#00e5ff"
+    status.textContent = lang==="en" ? "✓ Sent! We will contact you soon." : "✓ Poslano! Kontaktirat ćemo vas uskoro."
+    btn.textContent = "✓ SENT"
+    setTimeout(() => closeContact(), 2500)
+  } catch(err) {
+    status.style.color = "#ef4444"
+    status.textContent = lang==="en" ? "Failed. Please email info@domanalytics.com" : "Greška. Pišite na info@domanalytics.com"
+    btn.disabled = false
+    btn.textContent = lang==="en" ? "SEND MESSAGE →" : "POŠALJI →"
+  }
+}
+
+// MOBILE TOUCH
+function setupMobile() {
+  const btns = {
+    'btn-up':     ['ArrowUp'],
+    'btn-down':   ['ArrowDown'],
+    'btn-left':   ['ArrowLeft'],
+    'btn-right':  ['ArrowRight'],
+    'btn-thrust': [' '],
+    'btn-fire':   ['f'],
+  }
+  Object.entries(btns).forEach(([id, keyList]) => {
+    const el = document.getElementById(id)
+    if(!el) return
+    el.addEventListener('touchstart', e => { e.preventDefault(); keyList.forEach(k => keys[k] = true) }, {passive:false})
+    el.addEventListener('touchend',   e => { e.preventDefault(); keyList.forEach(k => keys[k] = false) }, {passive:false})
+  })
+  canvas.addEventListener('touchstart', e => {
+    if(!gameActive || combatActive) return
+    const touch = e.touches[0]
+    const rect = canvas.getBoundingClientRect()
+    const mx = touch.clientX - rect.left, my = touch.clientY - rect.top
+    planets.forEach(p => {
+      const dx = mx-p.x, dy = my-p.y
+      if(Math.sqrt(dx*dx+dy*dy) < p.r+30) engagePlanet(p.key)
+    })
+  }, {passive:true})
+}
+
 // INIT
-// ═══════════════════════════════════════════════
-initPlanets()
-resize()
-initStars()
-initShip()
-loop()
+document.addEventListener('DOMContentLoaded', () => {
+  initPlanets()
+  W = canvas.width = window.innerWidth
+  H = canvas.height = window.innerHeight
+  cx = W/2; cy = H/2
+  positionPlanets()
+  initNebulas()
+  initStars()
+  initShip()
+  setupMobile()
+  loop()
+})
+
+window.addEventListener('resize', () => {
+  W = canvas.width = window.innerWidth
+  H = canvas.height = window.innerHeight
+  cx = W/2; cy = H/2
+  positionPlanets()
+  initNebulas()
+})
 </script>
+
+<!-- CONTACT MODAL -->
+<div id="contact-modal">
+  <div class="contact-card">
+    <div class="corner tl"></div><div class="corner tr"></div>
+    <div class="corner bl"></div><div class="corner br"></div>
+    <button class="contact-close" onclick="closeContact()">×</button>
+    <div id="contact-bar" style="position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;background:#00e5ff"></div>
+    <p style="font-size:0.58rem;color:#00e5ff;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:10px" id="contact-service-tag">GET IN TOUCH</p>
+    <h3 class="contact-title" id="contact-title">Start a Conversation</h3>
+    <p class="contact-sub" id="contact-sub">Tell us about your project and we will get back to you within 24 hours.</p>
+    <div class="contact-field">
+      <label>Your Name</label>
+      <input type="text" id="cf-name" placeholder="Domagoj Krušić" />
+    </div>
+    <div class="contact-field">
+      <label>Email Address</label>
+      <input type="email" id="cf-email" placeholder="your@email.com" />
+    </div>
+    <div class="contact-field">
+      <label>Message</label>
+      <textarea id="cf-message" placeholder="Tell us about your project..."></textarea>
+    </div>
+    <button class="contact-send" id="cf-send" onclick="sendContact()">SEND MESSAGE →</button>
+    <div class="contact-status" id="cf-status"></div>
+  </div>
+</div>
+
+<!-- MOBILE CONTROLS UI -->
+<div id="mobile-controls">
+  <div class="mobile-dpad">
+    <div></div>
+    <div class="m-dpad-btn" id="btn-up" style="grid-column:2;grid-row:1">▲</div>
+    <div></div>
+    <div class="m-dpad-btn" id="btn-left" style="grid-column:1;grid-row:2">◄</div>
+    <div class="m-dpad-btn" id="btn-thrust" style="grid-column:2;grid-row:2;background:rgba(0,229,255,0.2)">⚡</div>
+    <div class="m-dpad-btn" id="btn-right" style="grid-column:3;grid-row:2">►</div>
+  </div>
+  <div class="mobile-actions">
+    <div class="m-action-btn fire" id="btn-fire">🔴</div>
+    <div class="m-action-btn" id="btn-down">▼</div>
+  </div>
+</div>
+
 </body>
 </html>

@@ -1,8 +1,10 @@
+'use client'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+
 export default function UniversePage() {
-  return (
-    <iframe
-      src="/universe-game.html"
-      style={{ width: '100vw', height: '100vh', border: 'none', display: 'block' }}
-    />
-  )
+  useEffect(() => {
+    window.location.href = '/universe-game.html'
+  }, [])
+  return null
 }
