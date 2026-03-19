@@ -13,8 +13,8 @@ canvas{display:block;position:fixed;inset:0}
 #ui{position:fixed;inset:0;pointer-events:none;z-index:10}
 
 /* CURSOR */
-#cur{position:fixed;width:8px;height:8px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--teal)}
-#cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(0,229,255,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.12s ease}
+#cur{position:fixed;width:12px;height:12px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 16px var(--teal),0 0 32px rgba(0,229,255,0.4)}
+#cur-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(0,229,255,0.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.12s ease}
 
 /* INTRO SCREEN */
 #intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(2,8,16,0.97);backdrop-filter:blur(20px)}
@@ -88,6 +88,17 @@ canvas{display:block;position:fixed;inset:0}
 .m-btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#4a6080;margin-left:auto}
 .m-btn.ghost:hover{border-color:rgba(255,255,255,0.25);color:#99aabb}
 
+/* DATA PANEL */
+#data-panel{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:40;display:none;flex-direction:column;gap:10px;pointer-events:none;width:200px}
+#data-panel.visible{display:flex}
+.data-fragment{background:rgba(2,8,16,0.92);border:1px solid rgba(0,229,255,0.2);border-radius:10px;padding:12px 14px;animation:fragmentIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards;opacity:0;transform:translateX(30px)}
+@keyframes fragmentIn{to{opacity:1;transform:translateX(0)}}
+.df-icon{font-size:1.2rem;margin-bottom:4px}
+.df-label{font-size:0.58rem;color:#00e5ff;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2px;font-family:'Space Mono',monospace}
+.df-stat{font-family:'Space Mono',monospace;font-size:0.72rem;color:#e8edf5;font-weight:700}
+.df-bar{height:3px;border-radius:2px;margin-top:6px;background:rgba(255,255,255,0.08);overflow:hidden}
+.df-bar-fill{height:100%;border-radius:2px;animation:barFill 1s 0.3s ease forwards;width:0%}
+
 /* GAME OVER */
 #gameover{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(2,8,16,0.95);backdrop-filter:blur(20px)}
 #gameover.open{display:flex}
@@ -151,12 +162,12 @@ canvas{display:block;position:fixed;inset:0}
     <div class="corner bl"></div><div class="corner br"></div>
     <div class="intro-icon">🚀</div>
     <h1 class="intro-title">Dom Analytics Universe</h1>
-    <p class="intro-sub">Navigate your spacecraft through the universe.<br>Destroy enemies to unlock each planet's services.</p>
+    <p class="intro-sub">Navigate your spacecraft through the data universe.<br>Defeat enemies on each planet to collect data insights.<br>Complete all 4 planets to build your <strong style="color:#00e5ff">live data report</strong>.</p>
     <p class="section-label">// Mission Objectives</p>
     <div class="objectives">
       <div class="obj"><div class="obj-num">1</div><div class="obj-text">Fly to any planet using WASD or arrow keys</div></div>
-      <div class="obj"><div class="obj-num">2</div><div class="obj-text">Destroy all enemies/asteroids guarding the planet</div></div>
-      <div class="obj"><div class="obj-num">3</div><div class="obj-text">Approach the cleared planet to reveal our services</div></div>
+      <div class="obj"><div class="obj-num">2</div><div class="obj-text">Destroy all enemies guarding the planet's data</div></div>
+      <div class="obj"><div class="obj-num">3</div><div class="obj-text">Land to collect the data fragment and unlock insights</div></div>
       <div class="obj"><div class="obj-num">4</div><div class="obj-text">Complete all 4 planets to conquer the universe</div></div>
     </div>
     <p class="section-label">// Controls</p>
@@ -211,6 +222,9 @@ canvas{display:block;position:fixed;inset:0}
   </div>
 </div>
 
+<!-- DATA PANEL -->
+<div id="data-panel"></div>
+
 <!-- GAME OVER -->
 <div id="gameover">
   <div class="gameover-card">
@@ -229,7 +243,7 @@ canvas{display:block;position:fixed;inset:0}
     <div class="victory-trophy">🏆</div>
     <div class="victory-title" id="v-title">Universe Conquered!</div>
     <div class="victory-sub" id="v-sub">You've explored all Dom Analytics services.<br>Ready to build something extraordinary?</div>
-    <a href="/cdn-cgi/l/email-protection#1c78737132776e696f757f5c7b717d7570327f7371" class="launch-btn" style="display:inline-block;text-decoration:none;pointer-events:all" id="v-btn">Contact Dom Analytics →</a>
+    <button onclick="document.getElementById('victory').classList.remove('open'); openContact('Data Journey', '#00e5ff')" class="launch-btn" id="v-btn" style="pointer-events:all;cursor:pointer;border:none">Start Your Data Journey →</button>
   </div>
 </div>
 
@@ -292,40 +306,48 @@ let frameCount = 0
 // ═══════════════════════════════════════════════
 const SERVICES = {
   ai: {
-    color:'#00e5ff', icon:'🤖',
-    tag_en:'01 · ARTIFICIAL INTELLIGENCE', tag_hr:'01 · UMJETNA INTELIGENCIJA',
-    title_en:'AI & Machine Learning', title_hr:'AI i Strojno Učenje',
-    desc_en:'We design and deploy custom AI and ML solutions that automate processes, surface strategic insights, and create lasting competitive advantages for your business.',
-    desc_hr:'Dizajniramo i implementiramo AI rješenja koja automatiziraju procese i stvaraju konkurentske prednosti za vaše poslovanje.',
-    features_en:['Custom AI model development','Predictive analytics & forecasting','NLP & conversational AI chatbots','Computer vision solutions','Generative AI integration (LLMs)','AI strategy & roadmapping'],
-    features_hr:['Razvoj prilagođenih AI modela','Prediktivna analitika','NLP i AI chatboti','Computer vision rješenja','Integracija generativnog AI','AI strategija i roadmapa'],
+    color:'#00e5ff', icon:'🗂️',
+    tag_en:'01 · DATA STRATEGY & GOVERNANCE', tag_hr:'01 · DATA STRATEGIJA I UPRAVLJANJE',
+    title_en:'Data Strategy & Governance', title_hr:'Data Strategija i Upravljanje',
+    desc_en:'We audit your data landscape, eliminate silos and build the infrastructure that makes data a true business asset. From raw data to decisions, we enable your team to extract maximum value at every step.',
+    desc_hr:'Auditiramo vašu podatkovnu infrastrukturu, eliminiramo silose i gradimo temelje koji od podataka čine pravi poslovni resurs. Od sirove date do odluka.',
+    features_en:['Data landscape audit & assessment','Data architecture & warehouse design','Data governance frameworks','Data quality & cleansing pipelines','Silo elimination & integration','Data enablement roadmap'],
+    features_hr:['Audit i procjena podatkovnog krajolika','Arhitektura podataka i data warehouse','Okviri upravljanja podacima','Kvaliteta podataka i pipeline čišćenja','Eliminacija silosa i integracija','Data enablement roadmapa'],
+    fragment_en:'Data Strategy Mapped', fragment_hr:'Data Strategija Mapirana',
+    fragment_icon:'🗂️', fragment_stat:'100% Data Visibility'
   },
   consulting: {
-    color:'#a855f7', icon:'📊',
-    tag_en:'02 · DATA CONSULTING', tag_hr:'02 · DATA KONZULTING',
-    title_en:'BI & Data Strategy', title_hr:'BI & Podatkovna Strategija',
-    desc_en:'Transform raw data into strategic intelligence. We architect BI systems, build data pipelines, and align analytics capabilities with your long-term business objectives.',
-    desc_hr:'Pretvaramo podatke u stratešku inteligenciju. Arhitekturiramo BI sustave i usklađujemo analitiku s poslovnim ciljevima.',
-    features_en:['BI architecture (QlikSense, PowerBI)','Data warehouse design','KPI frameworks & dashboards','Telecom analytics & optimization','Revenue growth strategy','Data governance & quality'],
-    features_hr:['BI arhitektura (QlikSense, PowerBI)','Dizajn data warehouse-a','KPI framework i dashboardi','Telekomunikacijska analitika','Strategija rasta prihoda','Upravljanje podacima'],
+    color:'#a855f7', icon:'🤖',
+    tag_en:'02 · AI & MACHINE LEARNING', tag_hr:'02 · AI I STROJNO UČENJE',
+    title_en:'AI & Machine Learning', title_hr:'AI i Strojno Učenje',
+    desc_en:'Custom AI models, predictive analytics, LLM integrations and intelligent automation built on clean, governed data. AI that actually works, because the data underneath it is solid.',
+    desc_hr:'Prilagođeni AI modeli, prediktivna analitika i LLM integracije izgrađeni na urednim, upravljanim podacima. AI koji stvarno radi.',
+    features_en:['Custom AI model development & fine-tuning','Predictive analytics & forecasting','LLM integration & RAG pipelines','NLP & conversational AI','Computer vision solutions','AI strategy & roadmapping'],
+    features_hr:['Razvoj i fine-tuning AI modela','Prediktivna analitika i prognoziranje','LLM integracija i RAG pipeline-ovi','NLP i konverzacijski AI','Computer vision rješenja','AI strategija i roadmapa'],
+    fragment_en:'AI Models Trained', fragment_hr:'AI Modeli Istrenirani',
+    fragment_icon:'🤖', fragment_stat:'+340% Prediction Accuracy'
   },
   dev: {
-    color:'#10b981', icon:'⚡',
-    tag_en:'03 · APP & WEB DEVELOPMENT', tag_hr:'03 · RAZVOJ APLIKACIJA',
-    title_en:'Web & App Development', title_hr:'Razvoj Weba i Aplikacija',
-    desc_en:'End-to-end development of web applications, mobile apps and digital platforms — from concept to deployment, engineered for performance, scalability and outstanding UX.',
-    desc_hr:'Cjeloviti razvoj web i mobilnih aplikacija — od koncepta do deploya, izgrađeno za performanse i izvrsno korisničko iskustvo.',
-    features_en:['Custom web apps (React, Next.js)','Mobile apps (iOS & Android)','AI-powered SaaS platforms','API design & microservices','E-commerce solutions','UI/UX design'],
-    features_hr:['Web aplikacije (React, Next.js)','Mobilne aplikacije (iOS i Android)','AI SaaS platforme','Dizajn API-ja i mikroservisi','E-commerce rješenja','UI/UX dizajn'],
+    color:'#10b981', icon:'📊',
+    tag_en:'03 · BI & ANALYTICS', tag_hr:'03 · BI I ANALITIKA',
+    title_en:'BI & Analytics', title_hr:'BI i Analitika',
+    desc_en:'Executive dashboards, KPI frameworks and real-time reporting that turn your data into decisions. We build BI systems that your leadership team will actually use, clear, fast, and connected to what matters.',
+    desc_hr:'Dashboardi za upravu, KPI okviri i izvještavanje u realnom vremenu koji pretvaraju podatke u odluke. BI sustavi koje vaše vodstvo zaista koristi.',
+    features_en:['Executive dashboards (PowerBI, QlikSense)','KPI framework design','Real-time data pipelines','Automated reporting systems','Data visualization & storytelling','Performance monitoring & alerts'],
+    features_hr:['Dashboardi za upravu (PowerBI, QlikSense)','Dizajn KPI okvira','Podatkovni pipeline-ovi u realnom vremenu','Automatizirani sustavi izvještavanja','Vizualizacija podataka','Praćenje performansi i upozorenja'],
+    fragment_en:'BI Dashboard Live', fragment_hr:'BI Dashboard Aktivan',
+    fragment_icon:'📊', fragment_stat:'Real-time KPI Tracking'
   },
   it: {
-    color:'#f59e0b', icon:'🔧',
-    tag_en:'04 · IT SOLUTIONS', tag_hr:'04 · IT RJEŠENJA',
-    title_en:'IT Infrastructure & Support', title_hr:'IT Infrastruktura i Podrška',
-    desc_en:'Comprehensive IT solutions for businesses of all sizes — cloud infrastructure setup, digital transformation consulting, CRM implementation and ongoing technical support.',
-    desc_hr:'Sveobuhvatna IT rješenja — cloud infrastruktura, digitalna transformacija, implementacija CRM-a i kontinuirana tehnička podrška.',
-    features_en:['Cloud infrastructure (AWS, GCP, Azure)','IT audit & tech assessment','CRM setup (Salesforce, HubSpot)','Cybersecurity assessment','Digital transformation strategy','Technical project management'],
-    features_hr:['Cloud infrastruktura (AWS, GCP, Azure)','IT revizija i procjena','CRM postavljanje (Salesforce, HubSpot)','Procjena kibernetičke sigurnosti','Digitalna transformacija','Tehničko upravljanje projektima'],
+    color:'#f59e0b', icon:'💰',
+    tag_en:'04 · DATA MONETIZATION', tag_hr:'04 · DATA MONETIZACIJA',
+    title_en:'Data Monetization', title_hr:'Data Monetizacija',
+    desc_en:'We identify untapped revenue streams hidden in your data. From pricing optimization to new product discovery, we have delivered 300-1500% revenue growth by making data work harder than any sales team.',
+    desc_hr:'Identificiramo neiskorištene prihode skrivene u vašim podacima. Od optimizacije cijena do otkrivanja novih proizvoda, isporučili smo 300-1500% rast prihoda.',
+    features_en:['Revenue stream identification','Data product strategy','Pricing optimization models','Monetization roadmap','Telecom data monetization','ROI measurement & tracking'],
+    features_hr:['Identifikacija tokova prihoda','Strategija data proizvoda','Modeli optimizacije cijena','Monetizacijska roadmapa','Monetizacija telekom podataka','Mjerenje i praćenje ROI-a'],
+    fragment_en:'Revenue Unlocked', fragment_hr:'Prihod Otključan',
+    fragment_icon:'💰', fragment_stat:'+1500% Revenue Growth'
   }
 }
 
@@ -335,10 +357,10 @@ const SERVICES = {
 let planets = []
 function initPlanets() {
   planets = [
-    { key:'ai',         color:'#00e5ff', glow:'rgba(0,229,255,0.15)',  r:55, angle:0,    orbitR:0,   x:0, y:0, label:'AI Intelligence',  completed:false, hasRing:false, cloudColor:'rgba(0,180,200,0.08)' },
-    { key:'consulting', color:'#a855f7', glow:'rgba(168,85,247,0.15)', r:46, angle:0,    orbitR:0,   x:0, y:0, label:'Data Consulting',   completed:false, hasRing:true,  cloudColor:'rgba(150,60,220,0.08)' },
-    { key:'dev',        color:'#10b981', glow:'rgba(16,185,129,0.15)', r:42, angle:0,    orbitR:0,   x:0, y:0, label:'App & Web Dev',     completed:false, hasRing:false, cloudColor:'rgba(10,150,100,0.08)' },
-    { key:'it',         color:'#f59e0b', glow:'rgba(245,158,11,0.15)', r:62, angle:0,    orbitR:0,   x:0, y:0, label:'IT Solutions',      completed:false, hasRing:true,  cloudColor:'rgba(200,130,0,0.08)'  },
+    { key:'ai',         color:'#00e5ff', glow:'rgba(0,229,255,0.15)',  r:55, angle:0,    orbitR:0,   x:0, y:0, label:'Data Strategy',     completed:false, hasRing:false, cloudColor:'rgba(0,180,200,0.08)' },
+    { key:'consulting', color:'#a855f7', glow:'rgba(168,85,247,0.15)', r:46, angle:0,    orbitR:0,   x:0, y:0, label:'AI & ML',           completed:false, hasRing:true,  cloudColor:'rgba(150,60,220,0.08)' },
+    { key:'dev',        color:'#10b981', glow:'rgba(16,185,129,0.15)', r:42, angle:0,    orbitR:0,   x:0, y:0, label:'BI & Analytics',    completed:false, hasRing:false, cloudColor:'rgba(10,150,100,0.08)' },
+    { key:'it',         color:'#f59e0b', glow:'rgba(245,158,11,0.15)', r:62, angle:0,    orbitR:0,   x:0, y:0, label:'Data Monetization', completed:false, hasRing:true,  cloudColor:'rgba(200,130,0,0.08)'  },
   ]
 }
 function positionPlanets() {
@@ -837,7 +859,8 @@ function update() {
     combatActive = false
     const p = planets.find(pl => pl.key === activePlanetKey)
     if(p) { p.completed = true; updatePlanetDots() }
-    showAlert(lang==='en'?'PLANET CLEARED!':'PLANET OSLOBOĐEN!', '#00e5ff')
+    addDataFragment(activePlanetKey)
+    showAlert(lang==='en'?'DATA COLLECTED!':'DATA PRIKUPLJENA!', '#00e5ff')
     setTimeout(() => { openModal(activePlanetKey) }, 1200)
   }
 
@@ -1066,12 +1089,89 @@ function toggleLang() {
   document.getElementById('lang-btn').textContent = lang==='en'?'HR':'EN'
 }
 
+// DATA FRAGMENTS
+const dataFragments = []
+
+function addDataFragment(key) {
+  const s = SERVICES[key]
+  const panel = document.getElementById('data-panel')
+  panel.style.display = 'flex'
+  panel.classList.add('visible')
+  const frag = document.createElement('div')
+  frag.className = 'data-fragment'
+  frag.style.borderColor = s.color + '40'
+  const label = lang==='en' ? s.fragment_en : s.fragment_hr
+  const barColor = s.color
+  frag.innerHTML = '<div class="df-icon">'+s.fragment_icon+'</div><div class="df-label">'+label+'</div><div class="df-stat">'+s.fragment_stat+'</div><div class="df-bar"><div class="df-bar-fill" style="background:'+barColor+';width:0%" id="dfbar-'+key+'"></div></div>' 
+  panel.appendChild(frag)
+  dataFragments.push(key)
+  setTimeout(() => {
+    const bar = document.getElementById('dfbar-' + key)
+    if(bar) bar.style.width = '100%'
+  }, 400)
+}
+
 function updateVictory() {
-  document.getElementById('v-title').textContent = lang==='en'?'Universe Conquered!':'Svemir Osvojen!'
-  document.getElementById('v-sub').innerHTML = lang==='en'
-    ? "You've explored all Dom Analytics services.<br>Ready to build something extraordinary?"
-    : 'Istražili ste sve Dom Analytics usluge.<br>Spremi za izgradnju nečeg izvanrednog?'
-  document.getElementById('v-btn').textContent = lang==='en'?'Contact Dom Analytics →':'Kontaktirajte Dom Analytics →'
+  document.getElementById('v-title').textContent = lang==='en' ? 'Data Report: Complete' : 'Data Report: Završen'
+  document.getElementById('v-sub').textContent = lang==='en'
+    ? 'All data domains explored. Your business intelligence dashboard is ready.'
+    : 'Svi data domeni istraženi. Vaš BI dashboard je spreman.'
+  document.getElementById('v-btn').textContent = lang==='en' ? 'Start Your Data Journey →' : 'Pokrenite Data Putovanje →'
+
+  // Draw victory chart
+  setTimeout(() => {
+    const canvas = document.getElementById('victory-chart')
+    if(!canvas) return
+    const ctx2 = canvas.getContext('2d')
+    const w = canvas.width, h = canvas.height
+    ctx2.clearRect(0,0,w,h)
+    // Grid lines
+    ctx2.strokeStyle = 'rgba(0,229,255,0.08)'; ctx2.lineWidth = 1
+    for(let i=0;i<5;i++) { const y=h*0.1+i*(h*0.8/4); ctx2.beginPath(); ctx2.moveTo(20,y); ctx2.lineTo(w-10,y); ctx2.stroke() }
+    // Data line - revenue growth story
+    const points = [{x:0.05,y:0.85},{x:0.2,y:0.75},{x:0.35,y:0.55},{x:0.5,y:0.4},{x:0.65,y:0.22},{x:0.8,y:0.12},{x:0.95,y:0.05}]
+    const labels = ['Q1','Q2','Q3','Q4','Q5','Q6','Q7']
+    // Fill
+    ctx2.beginPath()
+    ctx2.moveTo(20,h*0.9)
+    points.forEach(p => ctx2.lineTo(20+p.x*(w-30), h*0.1+p.y*(h*0.8)))
+    ctx2.lineTo(w-10,h*0.9); ctx2.closePath()
+    const grad = ctx2.createLinearGradient(0,0,0,h)
+    grad.addColorStop(0,'rgba(0,229,255,0.2)'); grad.addColorStop(1,'rgba(0,229,255,0)')
+    ctx2.fillStyle = grad; ctx2.fill()
+    // Line
+    ctx2.beginPath()
+    points.forEach((p,i) => {
+      const px=20+p.x*(w-30), py=h*0.1+p.y*(h*0.8)
+      i===0 ? ctx2.moveTo(px,py) : ctx2.lineTo(px,py)
+    })
+    ctx2.strokeStyle='#00e5ff'; ctx2.lineWidth=2.5; ctx2.stroke()
+    // Dots + labels
+    points.forEach((p,i) => {
+      const px=20+p.x*(w-30), py=h*0.1+p.y*(h*0.8)
+      ctx2.beginPath(); ctx2.arc(px,py,3.5,0,Math.PI*2)
+      ctx2.fillStyle='#00e5ff'; ctx2.fill()
+      ctx2.fillStyle='rgba(0,229,255,0.6)'; ctx2.font='9px Space Mono,monospace'
+      ctx2.fillText(labels[i],px-6,h-4)
+    })
+  }, 300)
+
+  // Pipeline steps
+  const steps = [
+    {label:'Raw Data', color:'#00e5ff'},
+    {label:'Cleansed', color:'#00e5ff'},
+    {label:'Governed', color:'#a855f7'},
+    {label:'AI Ready', color:'#a855f7'},
+    {label:'Analyzed', color:'#10b981'},
+    {label:'Monetized', color:'#f59e0b'},
+  ]
+  const pipelineEl = document.getElementById('pipeline-steps')
+  if(pipelineEl) {
+    pipelineEl.innerHTML = steps.map(function(s,i){
+      var arrow = i<steps.length-1 ? '<div style="color:#2a4060;font-size:0.8rem">→</div>' : '<div style="color:#10b981;font-size:0.8rem">✓</div>'
+      return '<div style="display:flex;align-items:center;gap:8px"><div style="background:'+s.color+'18;border:1px solid '+s.color+'40;border-radius:6px;padding:4px 10px;font-family:Space Mono,monospace;font-size:0.6rem;color:'+s.color+';letter-spacing:0.1em">'+s.label+'</div>'+arrow+'</div>'
+    }).join('')
+  }
 }
 
 // Planet click

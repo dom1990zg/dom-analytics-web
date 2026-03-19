@@ -7,12 +7,14 @@ import MatrixGame from './matrix-game';
 const translations = {
   en: {
     nav: { services: 'Services', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' },
-    hero: { tagline: 'INNOVATE. ANALYZE. SUCCEED.', headline: 'We build intelligent solutions that transform your business', sub: 'AI-powered consulting, analytics & custom software development', cta: 'Start a project', scroll: 'Scroll to explore' },
+    hero: { tagline: 'DATA. STRATEGY. RESULTS.', headline: 'We turn your data into your biggest competitive advantage', sub: 'Fractional CDO services, data strategy, AI implementation & BI analytics', cta: 'Start a project', scroll: 'Scroll to explore' },
     services: { label: 'WHAT WE DO', title: 'Services', items: [
-      { num: '01', title: 'AI & Machine Learning', desc: 'Custom AI models, predictive analytics, NLP solutions, and intelligent automation that give your business a competitive edge.', tags: ['LLM Integration', 'Predictive Models', 'Computer Vision', 'NLP'] },
-      { num: '02', title: 'Data Analytics & BI', desc: 'Transform raw data into actionable insights. Dashboard design, KPI tracking, and strategic reporting for data-driven decisions.', tags: ['Dashboards', 'Data Pipelines', 'KPI Tracking', 'Reporting'] },
-      { num: '03', title: 'Web & App Development', desc: 'Modern, scalable web applications and mobile solutions built with cutting-edge frameworks and cloud-native architecture.', tags: ['React / Next.js', 'Mobile Apps', 'Cloud Native', 'API Design'] },
-      { num: '04', title: 'IT Consulting', desc: 'Strategic technology advisory, digital transformation roadmaps, and telecom optimization backed by 15+ years of industry expertise.', tags: ['Digital Strategy', 'Telecom', 'Architecture', 'Optimization'] },
+      { num: '01', title: 'Fractional CDO', desc: 'C-level data leadership on demand. We embed as your Chief Data Officer, defining data vision, building governance frameworks, aligning your data strategy with business outcomes. No full-time hire needed.', tags: ['Data Vision', 'CDO as a Service', 'Data Governance', 'Executive Advisory'] },
+      { num: '02', title: 'Data Strategy & Enablement', desc: 'We audit your data landscape, eliminate silos, and build the infrastructure that makes data a true business asset. From raw data to decisions, we enable your team to extract maximum value at every step.', tags: ['Data Audit', 'Data Architecture', 'Data Enablement', 'ROI Optimization'] },
+      { num: '03', title: 'AI & Machine Learning', desc: 'Custom AI models, predictive analytics, LLM integrations and intelligent automation built on clean, governed data. AI that actually works, because the data underneath it is solid.', tags: ['LLM Integration', 'Predictive Models', 'NLP', 'Automation'] },
+      { num: '04', title: 'BI & Analytics', desc: 'Executive dashboards, KPI frameworks and real-time reporting that turn your data into decisions. We build BI systems that your leadership team will actually use, clear, fast, and connected to what matters.', tags: ['PowerBI', 'QlikSense', 'KPI Frameworks', 'Data Pipelines'] },
+      { num: '05', title: 'Data Monetization', desc: 'We identify untapped revenue streams hidden in your data. From pricing optimization to new product discovery, we have delivered 300–1500% revenue growth by making data work harder than any sales team.', tags: ['Revenue Growth', 'Data Products', 'Pricing Strategy', 'Monetization'] },
+      { num: '06', title: 'Web & App Development', desc: 'Data-powered web applications and digital platforms built to scale. We build the interfaces that bring your data to life, from internal tools to customer-facing products.', tags: ['React / Next.js', 'Mobile Apps', 'Data Dashboards', 'API Design'] },
     ]},
     process: { label: 'HOW WE WORK', title: 'Our Process', sub: 'A proven methodology that turns complex challenges into measurable results.', steps: [
       { title: 'Discovery', desc: 'We deep-dive into your business, data landscape, and goals. Through stakeholder interviews and technical audits, we identify opportunities and define the project scope.', icon: '🔍' },
@@ -22,23 +24,25 @@ const translations = {
       { title: 'Evolve', desc: 'Post-launch monitoring, optimization, and ongoing support. We track performance metrics and continuously improve your solution as your business grows.', icon: '📈' },
     ]},
     why: { label: 'WHY DOM ANALYTICS', title: 'What\'s in it for you', items: [
-      { icon: '🧠', title: '15+ Years of Data Expertise', desc: 'Over 15 years of hands-on experience delivering data-driven growth across 40+ countries, with deep specialization in the telecommunications industry and enterprise analytics.' },
-      { icon: '🤖', title: 'AI-First Approach', desc: 'Every solution we build leverages AI and machine learning. We don\'t just consult, we build intelligent systems that automate, predict, and optimize your operations at scale.' },
-      { icon: '📊', title: 'Proven Revenue Impact', desc: 'Our track record includes 300% revenue growth on telecom monetization projects and 1500% revenue increase on network optimization initiatives across the APAC region.' },
-      { icon: '🤝', title: 'End-to-End Partnership', desc: 'From strategy to deployment and beyond. One team, full accountability. No handoffs, no finger-pointing, just results delivered on time and within budget.' },
+      { icon: '🧠', title: 'Data Leadership Experience', desc: 'Over 15 years of hands-on data leadership across 40+ countries. We have sat in the CDO seat, built BI departments from scratch and turned data chaos into strategic clarity for enterprise clients.' },
+      { icon: '📊', title: 'Data Enablement First', desc: 'We don\'t just analyze, we enable. We clean, structure, govern and activate your data so every team in your organization can make faster, smarter decisions every single day.' },
+      { icon: '💰', title: 'Proven Revenue Impact', desc: 'Our data monetization work delivered 300% revenue growth on a telecom network in MENA and 1500% revenue increase on a network optimization initiative in APAC. Data done right pays for itself.' },
+      { icon: '🤖', title: 'AI Built on Solid Data', desc: 'AI is only as good as the data underneath it. We build the data foundation first: governance, pipelines, quality, then layer AI and ML on top for results that actually last.' },
     ]},
     tech: { label: 'OUR STACK', title: 'Technologies', sub: 'We leverage best-in-class tools and frameworks to deliver robust, scalable solutions.' },
     contact: { label: 'GET IN TOUCH', title: 'Let\'s build\nsomething great', sub: 'Ready to transform your business with AI and data? Let\'s talk.', name: 'Your name', email: 'Email address', message: 'Tell us about your project', send: 'Send message', sending: 'Sending...', sent: 'Message sent!', error: 'Failed to send. Try again.', info: 'Or reach us directly' },
-    footer: { desc: 'AI-powered consulting, data analytics, and custom software development. Building intelligent solutions since 2023.', nav: 'Navigation', home: 'Home', servicesLink: 'Services', techLink: 'Technologies', aboutLink: 'About', projectsLink: 'Projects', connect: 'Connect', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privacy', terms: 'Terms' },
+    footer: { desc: 'Fractional CDO services, data strategy, AI implementation and BI. Turning data into competitive advantage since 2023.', nav: 'Navigation', home: 'Home', servicesLink: 'Services', techLink: 'Technologies', aboutLink: 'About', projectsLink: 'Projects', connect: 'Connect', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privacy', terms: 'Terms' },
   },
   hr: {
     nav: { services: 'Usluge', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
-    hero: { tagline: 'INOVIRAJ. ANALIZIRAJ. USPIJ.', headline: 'Gradimo inteligentna rje\u0161enja koja transformiraju poslovanje', sub: 'AI konzalting, analitika i razvoj prilago\u0111enog softvera', cta: 'Zapo\u010dni projekt', scroll: 'Skrolaj za vi\u0161e' },
+    hero: { tagline: 'DATA. STRATEGIJA. REZULTATI.', headline: 'Pretvaramo va\u0161e podatke u najve\u0107u konkurentsku prednost', sub: 'Fractional CDO usluge, data strategija, AI implementacija i BI analitika', cta: 'Zapo\u010dni projekt', scroll: 'Skrolaj za vi\u0161e' },
     services: { label: '\u0160TO RADIMO', title: 'Usluge', items: [
-      { num: '01', title: 'AI i strojno u\u010denje', desc: 'Prilago\u0111eni AI modeli, prediktivna analitika, NLP rje\u0161enja i inteligentna automatizacija za konkurentsku prednost.', tags: ['LLM Integracija', 'Prediktivni modeli', 'Ra\u010dunalni vid', 'NLP'] },
-      { num: '02', title: 'Analitika podataka i BI', desc: 'Pretvaramo sirove podatke u konkretne uvide. Dizajn dashboarda, pra\u0107enje KPI-eva i strate\u0161ko izvje\u0161tavanje.', tags: ['Dashboardi', 'Data Pipelines', 'KPI pra\u0107enje', 'Izvje\u0161taji'] },
-      { num: '03', title: 'Web i App razvoj', desc: 'Moderne, skalabilne web aplikacije i mobilna rje\u0161enja izgra\u0111ena s najnovijim frameworcima i cloud arhitekturom.', tags: ['React / Next.js', 'Mobilne aplikacije', 'Cloud Native', 'API dizajn'] },
-      { num: '04', title: 'IT konzalting', desc: 'Strate\u0161ko tehnolo\u0161ko savjetovanje, planovi digitalne transformacije i optimizacija telekoma s 15+ godina iskustva.', tags: ['Digitalna strategija', 'Telekom', 'Arhitektura', 'Optimizacija'] },
+      { num: '01', title: 'Fractional CDO', desc: 'C-level data leadership na zahtjev. Postajemo va\u0161 Chief Data Officer, definiramo data viziju, gradimo governance okvire i uskla\u0111ujemo data strategiju s poslovnim ciljevima. Bez punog zaposlenja.', tags: ['Data vizija', 'CDO kao usluga', 'Data Governance', 'Savjetovanje'] },
+      { num: '02', title: 'Data strategija i enablement', desc: 'Auditiramo va\u0161u podatkovnu infrastrukturu, eliminiramo silose i gradimo temelje koji od podataka \u010dine pravi poslovni resurs. Od sirove date do odluka, pomažemo va\u0161em timu da izvuče maksimum.', tags: ['Data audit', 'Arhitektura podataka', 'Data enablement', 'ROI optimizacija'] },
+      { num: '03', title: 'AI i strojno u\u010denje', desc: 'Prilagođeni AI modeli, prediktivna analitika, LLM integracije i inteligentna automatizacija izgra\u0111eni na urednim, upravljanim podacima. AI koji stvarno radi, jer su podaci ispod njega solidni.', tags: ['LLM integracija', 'Prediktivni modeli', 'NLP', 'Automatizacija'] },
+      { num: '04', title: 'BI i analitika', desc: 'Dashboardi za upravu, KPI okviri i izvje\u0161tavanje u realnom vremenu koji pretvaraju podatke u odluke. Gradimo BI sustave koje va\u0161e vodstvo zaista koristi, jasne, brze i povezane s onim \u0161to je va\u017eno.', tags: ['PowerBI', 'QlikSense', 'KPI okviri', 'Data Pipelines'] },
+      { num: '05', title: 'Data monetizacija', desc: 'Identificiramo neizkori\u0161tene prihode skrivene u va\u0161im podacima. Od optimizacije cijena do otkrivanja novih proizvoda, isporučili smo 300–1500% rast prihoda čineći podatke vrjednijima od bilo kojeg prodajnog tima.', tags: ['Rast prihoda', 'Data proizvodi', 'Strategija cijena', 'Monetizacija'] },
+      { num: '06', title: 'Web i App razvoj', desc: 'Data-pokretane web aplikacije i digitalne platforme izgrađene za skaliranje. Gradimo su\u010delja koja va\u0161e podatke o\u017eivljavaju, od internih alata do proizvoda okrenutih klijentima.', tags: ['React / Next.js', 'Mobilne aplikacije', 'Data dashboardi', 'API dizajn'] },
     ]},
     process: { label: 'KAKO RADIMO', title: 'Na\u0161 proces', sub: 'Dokazana metodologija koja pretvara slo\u017eene izazove u mjerljive rezultate.', steps: [
       { title: 'Otkrivanje', desc: 'Dubinski analiziramo va\u0161e poslovanje, podatkovnu infrastrukturu i ciljeve. Kroz intervjue i tehni\u010dke revizije identificiramo prilike i definiramo opseg projekta.', icon: '🔍' },
@@ -48,10 +52,10 @@ const translations = {
       { title: 'Evolucija', desc: 'Pra\u0107enje nakon lansiranja, optimizacija i kontinuirana podr\u0161ka. Pratimo metrike performansi i neprestano pobolj\u0161avamo rje\u0161enje.', icon: '📈' },
     ]},
     why: { label: 'ZA\u0160TO DOM ANALYTICS', title: '\u0160to dobivate s nama', items: [
-      { icon: '🧠', title: '15+ godina ekspertize', desc: 'Vi\u0161e od 15 godina prakti\u010dnog iskustva u isporuci rasta temeljenog na podacima u 40+ zemalja, s dubokom specijalizacijom u telekomunikacijskoj industriji i enterprise analitici.' },
-      { icon: '🤖', title: 'AI-first pristup', desc: 'Svako rje\u0161enje koje gradimo koristi AI i strojno u\u010denje. Ne samo konzultiramo, gradimo inteligentne sustave koji automatiziraju, predvi\u0111aju i optimiziraju va\u0161e operacije.' },
-      { icon: '📊', title: 'Dokazan utjecaj na prihod', desc: 'Na\u0161i rezultati uklju\u010duju 300% rast prihoda na projektima monetizacije u telekomu i 1500% rast prihoda na inicijativama optimizacije mre\u017ee u APAC regiji.' },
-      { icon: '🤝', title: 'Partnerstvo od po\u010detka do kraja', desc: 'Od strategije do implementacije i dalje. Jedan tim, puna odgovornost. Bez prebacivanja, samo rezultati isporu\u010deni na vrijeme i unutar bud\u017eeta.' },
+      { icon: '🧠', title: 'Data leadership iskustvo', desc: 'Vi\u0161e od 15 godina prakti\u010dnog data leadershipа u 40+ zemalja. Sjedili smo na CDO poziciji, gradili BI odjele od nule i pretvarali podatkovni kaos u strate\u0161ku jasno\u0107u za enterprise klijente.' },
+      { icon: '📊', title: 'Data enablement na prvom mjestu', desc: 'Ne samo analiziramo, enable-iramo. \u010cistimo, strukturiramo, upravljamo i aktiviramo va\u0161e podatke kako bi svaki tim u organizaciji mogao donositi br\u017ee i pametnije odluke svaki dan.' },
+      { icon: '💰', title: 'Dokazan utjecaj na prihod', desc: 'Na\u0161 data monetizacijski rad donio je 300% rast prihoda na telekom mre\u017ei u MENA regiji i 1500% rast na optimizacijskoj inicijativi u APAC regiji. Podaci dobro iskori\u0161teni vra\u0107aju sami sebe.' },
+      { icon: '🤖', title: 'AI izgra\u0111en na solidnoj dati', desc: 'AI je samo toliko dobar koliko su dobri podaci ispod njega. Prvo gradimo temelje, governance, pipeline, kvalitetu, pa tek onda slojemo AI i ML za rezultate koji stvarno traju.' },
     ]},
     tech: { label: 'NA\u0160 STACK', title: 'Tehnologije', sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rje\u0161enja.' },
     contact: { label: 'KONTAKTIRAJTE NAS', title: 'Izgradimo ne\u0161to\nveliko zajedno', sub: 'Spremni za transformaciju poslovanja s AI-em i podacima? Razgovarajmo.', name: 'Va\u0161e ime', email: 'Email adresa', message: 'Opi\u0161ite nam svoj projekt', send: 'Po\u0161alji poruku', sending: '\u0160aljem...', sent: 'Poruka poslana!', error: 'Slanje neuspjelo. Poku\u0161ajte ponovo.', info: 'Ili nas kontaktirajte direktno' },
@@ -325,6 +329,41 @@ export default function Home() {
  
       <div className="section-divider" />
  
+      <div className="section-divider" />
+
+      {/* ─── CASE STUDIES ─── */}
+      <section id="results" className="section">
+        <LineReveal><p className="section-label">{lang === 'hr' ? 'DOKAZANI REZULTATI' : 'PROVEN RESULTS'}</p></LineReveal>
+        <h2 className="section-title"><SplitText>{lang === 'hr' ? 'Što data može napraviti' : 'What data can do'}</SplitText></h2>
+        <LineReveal delay={0.2}><p className="section-sub">{lang === 'hr' ? 'Ovi rezultati nisu teorija. Svaki broj je rezultat stvarnog data enablement rada: čišćenja, arhitekture, strategije i prave monetizacije podataka.' : 'These numbers are not theory. Every figure is the result of real data enablement work: cleaning, architecture, strategy and true data monetization.'}</p></LineReveal>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginTop: '48px' }}>
+          <div style={{ background: 'rgba(0,229,255,0.04)', border: '1px solid rgba(0,229,255,0.15)', borderRadius: '12px', padding: '36px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, transparent, #00e5ff, transparent)' }} />
+            <p style={{ fontSize: '0.6rem', letterSpacing: '0.2em', color: '#00e5ff', marginBottom: '16px', fontFamily: 'monospace' }}>APAC REGION · TELECOMMUNICATIONS</p>
+            <div style={{ fontSize: '3.5rem', fontWeight: 800, color: '#00e5ff', lineHeight: 1, marginBottom: '8px' }}>1500%</div>
+            <p style={{ fontSize: '0.85rem', color: 'rgba(200,220,240,0.9)', fontWeight: 600, marginBottom: '12px' }}>{lang === 'hr' ? 'Rast prihoda' : 'Revenue increase'}</p>
+            <p style={{ fontSize: '0.8rem', color: '#4a6080', lineHeight: 1.7 }}>{lang === 'hr' ? 'Identificirali smo neiskorištene tokove podataka unutar telekomunikacijske mreže u APAC regiji. Kroz data enablement, čišćenje i novu monetizacijsku strategiju transformirali smo podatke u prihodni stroj i isporučili 1500% rast prihoda i 1150% rast bruto dobiti.' : 'We identified untapped data streams within a telecommunications network in the APAC region. Through data enablement, cleansing and a new monetization strategy we turned raw data into a revenue engine, delivering 1500% revenue growth and 1150% gross profit increase.'}</p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px' }}>
+              {['Data Enablement', 'Monetization Strategy', 'Network Analytics', 'BI Architecture'].map(tag => (
+                <span key={tag} style={{ fontSize: '0.6rem', letterSpacing: '0.08em', color: '#00e5ff', border: '1px solid rgba(0,229,255,0.2)', padding: '3px 10px', borderRadius: '100px' }}>{tag}</span>
+              ))}
+            </div>
+          </div>
+          <div style={{ background: 'rgba(0,229,255,0.04)', border: '1px solid rgba(0,229,255,0.15)', borderRadius: '12px', padding: '36px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, transparent, #00e5ff, transparent)' }} />
+            <p style={{ fontSize: '0.6rem', letterSpacing: '0.2em', color: '#00e5ff', marginBottom: '16px', fontFamily: 'monospace' }}>MENA REGION · TELECOMMUNICATIONS</p>
+            <div style={{ fontSize: '3.5rem', fontWeight: 800, color: '#00e5ff', lineHeight: 1, marginBottom: '8px' }}>400%</div>
+            <p style={{ fontSize: '0.85rem', color: 'rgba(200,220,240,0.9)', fontWeight: 600, marginBottom: '12px' }}>{lang === 'hr' ? 'Rast prihoda' : 'Revenue increase'}</p>
+            <p style={{ fontSize: '0.8rem', color: '#4a6080', lineHeight: 1.7 }}>{lang === 'hr' ? 'Proveli smo sveobuhvatni data audit telekomunikacijske mreže u MENA regiji, otkrili skrivene tokove prihoda, restrukturirali podatkovnu arhitekturu i implementirali novu strategiju monetizacije. Rezultat: 400% rast prihoda i 250% rast bruto dobiti.' : 'We conducted a comprehensive data audit of a telecommunications network in the MENA region, uncovering hidden revenue streams, restructuring the data architecture and implementing a new monetization strategy. Result: 400% revenue growth and 250% gross profit increase.'}</p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px' }}>
+              {['Data Audit', 'Revenue Strategy', 'Data Architecture', 'Monetization'].map(tag => (
+                <span key={tag} style={{ fontSize: '0.6rem', letterSpacing: '0.08em', color: '#00e5ff', border: '1px solid rgba(0,229,255,0.2)', padding: '3px 10px', borderRadius: '100px' }}>{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── TECHNOLOGIES ─── */}
       <section id="tech" className="section" ref={techRef}>
         <LineReveal><p className="section-label">{t.tech.label}</p></LineReveal>
