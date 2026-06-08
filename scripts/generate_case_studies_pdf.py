@@ -324,7 +324,7 @@ APAC = {
     "subtitle": "Telecom Network Data Monetization",
     "headline_metric": "+1,500% revenue  ·  +1,150% gross profit",
     "kpis": [("+1,500%", "REVENUE GROWTH"), ("+1,150%", "GROSS PROFIT GROWTH"),
-             ("Realtime", "BI VISIBILITY"), ("0 to 1", "MONETIZATION STRATEGY")],
+             ("Real-time", "BI & REPORTING LAYER"), ("Unified", "GOVERNED DATA MODEL")],
     "what": "A major telecommunications network was sitting on enormous amounts of traffic and routing "
             "data but had no visibility into how it could drive revenue. Reporting was siloed, data "
             "quality was poor and there was no monetization strategy, so revenue stayed flat despite high "
@@ -350,7 +350,7 @@ MENA = {
     "subtitle": "Telecom Revenue & Data Architecture Overhaul",
     "headline_metric": "+400% revenue  ·  +250% gross profit",
     "kpis": [("+400%", "REVENUE GROWTH"), ("+250%", "GROSS PROFIT GROWTH"),
-             ("0", "REPORTING SILOS"), ("1", "UNIFIED DATA MODEL")],
+             ("Zero", "REPORTING SILOS"), ("Unified", "GOVERNED DATA MODEL")],
     "what": "A telecommunications network had significant revenue potential locked inside fragmented, "
             "ungoverned data. Multiple systems produced inconsistent reports, making it impossible to "
             "see where revenue was being lost or where new opportunities existed, so the business was "
