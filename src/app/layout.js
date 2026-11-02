@@ -3,15 +3,15 @@ import Script from 'next/script';
 
 export const metadata = {
   metadataBase: new URL('https://domanalytics.com'),
-  title: { default: 'Dom Analytics | AI Consulting & Software Development', template: '%s | Dom Analytics' },
-  description: 'AI-powered consulting, data analytics, and custom software development. We build intelligent solutions that transform your business. Based in Croatia, serving clients globally.',
-  keywords: ['AI consulting', 'machine learning', 'data analytics', 'web development', 'app development', 'IT consulting', 'business intelligence', 'digital transformation', 'Croatia', 'telecom optimization', 'predictive analytics', 'NLP', 'LLM integration'],
+  title: { default: 'Dom Analytics | Data & Telecom Advisory', template: '%s | Dom Analytics' },
+  description: 'Fractional CDO, BI and A2P SMS monetization advisory for telecom and enterprise. Operator partnerships, A2P pricing, RFP support. Based in Croatia, working globally.',
+  keywords: ['AI consulting', 'machine learning', 'data analytics', 'web development', 'app development', 'IT consulting', 'business intelligence', 'digital transformation', 'Croatia', 'telecom optimization', 'predictive analytics', 'NLP', 'LLM integration', 'A2P SMS Monetization', 'Telecom Commercial Strategy', 'Mobile Operator Partnerships'],
   authors: [{ name: 'Dom Analytics', url: 'https://domanalytics.com' }],
   creator: 'Dom Analytics',
   publisher: 'Dom Analytics',
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
-  openGraph: { type: 'website', locale: 'en_US', alternateLocale: 'hr_HR', url: 'https://domanalytics.com', siteName: 'Dom Analytics', title: 'Dom Analytics | AI Consulting & Software Development', description: 'We build intelligent solutions that transform your business. AI-powered consulting, analytics & custom software development.', images: [{ url: '/logo.png', width: 1200, height: 630, alt: 'Dom Analytics - Innovate. Analyze. Succeed.' }] },
-  twitter: { card: 'summary_large_image', title: 'Dom Analytics | AI Consulting & Software Development', description: 'We build intelligent solutions that transform your business.', images: ['/logo.png'] },
+  openGraph: { type: 'website', locale: 'en_US', alternateLocale: 'hr_HR', url: 'https://domanalytics.com', siteName: 'Dom Analytics', title: 'Dom Analytics | Data & Telecom Advisory', description: 'Fractional CDO, BI and A2P SMS monetization advisory for telecom and enterprise. Operator partnerships, A2P pricing, RFP support. Based in Croatia, working globally.', images: [{ url: '/logo.png', width: 1200, height: 630, alt: 'Dom Analytics - Innovate. Analyze. Succeed.' }] },
+  twitter: { card: 'summary_large_image', title: 'Dom Analytics | Data & Telecom Advisory', description: 'Fractional CDO, BI and A2P SMS monetization advisory for telecom and enterprise.', images: ['/logo.png'] },
   alternates: { canonical: 'https://domanalytics.com' },
 };
 
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
     contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'info@domanalytics.com' },
     sameAs: ['https://www.linkedin.com/company/dom-analytics'], foundingDate: '2023',
     founder: { '@type': 'Person', name: 'Domagoj Krušić' },
-    knowsAbout: ['Artificial Intelligence', 'Machine Learning', 'Data Analytics', 'Business Intelligence', 'Web Development', 'IT Consulting'],
+    knowsAbout: ['Artificial Intelligence', 'Machine Learning', 'Data Analytics', 'Business Intelligence', 'Web Development', 'IT Consulting', 'A2P SMS Monetization', 'Telecom Commercial Strategy', 'Mobile Operator Partnerships'],
   };
 
   return (
