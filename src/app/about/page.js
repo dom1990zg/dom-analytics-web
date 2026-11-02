@@ -37,12 +37,12 @@ const content = {
     hero: { label: 'ABOUT US', title: 'We turn data into the engine behind business growth', sub: 'Dom Analytics is a data-first consulting firm. We clean, govern, analyze and monetize data for organizations that want to stop guessing and start winning.' },
     mission: { label: 'OUR MISSION', title: 'Data enablement is not a project. It is a competitive advantage.', text: 'Most businesses are sitting on enormous amounts of data they cannot fully use. It is siloed, inconsistent, ungoverned and untapped. Our mission is to change that. We go into the data layer, <em>clean what needs cleaning</em>, structure what is broken, build the pipelines that make data flow, and then turn that foundation into <em>dashboards, AI models and revenue strategies</em> that actually move the needle. We do not just consult. We enable.' },
     values: { label: 'HOW WE WORK', title: 'The Dom Analytics approach', items: [
-      { icon: '\ud83d\udd0d', title: 'Audit First', desc: 'Before touching anything, we map the full data landscape. We identify what exists, what is broken, where the gaps are and what the quick wins look like.' },
-      { icon: '\ud83e\uddf9', title: 'Clean and Govern', desc: 'We build the pipelines that clean, deduplicate and standardize your data. Without a clean foundation, analytics and AI produce noise, not signal.' },
-      { icon: '\ud83d\udcca', title: 'Build the BI Layer', desc: 'Once the data is solid, we build the reporting layer. Executive dashboards, KPI frameworks, real-time monitoring. Information your leadership team can actually trust and use.' },
-      { icon: '\ud83e\udd16', title: 'Layer AI on Top', desc: 'With clean, governed data in place, AI and machine learning deliver real results. Predictive models, LLM integrations and intelligent automation that are built to last.' },
-      { icon: '\ud83d\udcb0', title: 'Monetize the Asset', desc: 'Data is a business asset. We identify untapped revenue streams, build pricing models and design monetization strategies that turn your data into measurable ROI.' },
-      { icon: '\ud83c\udf0d', title: 'Global Delivery', desc: 'We have delivered data programs across 40 countries, in telecom, enterprise and technology sectors. We know how to operate in complex, multi-market environments.' },
+      { title: 'Audit First', desc: 'Before touching anything, we map the full data landscape. We identify what exists, what is broken, where the gaps are and what the quick wins look like.' },
+      { title: 'Clean and Govern', desc: 'We build the pipelines that clean, deduplicate and standardize your data. Without a clean foundation, analytics and AI produce noise, not signal.' },
+      { title: 'Build the BI Layer', desc: 'Once the data is solid, we build the reporting layer. Executive dashboards, KPI frameworks, real-time monitoring. Information your leadership team can actually trust and use.' },
+      { title: 'Layer AI on Top', desc: 'With clean, governed data in place, AI and machine learning deliver real results. Predictive models, LLM integrations and intelligent automation that are built to last.' },
+      { title: 'Monetize the Asset', desc: 'Data is a business asset. We identify untapped revenue streams, build pricing models and design monetization strategies that turn your data into measurable ROI.' },
+      { title: 'Global Delivery', desc: 'We have delivered data programs across 40 countries, in telecom, enterprise and technology sectors. We know how to operate in complex, multi-market environments.' },
     ]},
     numbers: { label: 'PROVEN RESULTS', title: 'What the data says about us', items: [
       { value: '15', suffix: '+', label: 'Years of hands-on data and telecom experience' },
@@ -58,12 +58,12 @@ const content = {
     hero: { label: 'O NAMA', title: 'Pretvaramo podatke u pokreta\u010d poslovnog rasta', sub: 'Dom Analytics je data-first konzultantska tvrtka. \u010cistimo, upravljamo, analiziramo i monetiziramo podatke za organizacije koje \u017eele prestati pogadati i po\u010deti pobje\u0111ivati.' },
     mission: { label: 'NA\u0160A MISIJA', title: 'Data enablement nije projekt. To je konkurentska prednost.', text: 'Ve\u0107ina tvrtki sjedi na ogromnim koli\u010dinama podataka koje ne mo\u017ee u potpunosti koristiti. Silosi su, nekonzistentni, neupravljani i neizkori\u0161teni. Na\u0161a misija je to promijeniti. Ulazimo u podatkovni sloj, <em>\u010distimo ono \u0161to treba \u010distiti</em>, strukturiramo ono \u0161to je slomljeno, gradimo pipeline-ove koji omogu\u0107uju tok podataka, a zatim taj temelj pretvaramo u <em>dashboarde, AI modele i strategije prihoda</em> koje stvarno pomi\u010du iglu.' },
     values: { label: 'KAKO RADIMO', title: 'Dom Analytics pristup', items: [
-      { icon: '\ud83d\udd0d', title: 'Audit na prvom mjestu', desc: 'Prije nego \u0161to di\u010dnemo i\u0161ta, mapiramo cijeli podatkovni krajolik. Identificiramo \u0161to postoji, \u0161to je slomljeno, gdje su praznine i kako izgledaju brze pobjede.' },
-      { icon: '\ud83e\uddf9', title: '\u010ci\u0161\u0107enje i upravljanje', desc: 'Gradimo pipeline-ove koji \u010diste, deduplificiraju i standardiziraju va\u0161e podatke. Bez \u010distog temelja, analitika i AI proizvode \u0161um, a ne signal.' },
-      { icon: '\ud83d\udcca', title: 'Izgradnja BI sloja', desc: 'Kad su podaci solidni, gradimo reporting sloj. Dashboardi za upravu, KPI okviri, praćenje u realnom vremenu. Informacije kojima va\u0161e vodstvo zaista vjeruje i koristi.' },
-      { icon: '\ud83e\udd16', title: 'AI na vrhu', desc: 'S urednim, upravljanim podacima, AI i strojno u\u010denje daju stvarne rezultate. Prediktivni modeli, LLM integracije i inteligentna automatizacija izgradui\u0301jeni da traju.' },
-      { icon: '\ud83d\udcb0', title: 'Monetizacija resursa', desc: 'Podaci su poslovni resurs. Identificiramo neizkori\u0161tene tokove prihoda, gradimo modele cijena i dizajniramo strategije monetizacije koje pretvaraju va\u0161e podatke u mjerljivi ROI.' },
-      { icon: '\ud83c\udf0d', title: 'Globalna isporuka', desc: 'Isporu\u010dili smo data programe u 40 zemalja, u telekomunikacijskom, enterprise i tehnolo\u0161kom sektoru. Znamo raditi u slo\u017eenim vi\u0161etri\u017ei\u0161nim okru\u017eenjima.' },
+      { title: 'Audit na prvom mjestu', desc: 'Prije nego \u0161to di\u010dnemo i\u0161ta, mapiramo cijeli podatkovni krajolik. Identificiramo \u0161to postoji, \u0161to je slomljeno, gdje su praznine i kako izgledaju brze pobjede.' },
+      { title: '\u010ci\u0161\u0107enje i upravljanje', desc: 'Gradimo pipeline-ove koji \u010diste, deduplificiraju i standardiziraju va\u0161e podatke. Bez \u010distog temelja, analitika i AI proizvode \u0161um, a ne signal.' },
+      { title: 'Izgradnja BI sloja', desc: 'Kad su podaci solidni, gradimo reporting sloj. Dashboardi za upravu, KPI okviri, praćenje u realnom vremenu. Informacije kojima va\u0161e vodstvo zaista vjeruje i koristi.' },
+      { title: 'AI na vrhu', desc: 'S urednim, upravljanim podacima, AI i strojno u\u010denje daju stvarne rezultate. Prediktivni modeli, LLM integracije i inteligentna automatizacija izgradui\u0301jeni da traju.' },
+      { title: 'Monetizacija resursa', desc: 'Podaci su poslovni resurs. Identificiramo neizkori\u0161tene tokove prihoda, gradimo modele cijena i dizajniramo strategije monetizacije koje pretvaraju va\u0161e podatke u mjerljivi ROI.' },
+      { title: 'Globalna isporuka', desc: 'Isporu\u010dili smo data programe u 40 zemalja, u telekomunikacijskom, enterprise i tehnolo\u0161kom sektoru. Znamo raditi u slo\u017eenim vi\u0161etri\u017ei\u0161nim okru\u017eenjima.' },
     ]},
     numbers: { label: 'DOKAZANI REZULTATI', title: '\u0160to podaci govore o nama', items: [
       { value: '15', suffix: '+', label: 'Godina prakti\u010dnog iskustva u podacima i telekomu' },
@@ -134,7 +134,7 @@ export default function About() {
         <LineReveal><p className="section-label">{t.values.label}</p></LineReveal>
         <h2 className="section-title"><SplitText>{t.values.title}</SplitText></h2>
         <StaggerChildren className="values-grid">
-          {t.values.items.map((v, i) => (<div key={i} className="value-card"><span className="value-icon">{v.icon}</span><h3 className="value-title">{v.title}</h3><p className="value-desc">{v.desc}</p></div>))}
+          {t.values.items.map((v, i) => (<div key={i} className="value-card"><span className="process-card-num" style={{ display: 'block', marginBottom: 20 }}>{String(i + 1).padStart(2, '0')}</span><h3 className="value-title">{v.title}</h3><p className="value-desc">{v.desc}</p></div>))}
         </StaggerChildren>
       </section>
 

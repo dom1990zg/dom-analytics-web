@@ -28,7 +28,6 @@ const CASE_STUDIES = [
     region: 'APAC Region',
     industry: 'Telecommunications',
     color: '#00BCD4',
-    icon: '📡',
     title: { en: 'Telecom Network Data Monetization', hr: 'Monetizacija podataka telekom mreže' },
     metrics: [
       { value: '1500%', label: { en: 'Revenue increase', hr: 'Rast prihoda' } },
@@ -54,7 +53,6 @@ const CASE_STUDIES = [
     region: 'MENA Region',
     industry: 'Telecommunications',
     color: '#00BCD4',
-    icon: '🌐',
     title: { en: 'Telecom Revenue & Data Architecture Overhaul', hr: 'Obnova podatkovne arhitekture i prihoda telekoma' },
     metrics: [
       { value: '400%', label: { en: 'Revenue increase', hr: 'Rast prihoda' } },
@@ -79,13 +77,13 @@ const CASE_STUDIES = [
 
 const UPCOMING = [
   {
-    color: '#10b981', icon: '📊',
+    color: '#10b981',
     title: { en: 'Enterprise BI Transformation', hr: 'Enterprise BI Transformacija' },
     desc: { en: 'End-to-end BI overhaul for a global enterprise — from data warehouse redesign to executive dashboard deployment across 14 markets.', hr: 'Potpuna BI obnova za globalnu kompaniju — od redizajna data warehouse-a do implementacije dashboarda u 14 tržišta.' },
     tags: ['PowerBI', 'Data Warehouse', 'KPI Frameworks', 'Global'],
   },
   {
-    color: '#f59e0b', icon: '🤖',
+    color: '#f59e0b',
     title: { en: 'AI-Powered SaaS Platform', hr: 'AI SaaS Platforma' },
     desc: { en: 'Custom LLM integration and predictive analytics engine built for a European tech startup operating in the B2B intelligence space.', hr: 'Prilagođena LLM integracija i prediktivni analitički engine za europski tech startup u B2B intelligence prostoru.' },
     tags: ['LLM', 'Next.js', 'Predictive Analytics', 'SaaS'],
@@ -176,7 +174,7 @@ export default function Projects() {
           {UPCOMING.map((u, i) => (
             <div key={i} style={{ background: 'var(--bg2)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 12, padding: '32px', position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${u.color}, transparent)` }} />
-              <div style={{ fontSize: '2rem', marginBottom: 16 }}>{u.icon}</div>
+              <div className="process-card-num" style={{ marginBottom: 16 }}>{String(i + 1).padStart(2, '0')}</div>
               <div style={{ display: 'inline-block', background: `${u.color}18`, border: `1px solid ${u.color}35`, borderRadius: 100, padding: '3px 12px', fontSize: '0.6rem', color: u.color, letterSpacing: '0.15em', marginBottom: 14, fontFamily: 'monospace' }}>{lang === 'en' ? 'COMING SOON' : 'USKORO'}</div>
               <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.15rem', color: '#e8edf5', marginBottom: 12 }}>{u.title[lang]}</h3>
               <p style={{ fontSize: '0.85rem', color: '#4a6080', lineHeight: 1.75, marginBottom: 20 }}>{u.desc[lang]}</p>
@@ -237,7 +235,6 @@ function CaseStudyCard({ cs, lang, index }) {
         <div style={{ padding: '32px 40px 0', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <span style={{ fontSize: '1.5rem' }}>{cs.icon}</span>
               <div>
                 <span style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: cs.color, letterSpacing: '0.2em' }}>{cs.region.toUpperCase()}  ·  {cs.industry.toUpperCase()}</span>
               </div>

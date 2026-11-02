@@ -17,17 +17,17 @@ const translations = {
       { num: '06', title: 'Web & App Development', desc: 'Data-powered web applications and digital platforms built to scale. We build the interfaces that bring your data to life, from internal tools to customer-facing products.', tags: ['React / Next.js', 'Mobile Apps', 'Data Dashboards', 'API Design'] },
     ]},
     process: { label: 'HOW WE WORK', title: 'Our Process', sub: 'A proven methodology that turns complex challenges into measurable results.', steps: [
-      { title: 'Discovery', desc: 'We deep-dive into your business, data landscape, and goals. Through stakeholder interviews and technical audits, we identify opportunities and define the project scope.', icon: '🔍' },
-      { title: 'Strategy', desc: 'We design a tailored roadmap with clear milestones, KPIs, and deliverables. You get a transparent plan with timelines and expected ROI before any development begins.', icon: '🎯' },
-      { title: 'Build', desc: 'Our team develops your solution using agile sprints with weekly demos. You stay involved at every stage with full visibility into progress and decision-making.', icon: '⚡' },
-      { title: 'Launch', desc: 'Rigorous testing, deployment, and knowledge transfer. We ensure your team is equipped to leverage the solution from day one with comprehensive documentation.', icon: '🚀' },
-      { title: 'Evolve', desc: 'Post-launch monitoring, optimization, and ongoing support. We track performance metrics and continuously improve your solution as your business grows.', icon: '📈' },
+      { title: 'Discovery', desc: 'We deep-dive into your business, data landscape, and goals. Through stakeholder interviews and technical audits, we identify opportunities and define the project scope.' },
+      { title: 'Strategy', desc: 'We design a tailored roadmap with clear milestones, KPIs, and deliverables. You get a transparent plan with timelines and expected ROI before any development begins.' },
+      { title: 'Build', desc: 'Our team develops your solution using agile sprints with weekly demos. You stay involved at every stage with full visibility into progress and decision-making.' },
+      { title: 'Launch', desc: 'Rigorous testing, deployment, and knowledge transfer. We ensure your team is equipped to leverage the solution from day one with comprehensive documentation.' },
+      { title: 'Evolve', desc: 'Post-launch monitoring, optimization, and ongoing support. We track performance metrics and continuously improve your solution as your business grows.' },
     ]},
     why: { label: 'WHY DOM ANALYTICS', title: 'What\'s in it for you', items: [
-      { icon: '🧠', title: 'Data Leadership Experience', desc: 'Over 15 years of hands-on data and telecom experience across 40+ countries. We have sat in the CDO seat, built BI departments from scratch and turned data chaos into strategic clarity for enterprise clients.' },
-      { icon: '📊', title: 'Data Enablement First', desc: 'We don\'t just analyze, we enable. We clean, structure, govern and activate your data so every team in your organization can make faster, smarter decisions every single day.' },
-      { icon: '💰', title: 'Proven Revenue Impact', desc: 'Our A2P SMS monetization work delivered 400% revenue growth with a mobile operator in MENA and 1500% with a mobile operator in APAC, by structuring the operator partnership, the commercial terms and the pricing. Commercial work done right pays for itself.' },
-      { icon: '🤖', title: 'AI Built on Solid Data', desc: 'AI is only as good as the data underneath it. We build the data foundation first: governance, pipelines, quality, then layer AI and ML on top for results that actually last.' },
+      { title: 'Data Leadership Experience', desc: 'Over 15 years of hands-on data and telecom experience across 40+ countries. We have sat in the CDO seat, built BI departments from scratch and turned data chaos into strategic clarity for enterprise clients.' },
+      { title: 'Data Enablement First', desc: 'We don\'t just analyze, we enable. We clean, structure, govern and activate your data so every team in your organization can make faster, smarter decisions every single day.' },
+      { title: 'Proven Revenue Impact', desc: 'Our A2P SMS monetization work delivered 400% revenue growth with a mobile operator in MENA and 1500% with a mobile operator in APAC, by structuring the operator partnership, the commercial terms and the pricing. Commercial work done right pays for itself.' },
+      { title: 'AI Built on Solid Data', desc: 'AI is only as good as the data underneath it. We build the data foundation first: governance, pipelines, quality, then layer AI and ML on top for results that actually last.' },
     ]},
     tech: { label: 'OUR STACK', title: 'Technologies', sub: 'We leverage best-in-class tools and frameworks to deliver robust, scalable solutions.' },
     contact: { label: 'GET IN TOUCH', title: 'Let\'s build\nsomething great', sub: 'Ready to transform your business with AI and data? Let\'s talk.', name: 'Your name', email: 'Email address', message: 'Tell us about your project', send: 'Send message', sending: 'Sending...', sent: 'Message sent!', error: 'Failed to send. Try again.', info: 'Or reach us directly' },
@@ -45,17 +45,17 @@ const translations = {
       { num: '06', title: 'Web i App razvoj', desc: 'Data-pokretane web aplikacije i digitalne platforme izgrađene za skaliranje. Gradimo su\u010delja koja va\u0161e podatke o\u017eivljavaju, od internih alata do proizvoda okrenutih klijentima.', tags: ['React / Next.js', 'Mobilne aplikacije', 'Data dashboardi', 'API dizajn'] },
     ]},
     process: { label: 'KAKO RADIMO', title: 'Na\u0161 proces', sub: 'Dokazana metodologija koja pretvara slo\u017eene izazove u mjerljive rezultate.', steps: [
-      { title: 'Otkrivanje', desc: 'Dubinski analiziramo va\u0161e poslovanje, podatkovnu infrastrukturu i ciljeve. Kroz intervjue i tehni\u010dke revizije identificiramo prilike i definiramo opseg projekta.', icon: '🔍' },
-      { title: 'Strategija', desc: 'Dizajniramo prilagođeni plan s jasnim miljokazima, KPI-evima i isporukama. Dobivate transparentan plan s vremenskim okvirima i o\u010dekivanim ROI-em.', icon: '🎯' },
-      { title: 'Izgradnja', desc: 'Na\u0161 tim razvija rje\u0161enje koriste\u0107i agilne sprintove s tjednim demo prikazima. Ostajete uklju\u010deni u svakoj fazi s punom vidljivo\u0161\u0107u napretka.', icon: '⚡' },
-      { title: 'Lansiranje', desc: 'Rigorozno testiranje, implementacija i prijenos znanja. Osiguravamo da je va\u0161 tim opremljen za kori\u0161tenje rje\u0161enja od prvog dana.', icon: '🚀' },
-      { title: 'Evolucija', desc: 'Pra\u0107enje nakon lansiranja, optimizacija i kontinuirana podr\u0161ka. Pratimo metrike performansi i neprestano pobolj\u0161avamo rje\u0161enje.', icon: '📈' },
+      { title: 'Otkrivanje', desc: 'Dubinski analiziramo va\u0161e poslovanje, podatkovnu infrastrukturu i ciljeve. Kroz intervjue i tehni\u010dke revizije identificiramo prilike i definiramo opseg projekta.' },
+      { title: 'Strategija', desc: 'Dizajniramo prilagođeni plan s jasnim miljokazima, KPI-evima i isporukama. Dobivate transparentan plan s vremenskim okvirima i o\u010dekivanim ROI-em.' },
+      { title: 'Izgradnja', desc: 'Na\u0161 tim razvija rje\u0161enje koriste\u0107i agilne sprintove s tjednim demo prikazima. Ostajete uklju\u010deni u svakoj fazi s punom vidljivo\u0161\u0107u napretka.' },
+      { title: 'Lansiranje', desc: 'Rigorozno testiranje, implementacija i prijenos znanja. Osiguravamo da je va\u0161 tim opremljen za kori\u0161tenje rje\u0161enja od prvog dana.' },
+      { title: 'Evolucija', desc: 'Pra\u0107enje nakon lansiranja, optimizacija i kontinuirana podr\u0161ka. Pratimo metrike performansi i neprestano pobolj\u0161avamo rje\u0161enje.' },
     ]},
     why: { label: 'ZA\u0160TO DOM ANALYTICS', title: '\u0160to dobivate s nama', items: [
-      { icon: '🧠', title: 'Data leadership iskustvo', desc: 'Vi\u0161e od 15 godina prakti\u010dnog iskustva u podacima i telekomu u 40+ zemalja. Sjedili smo na CDO poziciji, gradili BI odjele od nule i pretvarali podatkovni kaos u strate\u0161ku jasno\u0107u za enterprise klijente.' },
-      { icon: '📊', title: 'Data enablement na prvom mjestu', desc: 'Ne samo analiziramo, enable-iramo. \u010cistimo, strukturiramo, upravljamo i aktiviramo va\u0161e podatke kako bi svaki tim u organizaciji mogao donositi br\u017ee i pametnije odluke svaki dan.' },
-      { icon: '💰', title: 'Dokazan utjecaj na prihod', desc: 'Na\u0161 A2P SMS monetizacijski rad donio je 400% rast prihoda s mobilnim operatorom u MENA regiji i 1500% s mobilnim operatorom u APAC regiji, kroz strukturiranje operatorskog partnerstva, komercijalnih uvjeta i cijena. Komercijalni posao dobro odra\u0111en vra\u0107a sam sebe.' },
-      { icon: '🤖', title: 'AI izgra\u0111en na solidnoj dati', desc: 'AI je samo toliko dobar koliko su dobri podaci ispod njega. Prvo gradimo temelje, governance, pipeline, kvalitetu, pa tek onda slojemo AI i ML za rezultate koji stvarno traju.' },
+      { title: 'Data leadership iskustvo', desc: 'Vi\u0161e od 15 godina prakti\u010dnog iskustva u podacima i telekomu u 40+ zemalja. Sjedili smo na CDO poziciji, gradili BI odjele od nule i pretvarali podatkovni kaos u strate\u0161ku jasno\u0107u za enterprise klijente.' },
+      { title: 'Data enablement na prvom mjestu', desc: 'Ne samo analiziramo, enable-iramo. \u010cistimo, strukturiramo, upravljamo i aktiviramo va\u0161e podatke kako bi svaki tim u organizaciji mogao donositi br\u017ee i pametnije odluke svaki dan.' },
+      { title: 'Dokazan utjecaj na prihod', desc: 'Na\u0161 A2P SMS monetizacijski rad donio je 400% rast prihoda s mobilnim operatorom u MENA regiji i 1500% s mobilnim operatorom u APAC regiji, kroz strukturiranje operatorskog partnerstva, komercijalnih uvjeta i cijena. Komercijalni posao dobro odra\u0111en vra\u0107a sam sebe.' },
+      { title: 'AI izgra\u0111en na solidnoj dati', desc: 'AI je samo toliko dobar koliko su dobri podaci ispod njega. Prvo gradimo temelje, governance, pipeline, kvalitetu, pa tek onda slojemo AI i ML za rezultate koji stvarno traju.' },
     ]},
     tech: { label: 'NA\u0160 STACK', title: 'Tehnologije', sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rje\u0161enja.' },
     contact: { label: 'KONTAKTIRAJTE NAS', title: 'Izgradimo ne\u0161to\nveliko zajedno', sub: 'Spremni za transformaciju poslovanja s AI-em i podacima? Razgovarajmo.', name: 'Va\u0161e ime', email: 'Email adresa', message: 'Opi\u0161ite nam svoj projekt', send: 'Po\u0161alji poruku', sending: '\u0160aljem...', sent: 'Poruka poslana!', error: 'Slanje neuspjelo. Poku\u0161ajte ponovo.', info: 'Ili nas kontaktirajte direktno' },
@@ -286,7 +286,7 @@ export default function Home() {
               e.currentTarget.style.boxShadow = 'none'
             }}
           >
-            🚀 Explore on Your Own
+            Explore on Your Own
           </a>
         </div>
       </section>
@@ -302,7 +302,7 @@ export default function Home() {
           <StaggerChildren className="process-grid">
             {t.process.steps.map((step, i) => (
               <div key={i} className="process-card">
-                <div className="process-card-icon">{step.icon}</div>
+                <div className="process-card-num">{String(i + 1).padStart(2, '0')}</div>
                 <h3 className="process-card-title">{step.title}</h3>
                 <p className="process-card-desc">{step.desc}</p>
               </div>
@@ -320,7 +320,7 @@ export default function Home() {
         <StaggerChildren className="why-grid">
           {t.why.items.map((item, i) => (
             <div key={i} className="why-card">
-              <div className="why-card-icon">{item.icon}</div>
+              <div className="process-card-num">{String(i + 1).padStart(2, '0')}</div>
               <h3 className="why-card-title">{item.title}</h3>
               <p className="why-card-desc">{item.desc}</p>
             </div>
