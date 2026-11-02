@@ -64,14 +64,13 @@ const translations = {
 };
  
 const techCategories = [
-  { name: 'AI & Data', items: ['Python', 'TensorFlow', 'PyTorch', 'OpenAI', 'LangChain', 'Scikit-learn', 'Hugging Face'] },
-  { name: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Three.js', 'Framer Motion', 'HTML / CSS'] },
-  { name: 'Backend & Cloud', items: ['Node.js', 'PostgreSQL', 'AWS', 'Vercel', 'Docker', 'REST APIs', 'GraphQL'] },
-  { name: 'BI & Analytics', items: ['QlikSense', 'Power BI', 'Tableau', 'Google Analytics', 'Pandas', 'Data Modeling', 'ETL Pipelines'] },
-  { name: 'Business', items: ['Business Analytics', 'Business Intelligence', 'Business Strategy', 'Salesforce', 'HubSpot', 'Market Research', 'KPI Frameworks'] },
+  { name: 'Data & BI', items: ['SQL', 'Python', 'Pandas', 'Power BI', 'QlikSense', 'Data Modeling', 'ETL Pipelines'] },
+  { name: 'AI', items: ['LLM APIs (Claude, OpenAI)', 'LangChain', 'Scikit-learn', 'Prompt and eval design', 'Retrieval (RAG)'] },
+  { name: 'Web & Cloud', items: ['React / Next.js', 'TypeScript', 'Node.js', 'PostgreSQL / Supabase', 'Vercel', 'Stripe'] },
+  { name: 'Commercial', items: ['A2P SMS pricing models', 'Routing and margin analytics', 'Operator RFP responses', 'Business cases', 'KPI frameworks', 'Salesforce / HubSpot'] },
 ];
  
-const marqueeItems = ['Artificial Intelligence', 'Machine Learning', 'Data Analytics', 'Business Intelligence', 'Web Development', 'Cloud Solutions', 'Digital Strategy', 'Predictive Modeling', 'Natural Language Processing', 'Computer Vision', 'API Design', 'Telecom Optimization'];
+const marqueeItems = ['Fractional CDO', 'Data Strategy', 'BI & Analytics', 'Data Monetization', 'A2P SMS Pricing', 'Operator Partnerships', 'SMS Firewall Economics', 'RFP Support', 'AI on Governed Data', 'Telecom Revenue'];
  
 // ─── CUSTOM CURSOR ───
 function CustomCursor() {
