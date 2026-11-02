@@ -61,7 +61,7 @@ export default function MatrixGame({ onClose }) {
       dropsRef.current = dropsRef.current.filter(d => {
         d.y += d.speed;
 
-        ctx.font = `bold ${d.size}px Syne, monospace`;
+        ctx.font = `bold ${d.size}px 'Instrument Sans', monospace`;
         ctx.fillStyle = d.bad ? '#ef4444' : '#00c2cb';
         ctx.shadowColor = d.bad ? '#ef4444' : '#00c2cb';
         ctx.shadowBlur = 8;
@@ -145,7 +145,7 @@ export default function MatrixGame({ onClose }) {
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9998, background: 'rgba(10,10,15,0.95)',
       display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      backdropFilter: 'blur(20px)', fontFamily: "'Syne', sans-serif",
+      backdropFilter: 'blur(20px)', fontFamily: "'Instrument Sans', sans-serif",
     }}>
       <div style={{ textAlign: 'center', marginBottom: 20 }}>
         <p style={{ fontSize: 11, letterSpacing: 4, color: '#00c2cb', marginBottom: 8, fontWeight: 600 }}>SECRET MODE ACTIVATED</p>
@@ -165,10 +165,10 @@ export default function MatrixGame({ onClose }) {
           <p style={{ fontSize: 20, fontWeight: 800, color: '#fff', marginBottom: 8 }}>Game Over!</p>
           <p style={{ fontSize: 14, color: '#00c2cb', marginBottom: 20 }}>Final Score: {score}</p>
           <div style={{ display: 'flex', gap: 12 }}>
-            <button onClick={restart} style={{ fontFamily: "'Syne'", fontSize: 13, fontWeight: 600, padding: '12px 28px', background: '#00c2cb', color: '#0a0a0f', border: 'none', borderRadius: 30, cursor: 'pointer' }}>
+            <button onClick={restart} style={{ fontFamily: "'Instrument Sans'", fontSize: 13, fontWeight: 600, padding: '12px 28px', background: '#00c2cb', color: '#0a0a0f', border: 'none', borderRadius: 30, cursor: 'pointer' }}>
               Play Again
             </button>
-            <button onClick={onClose} style={{ fontFamily: "'Syne'", fontSize: 13, fontWeight: 600, padding: '12px 28px', background: 'transparent', color: '#7a7a8e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 30, cursor: 'pointer' }}>
+            <button onClick={onClose} style={{ fontFamily: "'Instrument Sans'", fontSize: 13, fontWeight: 600, padding: '12px 28px', background: 'transparent', color: '#7a7a8e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 30, cursor: 'pointer' }}>
               Close
             </button>
           </div>
@@ -177,7 +177,7 @@ export default function MatrixGame({ onClose }) {
 
       {!gameOver && (
         <button onClick={onClose} style={{
-          marginTop: 20, fontFamily: "'Syne'", fontSize: 12, fontWeight: 600, letterSpacing: 1,
+          marginTop: 20, fontFamily: "'Instrument Sans'", fontSize: 12, fontWeight: 600, letterSpacing: 1,
           padding: '10px 24px', background: 'transparent', color: '#7a7a8e',
           border: '1px solid rgba(255,255,255,0.08)', borderRadius: 30, cursor: 'pointer',
         }}>

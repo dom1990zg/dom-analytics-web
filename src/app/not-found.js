@@ -290,7 +290,7 @@ export default function NotFound() {
         ctx.fillStyle = e.color;
         ctx.shadowColor = e.color;
         ctx.shadowBlur = 8;
-        ctx.font = `${e.w}px Syne, sans-serif`;
+        ctx.font = `${e.w}px 'Instrument Sans', sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(e.symbol, e.x, e.y);
@@ -331,7 +331,7 @@ export default function NotFound() {
 
       // HUD
       ctx.shadowBlur = 0;
-      ctx.font = 'bold 14px Syne, sans-serif';
+      ctx.font = "bold 14px 'Instrument Sans', sans-serif";
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       ctx.fillStyle = '#00c2cb';
@@ -376,7 +376,7 @@ export default function NotFound() {
   const startGame = () => { setGameStarted(true); setGameOver(false); setScore(0); setLives(3); };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: "'Syne', sans-serif" }}>
+    <div style={{ minHeight: '100vh', background: '#0a0a0f', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: "'Instrument Sans', sans-serif" }}>
       <div style={{ textAlign: 'center', marginBottom: 20 }}>
         <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: 6, color: '#00c2cb', marginBottom: 8 }}>ERROR 404</p>
         <h1 style={{ fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 800, color: '#fff', marginBottom: 8 }}>Page not found</h1>
@@ -388,13 +388,13 @@ export default function NotFound() {
       <canvas ref={canvasRef} style={{ borderRadius: 12, border: '1px solid rgba(0,194,203,0.12)', cursor: gameStarted ? 'none' : 'pointer', maxWidth: '100%' }} />
       <div style={{ marginTop: 20, display: 'flex', gap: 12, alignItems: 'center' }}>
         {(!gameStarted || gameOver) && (
-          <button onClick={startGame} style={{ fontFamily: "'Syne'", fontSize: 14, fontWeight: 600, letterSpacing: 1, padding: '14px 36px', background: '#00c2cb', color: '#0a0a0f', border: 'none', borderRadius: 60, cursor: 'pointer' }}
+          <button onClick={startGame} style={{ fontFamily: "'Instrument Sans'", fontSize: 14, fontWeight: 600, letterSpacing: 1, padding: '14px 36px', background: '#00c2cb', color: '#0a0a0f', border: 'none', borderRadius: 60, cursor: 'pointer' }}
           onMouseOver={(e) => e.target.style.boxShadow = '0 0 30px rgba(0,194,203,0.4)'}
           onMouseOut={(e) => e.target.style.boxShadow = 'none'}>
             {gameOver ? 'Play Again' : 'Launch Game'}
           </button>
         )}
-        <Link href="/" style={{ fontFamily: "'Syne'", fontSize: 13, fontWeight: 600, letterSpacing: 1, padding: '14px 36px', background: 'transparent', color: '#00c2cb', border: '2px solid rgba(0,194,203,0.3)', borderRadius: 60, textDecoration: 'none' }}
+        <Link href="/" style={{ fontFamily: "'Instrument Sans'", fontSize: 13, fontWeight: 600, letterSpacing: 1, padding: '14px 36px', background: 'transparent', color: '#00c2cb', border: '2px solid rgba(0,194,203,0.3)', borderRadius: 60, textDecoration: 'none' }}
         onMouseOver={(e) => { e.target.style.borderColor = '#00c2cb'; e.target.style.background = 'rgba(0,194,203,0.1)'; }}
         onMouseOut={(e) => { e.target.style.borderColor = 'rgba(0,194,203,0.3)'; e.target.style.background = 'transparent'; }}>
           Go Home

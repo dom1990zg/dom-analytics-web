@@ -176,7 +176,7 @@ export default function Projects() {
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${u.color}, transparent)` }} />
               <div className="process-card-num" style={{ marginBottom: 16 }}>{String(i + 1).padStart(2, '0')}</div>
               <div style={{ display: 'inline-block', background: `${u.color}18`, border: `1px solid ${u.color}35`, borderRadius: 100, padding: '3px 12px', fontSize: '0.6rem', color: u.color, letterSpacing: '0.15em', marginBottom: 14, fontFamily: 'monospace' }}>{lang === 'en' ? 'COMING SOON' : 'USKORO'}</div>
-              <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.15rem', color: '#e8edf5', marginBottom: 12 }}>{u.title[lang]}</h3>
+              <h3 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 700, fontSize: '1.15rem', color: '#e8edf5', marginBottom: 12 }}>{u.title[lang]}</h3>
               <p style={{ fontSize: '0.85rem', color: '#4a6080', lineHeight: 1.75, marginBottom: 20 }}>{u.desc[lang]}</p>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {u.tags.map(tag => (
@@ -192,7 +192,7 @@ export default function Projects() {
       <section className="about-cta">
         <div className="page-hero-mesh"><div className="page-hero-orb" /><div className="page-hero-orb" /></div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 40px', position: 'relative', zIndex: 1 }}>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 6vw, 5rem)', color: '#e8edf5', lineHeight: 1.05, marginBottom: 24, textAlign: 'center' }}>
+          <h2 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 700, fontSize: 'clamp(2.5rem, 6vw, 5rem)', color: '#e8edf5', lineHeight: 1.05, marginBottom: 24, textAlign: 'center' }}>
             {lang === 'en' ? 'Ready to be next?' : 'Spremni biti sljedeći?'}
           </h2>
           <p style={{ color: '#4a6080', fontSize: '1rem', marginBottom: 40, maxWidth: 520, textAlign: 'center', lineHeight: 1.7 }}>
@@ -239,13 +239,13 @@ function CaseStudyCard({ cs, lang, index }) {
                 <span style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: cs.color, letterSpacing: '0.2em' }}>{cs.region.toUpperCase()}  ·  {cs.industry.toUpperCase()}</span>
               </div>
             </div>
-            <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.3rem, 3vw, 1.8rem)', color: '#e8edf5', lineHeight: 1.2 }}>{cs.title[lang]}</h3>
+            <h3 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 700, fontSize: 'clamp(1.3rem, 3vw, 1.8rem)', color: '#e8edf5', lineHeight: 1.2 }}>{cs.title[lang]}</h3>
           </div>
           {/* Metrics */}
           <div style={{ display: 'flex', gap: 24 }}>
             {cs.metrics.map((m, i) => (
               <div key={i} style={{ textAlign: 'center' }}>
-                <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: cs.color, lineHeight: 1 }}>{m.value}</div>
+                <div style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 700, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: cs.color, lineHeight: 1 }}>{m.value}</div>
                 <div style={{ fontSize: '0.68rem', color: 'rgba(200,220,240,0.7)', fontWeight: 600, marginTop: 4, letterSpacing: '0.05em' }}>{m.label[lang]}</div>
               </div>
             ))}
