@@ -148,7 +148,7 @@ export default function Projects() {
         <div className="page-hero-content">
           <LineReveal><p className="page-hero-label">{lang === 'en' ? 'OUR WORK' : 'NAŠ RAD'}</p></LineReveal>
           <h1 className="page-hero-title"><SplitText>{lang === 'en' ? 'Projects & Case Studies' : 'Projekti i studije slučaja'}</SplitText></h1>
-          <LineReveal delay={0.3}><p className="page-hero-sub">{lang === 'en' ? 'Real engagements. Real data. Real results. Every number you see here came from work done inside the data layer.' : 'Stvarni projekti. Stvarni podaci. Stvarni rezultati. Svaki broj ovdje došao je iz rada unutar podatkovnog sloja.'}</p></LineReveal>
+          <LineReveal delay={0.3}><p className="page-hero-sub">{lang === 'en' ? 'Engagements we delivered, with the numbers as they were reported. Nothing here is a projection.' : 'Projekti koje smo isporučili, s brojkama kakve su bile prijavljene. Ništa ovdje nije projekcija.'}</p></LineReveal>
         </div>
       </section>
 
