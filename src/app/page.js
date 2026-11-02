@@ -6,7 +6,7 @@ import MatrixGame from './matrix-game';
  
 const translations = {
   en: {
-    nav: { services: 'Services', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' },
+    nav: { services: 'Services', telecom: 'Telecom', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' },
     hero: { tagline: 'DATA. STRATEGY. RESULTS.', headline: 'We turn your data into your biggest competitive advantage', sub: 'Fractional CDO services, data strategy, AI implementation & BI analytics', cta: 'Start a project', scroll: 'Scroll to explore' },
     services: { label: 'WHAT WE DO', title: 'Services', items: [
       { num: '01', title: 'Fractional CDO', desc: 'C-level data leadership on demand. We embed as your Chief Data Officer, defining data vision, building governance frameworks, aligning your data strategy with business outcomes. No full-time hire needed.', tags: ['Data Vision', 'CDO as a Service', 'Data Governance', 'Executive Advisory'] },
@@ -24,17 +24,17 @@ const translations = {
       { title: 'Evolve', desc: 'Post-launch monitoring, optimization, and ongoing support. We track performance metrics and continuously improve your solution as your business grows.', icon: '📈' },
     ]},
     why: { label: 'WHY DOM ANALYTICS', title: 'What\'s in it for you', items: [
-      { icon: '🧠', title: 'Data Leadership Experience', desc: 'Over 15 years of hands-on data leadership across 40+ countries. We have sat in the CDO seat, built BI departments from scratch and turned data chaos into strategic clarity for enterprise clients.' },
+      { icon: '🧠', title: 'Data Leadership Experience', desc: 'Over 15 years of hands-on data and telecom experience across 40+ countries. We have sat in the CDO seat, built BI departments from scratch and turned data chaos into strategic clarity for enterprise clients.' },
       { icon: '📊', title: 'Data Enablement First', desc: 'We don\'t just analyze, we enable. We clean, structure, govern and activate your data so every team in your organization can make faster, smarter decisions every single day.' },
       { icon: '💰', title: 'Proven Revenue Impact', desc: 'Our data monetization work delivered 300% revenue growth on a telecom network in MENA and 1500% revenue increase on a network optimization initiative in APAC. Data done right pays for itself.' },
       { icon: '🤖', title: 'AI Built on Solid Data', desc: 'AI is only as good as the data underneath it. We build the data foundation first: governance, pipelines, quality, then layer AI and ML on top for results that actually last.' },
     ]},
     tech: { label: 'OUR STACK', title: 'Technologies', sub: 'We leverage best-in-class tools and frameworks to deliver robust, scalable solutions.' },
     contact: { label: 'GET IN TOUCH', title: 'Let\'s build\nsomething great', sub: 'Ready to transform your business with AI and data? Let\'s talk.', name: 'Your name', email: 'Email address', message: 'Tell us about your project', send: 'Send message', sending: 'Sending...', sent: 'Message sent!', error: 'Failed to send. Try again.', info: 'Or reach us directly' },
-    footer: { desc: 'Fractional CDO services, data strategy, AI implementation and BI. Turning data into competitive advantage since 2023.', nav: 'Navigation', home: 'Home', servicesLink: 'Services', techLink: 'Technologies', aboutLink: 'About', projectsLink: 'Projects', connect: 'Connect', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privacy', terms: 'Terms' },
+    footer: { desc: 'Fractional CDO services, data strategy, AI implementation and BI. Turning data into competitive advantage since 2023.', nav: 'Navigation', home: 'Home', servicesLink: 'Services', telecomLink: 'Telecom', techLink: 'Technologies', aboutLink: 'About', projectsLink: 'Projects', connect: 'Connect', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privacy', terms: 'Terms' },
   },
   hr: {
-    nav: { services: 'Usluge', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
+    nav: { services: 'Usluge', telecom: 'Telecom', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
     hero: { tagline: 'DATA. STRATEGIJA. REZULTATI.', headline: 'Pretvaramo va\u0161e podatke u najve\u0107u konkurentsku prednost', sub: 'Fractional CDO usluge, data strategija, AI implementacija i BI analitika', cta: 'Zapo\u010dni projekt', scroll: 'Skrolaj za vi\u0161e' },
     services: { label: '\u0160TO RADIMO', title: 'Usluge', items: [
       { num: '01', title: 'Fractional CDO', desc: 'C-level data leadership na zahtjev. Postajemo va\u0161 Chief Data Officer, definiramo data viziju, gradimo governance okvire i uskla\u0111ujemo data strategiju s poslovnim ciljevima. Bez punog zaposlenja.', tags: ['Data vizija', 'CDO kao usluga', 'Data Governance', 'Savjetovanje'] },
@@ -52,14 +52,14 @@ const translations = {
       { title: 'Evolucija', desc: 'Pra\u0107enje nakon lansiranja, optimizacija i kontinuirana podr\u0161ka. Pratimo metrike performansi i neprestano pobolj\u0161avamo rje\u0161enje.', icon: '📈' },
     ]},
     why: { label: 'ZA\u0160TO DOM ANALYTICS', title: '\u0160to dobivate s nama', items: [
-      { icon: '🧠', title: 'Data leadership iskustvo', desc: 'Vi\u0161e od 15 godina prakti\u010dnog data leadershipа u 40+ zemalja. Sjedili smo na CDO poziciji, gradili BI odjele od nule i pretvarali podatkovni kaos u strate\u0161ku jasno\u0107u za enterprise klijente.' },
+      { icon: '🧠', title: 'Data leadership iskustvo', desc: 'Vi\u0161e od 15 godina prakti\u010dnog iskustva u podacima i telekomu u 40+ zemalja. Sjedili smo na CDO poziciji, gradili BI odjele od nule i pretvarali podatkovni kaos u strate\u0161ku jasno\u0107u za enterprise klijente.' },
       { icon: '📊', title: 'Data enablement na prvom mjestu', desc: 'Ne samo analiziramo, enable-iramo. \u010cistimo, strukturiramo, upravljamo i aktiviramo va\u0161e podatke kako bi svaki tim u organizaciji mogao donositi br\u017ee i pametnije odluke svaki dan.' },
       { icon: '💰', title: 'Dokazan utjecaj na prihod', desc: 'Na\u0161 data monetizacijski rad donio je 300% rast prihoda na telekom mre\u017ei u MENA regiji i 1500% rast na optimizacijskoj inicijativi u APAC regiji. Podaci dobro iskori\u0161teni vra\u0107aju sami sebe.' },
       { icon: '🤖', title: 'AI izgra\u0111en na solidnoj dati', desc: 'AI je samo toliko dobar koliko su dobri podaci ispod njega. Prvo gradimo temelje, governance, pipeline, kvalitetu, pa tek onda slojemo AI i ML za rezultate koji stvarno traju.' },
     ]},
     tech: { label: 'NA\u0160 STACK', title: 'Tehnologije', sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rje\u0161enja.' },
     contact: { label: 'KONTAKTIRAJTE NAS', title: 'Izgradimo ne\u0161to\nveliko zajedno', sub: 'Spremni za transformaciju poslovanja s AI-em i podacima? Razgovarajmo.', name: 'Va\u0161e ime', email: 'Email adresa', message: 'Opi\u0161ite nam svoj projekt', send: 'Po\u0161alji poruku', sending: '\u0160aljem...', sent: 'Poruka poslana!', error: 'Slanje neuspjelo. Poku\u0161ajte ponovo.', info: 'Ili nas kontaktirajte direktno' },
-    footer: { desc: 'AI konzalting, analitika podataka i razvoj prilago\u0111enog softvera. Gradimo inteligentna rje\u0161enja od 2023.', nav: 'Navigacija', home: 'Po\u010detna', servicesLink: 'Usluge', techLink: 'Tehnologije', aboutLink: 'O nama', projectsLink: 'Projekti', connect: 'Pove\u017ei se', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privatnost', terms: 'Uvjeti' },
+    footer: { desc: 'AI konzalting, analitika podataka i razvoj prilago\u0111enog softvera. Gradimo inteligentna rje\u0161enja od 2023.', nav: 'Navigacija', home: 'Po\u010detna', servicesLink: 'Usluge', telecomLink: 'Telecom', techLink: 'Tehnologije', aboutLink: 'O nama', projectsLink: 'Projekti', connect: 'Pove\u017ei se', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privatnost', terms: 'Uvjeti' },
   },
 };
  
@@ -166,7 +166,7 @@ function BigFooter({ t }) {
         <div className="big-footer-cta"><h3 className="big-footer-cta-title">Ready to transform your business?</h3><p className="big-footer-cta-sub">Let&apos;s discuss how AI and data can accelerate your growth.</p><Link href="/#contact" className="cta-btn">Get in touch</Link></div>
         <div className="big-footer-top">
           <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">{t.footer.desc}</p><div className="big-footer-social"><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">in</a><a href="mailto:info@domanalytics.com">@</a></div></div>
-          <div className="big-footer-col"><h4>{t.footer.nav}</h4><Link href="/">{t.footer.home}</Link><Link href="/#services">{t.footer.servicesLink}</Link><Link href="/about">{t.footer.aboutLink}</Link><Link href="/projects">{t.footer.projectsLink}</Link></div>
+          <div className="big-footer-col"><h4>{t.footer.nav}</h4><Link href="/">{t.footer.home}</Link><Link href="/#services">{t.footer.servicesLink}</Link><Link href="/telecom">{t.footer.telecomLink}</Link><Link href="/about">{t.footer.aboutLink}</Link><Link href="/projects">{t.footer.projectsLink}</Link></div>
           <div className="big-footer-col"><h4>{t.footer.connect}</h4><a href="mailto:info@domanalytics.com">info@domanalytics.com</a><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
           <div className="big-footer-col"><h4>Location</h4><a href="#">Pore&#269;, Croatia</a><a href="#">Zagreb, Croatia</a><a href="#">Global Remote</a></div>
         </div>
@@ -211,6 +211,7 @@ export default function Home() {
         <a href="/" className="nav-logo" onClick={(e) => { e.preventDefault(); const n = logoClicks + 1; setLogoClicks(n); if (n >= 5) { setShowEasterEgg(true); setLogoClicks(0); } }}><span className="nav-logo-text">Dom<span>Analytics</span></span></a>
         <div className="nav-links">
           <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>{t.nav.services}</a>
+          <Link href="/telecom">{t.nav.telecom}</Link>
           <a href="#tech" onClick={(e) => { e.preventDefault(); scrollTo('tech'); }}>{t.nav.tech}</a>
           <Link href="/about">{t.nav.about}</Link>
           <Link href="/projects">{t.nav.projects}</Link>
@@ -222,6 +223,7 @@ export default function Home() {
  
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>{t.nav.services}</a>
+        <Link href="/telecom" onClick={() => setMenuOpen(false)}>{t.nav.telecom}</Link>
         <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('tech'); }}>{t.nav.tech}</a>
         <Link href="/about" onClick={() => setMenuOpen(false)}>{t.nav.about}</Link>
         <Link href="/projects" onClick={() => setMenuOpen(false)}>{t.nav.projects}</Link>
@@ -341,9 +343,9 @@ export default function Home() {
             <p style={{ fontSize: '0.6rem', letterSpacing: '0.2em', color: '#00e5ff', marginBottom: '16px', fontFamily: 'monospace' }}>APAC REGION · TELECOMMUNICATIONS</p>
             <div style={{ fontSize: '3.5rem', fontWeight: 800, color: '#00e5ff', lineHeight: 1, marginBottom: '8px' }}>1500%</div>
             <p style={{ fontSize: '0.85rem', color: 'rgba(200,220,240,0.9)', fontWeight: 600, marginBottom: '12px' }}>{lang === 'hr' ? 'Rast prihoda' : 'Revenue increase'}</p>
-            <p style={{ fontSize: '0.8rem', color: '#4a6080', lineHeight: 1.7 }}>{lang === 'hr' ? 'Identificirali smo neiskorištene tokove podataka unutar telekomunikacijske mreže u APAC regiji. Kroz data enablement, čišćenje i novu monetizacijsku strategiju transformirali smo podatke u prihodni stroj i isporučili 1500% rast prihoda i 1150% rast bruto dobiti.' : 'We identified untapped data streams within a telecommunications network in the APAC region. Through data enablement, cleansing and a new monetization strategy we turned raw data into a revenue engine, delivering 1500% revenue growth and 1150% gross profit increase.'}</p>
+            <p style={{ fontSize: '0.8rem', color: '#4a6080', lineHeight: 1.7 }}>{lang === 'hr' ? 'A2P SMS monetizacijski projekt s mobilnim operatorom u APAC regiji, isporučen sa strane providera. Strukturirali smo operatorsko partnerstvo, pripremili komercijalne uvjete i ispregovarali A2P cijene. Rezultat: 1500% rast prihoda i 1150% rast bruto dobiti na operatorskoj ruti.' : 'A2P SMS monetization project with a mobile operator in the APAC region, delivered from the provider side. We structured the operator partnership, prepared the commercial terms and negotiated the A2P pricing. Result: 1500% revenue growth and 1150% gross profit increase on the operator route.'}</p>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px' }}>
-              {['Data Enablement', 'Monetization Strategy', 'Network Analytics', 'BI Architecture'].map(tag => (
+              {['A2P SMS', 'Commercial Terms', 'Operator Partnership', 'A2P Pricing'].map(tag => (
                 <span key={tag} style={{ fontSize: '0.6rem', letterSpacing: '0.08em', color: '#00e5ff', border: '1px solid rgba(0,229,255,0.2)', padding: '3px 10px', borderRadius: '100px' }}>{tag}</span>
               ))}
             </div>
@@ -353,14 +355,15 @@ export default function Home() {
             <p style={{ fontSize: '0.6rem', letterSpacing: '0.2em', color: '#00e5ff', marginBottom: '16px', fontFamily: 'monospace' }}>MENA REGION · TELECOMMUNICATIONS</p>
             <div style={{ fontSize: '3.5rem', fontWeight: 800, color: '#00e5ff', lineHeight: 1, marginBottom: '8px' }}>400%</div>
             <p style={{ fontSize: '0.85rem', color: 'rgba(200,220,240,0.9)', fontWeight: 600, marginBottom: '12px' }}>{lang === 'hr' ? 'Rast prihoda' : 'Revenue increase'}</p>
-            <p style={{ fontSize: '0.8rem', color: '#4a6080', lineHeight: 1.7 }}>{lang === 'hr' ? 'Proveli smo sveobuhvatni data audit telekomunikacijske mreže u MENA regiji, otkrili skrivene tokove prihoda, restrukturirali podatkovnu arhitekturu i implementirali novu strategiju monetizacije. Rezultat: 400% rast prihoda i 250% rast bruto dobiti.' : 'We conducted a comprehensive data audit of a telecommunications network in the MENA region, uncovering hidden revenue streams, restructuring the data architecture and implementing a new monetization strategy. Result: 400% revenue growth and 250% gross profit increase.'}</p>
+            <p style={{ fontSize: '0.8rem', color: '#4a6080', lineHeight: 1.7 }}>{lang === 'hr' ? 'A2P SMS monetizacijski projekt s mobilnim operatorom u MENA regiji, isporučen sa strane providera. Pripremili smo i ispregovarali komercijalne uvjete operatorskog partnerstva, od ekskluzivnosti do A2P cijena. Rezultat: 400% rast prihoda i 250% rast bruto dobiti na operatorskoj ruti.' : 'A2P SMS monetization project with a mobile operator in the MENA region, delivered from the provider side. We prepared and negotiated the commercial terms of the operator partnership, from exclusivity to A2P pricing. Result: 400% revenue growth and 250% gross profit increase on the operator route.'}</p>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px' }}>
-              {['Data Audit', 'Revenue Strategy', 'Data Architecture', 'Monetization'].map(tag => (
+              {['A2P SMS', 'Commercial Terms', 'Operator Partnership', 'A2P Pricing'].map(tag => (
                 <span key={tag} style={{ fontSize: '0.6rem', letterSpacing: '0.08em', color: '#00e5ff', border: '1px solid rgba(0,229,255,0.2)', padding: '3px 10px', borderRadius: '100px' }}>{tag}</span>
               ))}
             </div>
           </div>
         </div>
+        <div style={{ marginTop: 32 }}><Link href="/telecom" className="project-card-link">{lang === 'hr' ? 'Pogledajte naš telecom rad' : 'See our telecom work'} <span>&rarr;</span></Link></div>
       </section>
 
       {/* ─── TECHNOLOGIES ─── */}

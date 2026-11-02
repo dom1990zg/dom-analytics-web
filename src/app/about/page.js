@@ -33,7 +33,7 @@ function AnimatedCounter({ value, suffix = '', duration = 2000 }) {
 
 const content = {
   en: {
-    nav: { services: 'Services', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' },
+    nav: { services: 'Services', telecom: 'Telecom', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' },
     hero: { label: 'ABOUT US', title: 'We turn data into the engine behind business growth', sub: 'Dom Analytics is a data-first consulting firm. We clean, govern, analyze and monetize data for organizations that want to stop guessing and start winning.' },
     mission: { label: 'OUR MISSION', title: 'Data enablement is not a project. It is a competitive advantage.', text: 'Most businesses are sitting on enormous amounts of data they cannot fully use. It is siloed, inconsistent, ungoverned and untapped. Our mission is to change that. We go into the data layer, <em>clean what needs cleaning</em>, structure what is broken, build the pipelines that make data flow, and then turn that foundation into <em>dashboards, AI models and revenue strategies</em> that actually move the needle. We do not just consult. We enable.' },
     values: { label: 'HOW WE WORK', title: 'The Dom Analytics approach', items: [
@@ -45,7 +45,7 @@ const content = {
       { icon: '\ud83c\udf0d', title: 'Global Delivery', desc: 'We have delivered data programs across 40 countries, in telecom, enterprise and technology sectors. We know how to operate in complex, multi-market environments.' },
     ]},
     numbers: { label: 'PROVEN RESULTS', title: 'What the data says about us', items: [
-      { value: '15', suffix: '+', label: 'Years of hands-on data and analytics experience' },
+      { value: '15', suffix: '+', label: 'Years of hands-on data and telecom experience' },
       { value: '1500', suffix: '%', label: 'Peak revenue growth delivered on a single data project' },
       { value: '40', suffix: '+', label: 'Countries where we have delivered data programs' },
       { value: '300', suffix: '%', label: 'Average revenue growth across monetization engagements' },
@@ -54,7 +54,7 @@ const content = {
     cta: { title: 'Ready to unlock your data?', sub: 'Tell us where your data is today and we will show you where it can take you.', btn: 'Start the conversation' },
   },
   hr: {
-    nav: { services: 'Usluge', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
+    nav: { services: 'Usluge', telecom: 'Telecom', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
     hero: { label: 'O NAMA', title: 'Pretvaramo podatke u pokreta\u010d poslovnog rasta', sub: 'Dom Analytics je data-first konzultantska tvrtka. \u010cistimo, upravljamo, analiziramo i monetiziramo podatke za organizacije koje \u017eele prestati pogadati i po\u010deti pobje\u0111ivati.' },
     mission: { label: 'NA\u0160A MISIJA', title: 'Data enablement nije projekt. To je konkurentska prednost.', text: 'Ve\u0107ina tvrtki sjedi na ogromnim koli\u010dinama podataka koje ne mo\u017ee u potpunosti koristiti. Silosi su, nekonzistentni, neupravljani i neizkori\u0161teni. Na\u0161a misija je to promijeniti. Ulazimo u podatkovni sloj, <em>\u010distimo ono \u0161to treba \u010distiti</em>, strukturiramo ono \u0161to je slomljeno, gradimo pipeline-ove koji omogu\u0107uju tok podataka, a zatim taj temelj pretvaramo u <em>dashboarde, AI modele i strategije prihoda</em> koje stvarno pomi\u010du iglu.' },
     values: { label: 'KAKO RADIMO', title: 'Dom Analytics pristup', items: [
@@ -66,7 +66,7 @@ const content = {
       { icon: '\ud83c\udf0d', title: 'Globalna isporuka', desc: 'Isporu\u010dili smo data programe u 40 zemalja, u telekomunikacijskom, enterprise i tehnolo\u0161kom sektoru. Znamo raditi u slo\u017eenim vi\u0161etri\u017ei\u0161nim okru\u017eenjima.' },
     ]},
     numbers: { label: 'DOKAZANI REZULTATI', title: '\u0160to podaci govore o nama', items: [
-      { value: '15', suffix: '+', label: 'Godina prakti\u010dnog iskustva u podacima i analitici' },
+      { value: '15', suffix: '+', label: 'Godina prakti\u010dnog iskustva u podacima i telekomu' },
       { value: '1500', suffix: '%', label: 'Vrhunski rast prihoda isporu\u010den na jednom data projektu' },
       { value: '40', suffix: '+', label: 'Zemalja gdje smo isporu\u010dili data programe' },
       { value: '300', suffix: '%', label: 'Prosje\u010dan rast prihoda kroz monetizacijske projekte' },
@@ -94,6 +94,7 @@ export default function About() {
         <Link href="/" className="nav-logo"><span className="nav-logo-text">Dom<span>Analytics</span></span></Link>
         <div className="nav-links">
           <Link href="/#services">{t.nav.services}</Link>
+          <Link href="/telecom">{t.nav.telecom}</Link>
           <Link href="/#tech">{t.nav.tech}</Link>
           <Link href="/about" className="active">{t.nav.about}</Link>
           <Link href="/projects">{t.nav.projects}</Link>
@@ -105,6 +106,7 @@ export default function About() {
 
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
+        <Link href="/telecom" onClick={() => setMenuOpen(false)}>{t.nav.telecom}</Link>
         <Link href="/about" onClick={() => setMenuOpen(false)}>{t.nav.about}</Link>
         <Link href="/projects" onClick={() => setMenuOpen(false)}>{t.nav.projects}</Link>
         <Link href="/#contact" onClick={() => setMenuOpen(false)}>{t.nav.contact}</Link>
@@ -169,7 +171,7 @@ export default function About() {
         <div className="big-footer-inner">
           <div className="big-footer-top">
             <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">AI-powered consulting, data analytics, and custom software development.</p><div className="big-footer-social"><a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">in</a><a href="mailto:info@domanalytics.com">@</a></div></div>
-            <div className="big-footer-col"><h4>Navigation</h4><Link href="/">Home</Link><Link href="/about">About</Link><Link href="/projects">Projects</Link></div>
+            <div className="big-footer-col"><h4>Navigation</h4><Link href="/">Home</Link><Link href="/#services">Services</Link><Link href="/telecom">Telecom</Link><Link href="/about">About</Link><Link href="/projects">Projects</Link></div>
             <div className="big-footer-col"><h4>Connect</h4><a href="mailto:info@domanalytics.com">Email</a><a href="https://linkedin.com/in/domagojkrusic" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
             <div className="big-footer-col"><h4>Location</h4><a href="#">Pore&#269;, Croatia</a><a href="#">Zagreb, Croatia</a><a href="#">Global Remote</a></div>
           </div>

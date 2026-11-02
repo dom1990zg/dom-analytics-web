@@ -112,7 +112,7 @@ export default function Projects() {
     return () => window.removeEventListener('mousemove', h);
   }, []);
 
-  const nav_t = { en: { services: 'Services', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' }, hr: { services: 'Usluge', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' } }[lang];
+  const nav_t = { en: { services: 'Services', telecom: 'Telecom', tech: 'Technologies', about: 'About', projects: 'Projects', contact: 'Contact' }, hr: { services: 'Usluge', telecom: 'Telecom', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' } }[lang];
 
   return (
     <>
@@ -124,6 +124,7 @@ export default function Projects() {
         <Link href="/" className="nav-logo"><span className="nav-logo-text">Dom<span>Analytics</span></span></Link>
         <div className="nav-links">
           <Link href="/#services">{nav_t.services}</Link>
+          <Link href="/telecom">{nav_t.telecom}</Link>
           <Link href="/#tech">{nav_t.tech}</Link>
           <Link href="/about">{nav_t.about}</Link>
           <Link href="/projects" className="active">{nav_t.projects}</Link>
@@ -135,6 +136,7 @@ export default function Projects() {
 
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
+        <Link href="/telecom" onClick={() => setMenuOpen(false)}>{nav_t.telecom}</Link>
         <Link href="/about" onClick={() => setMenuOpen(false)}>{nav_t.about}</Link>
         <Link href="/projects" onClick={() => setMenuOpen(false)}>{nav_t.projects}</Link>
         <Link href="/#contact" onClick={() => setMenuOpen(false)}>{nav_t.contact}</Link>
@@ -207,7 +209,7 @@ export default function Projects() {
         <div className="big-footer-inner">
           <div className="big-footer-top">
             <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">Fractional CDO services, data strategy, AI implementation and BI analytics.</p><div className="big-footer-social"><a href="https://linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">in</a><a href="mailto:info@domanalytics.com">@</a></div></div>
-            <div className="big-footer-col"><h4>Navigation</h4><Link href="/">Home</Link><Link href="/about">About</Link><Link href="/projects">Projects</Link></div>
+            <div className="big-footer-col"><h4>Navigation</h4><Link href="/">Home</Link><Link href="/#services">Services</Link><Link href="/telecom">Telecom</Link><Link href="/about">About</Link><Link href="/projects">Projects</Link></div>
             <div className="big-footer-col"><h4>Connect</h4><a href="mailto:info@domanalytics.com">Email</a><a href="https://linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
             <div className="big-footer-col"><h4>Location</h4><a href="#">Poreč, Croatia</a><a href="#">Global Remote</a></div>
           </div>
