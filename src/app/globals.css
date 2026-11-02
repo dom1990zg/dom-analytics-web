@@ -129,7 +129,7 @@ body *{cursor:none}
 /* ─── HOW WE WORK / PROCESS ─── */
 .process-section{background:var(--bg2);border-top:1px solid rgba(0,194,203,0.08);border-bottom:1px solid rgba(0,194,203,0.08)}
 .process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:64px;position:relative;align-items:stretch}
-.process-card{position:relative;padding:32px 20px 28px;text-align:center;border-radius:16px;border:1px solid rgba(255,255,255,0.04);background:var(--bg);transition:border-color 0.4s,transform 0.4s,box-shadow 0.4s;display:flex;flex-direction:column;align-items:center;width:100%;flex:1}
+.process-card{position:relative;padding:32px 20px 28px;text-align:center;border-radius:16px;border:1px solid rgba(255,255,255,0.04);background:var(--bg);transition:border-color 0.4s,transform 0.4s,box-shadow 0.4s;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;height:100%}
 .process-card:hover{border-color:rgba(0,194,203,0.2);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.2),0 0 20px rgba(0,194,203,0.04)}
 .process-card-icon{font-size:32px;margin-bottom:16px}
 .process-card-num{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:3px;color:var(--teal);margin-bottom:8px;opacity:0.6}
@@ -152,7 +152,7 @@ body *{cursor:none}
  
 /* ─── TECH ─── */
 .tech-grid{margin-top:64px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:stretch}
-.tech-category{background:var(--bg2);border:1px solid rgba(255,255,255,0.04);border-radius:16px;padding:32px 24px;transition:border-color 0.4s,transform 0.4s;display:flex;flex-direction:column}
+.tech-category{background:var(--bg2);border:1px solid rgba(255,255,255,0.04);border-radius:16px;padding:32px 24px;transition:border-color 0.4s,transform 0.4s;display:flex;flex-direction:column;height:100%}
 .tech-category:hover{border-color:rgba(0,194,203,0.2);transform:translateY(-4px)}
 .tech-cat-name{font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--teal);letter-spacing:1px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(0,194,203,0.15)}
 .tech-item{font-size:13px;color:var(--text-dim);padding:7px 0;transition:color 0.3s,padding-left 0.3s;display:flex;align-items:center;gap:8px}
