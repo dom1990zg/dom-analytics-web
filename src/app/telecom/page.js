@@ -54,9 +54,9 @@ const NAV = {
 const CONTACT = { name: 'Your name', email: 'Email address', message: 'Tell us about your A2P setup', send: 'Send message', sending: 'Sending...', sent: 'Message sent!', error: 'Failed to send. Try again.' };
 
 const AUDIENCES = [
-  { num: '01', title: 'Mobile operators', desc: 'Independent assessment of your A2P partner and firewall setup before you go to RFP. Fixed-scope diagnostic, two to three weeks, written recommendation on partner model, exclusivity terms and pricing.' },
-  { num: '02', title: 'Firewall and anti-fraud vendors', desc: 'Deal desk and business case support for operator tenders. The technical proposal wins or loses on the commercial model attached to it; we build that model, per tender or on retainer.' },
-  { num: '03', title: 'Messaging providers and consultancies', desc: 'Operator deal structuring, A2P business cases, RFP responses, routing and margin analytics. Available as a subcontractor, 10 to 15 hours a week.' },
+  { num: '1', title: 'Mobile operators', desc: 'Independent assessment of your A2P partner and firewall setup before you go to RFP. Fixed-scope diagnostic, two to three weeks, written recommendation on partner model, exclusivity terms and pricing.' },
+  { num: '2', title: 'Firewall and anti-fraud vendors', desc: 'Deal desk and business case support for operator tenders. The technical proposal wins or loses on the commercial model attached to it; we build that model, per tender or on retainer.' },
+  { num: '3', title: 'Messaging providers and consultancies', desc: 'Operator deal structuring, A2P business cases, RFP responses, routing and margin analytics. Available as a subcontractor, 10 to 15 hours a week.' },
 ];
 
 const TOPICS = ['A2P SMS pricing', 'Operator exclusivity and preferred partnerships', 'SMS firewall economics', 'Aggregator competitive landscape', 'AIT fraud', 'RCS and OTT impact on A2P revenue', 'Operator RFP processes', 'Deal desk and business cases'];

@@ -132,7 +132,7 @@ body *{cursor:none}
 .process-card{position:relative;padding:32px 20px 28px;text-align:center;border-radius:16px;border:1px solid rgba(255,255,255,0.04);background:var(--bg);transition:border-color 0.4s,transform 0.4s,box-shadow 0.4s;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;height:100%}
 .process-card:hover{border-color:rgba(0,194,203,0.2);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.2),0 0 20px rgba(0,194,203,0.04)}
 .process-card-icon{font-size:32px;margin-bottom:16px}
-.process-card-num{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:3px;color:var(--teal);margin-bottom:8px;opacity:0.6}
+.process-card-num{font-family:var(--font-d);font-size:15px;font-weight:700;letter-spacing:2px;color:var(--teal);margin-bottom:8px;opacity:0.6}
 .process-card-title{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text-bright);margin-bottom:10px}
 .process-card-desc{font-size:13px;color:var(--text-dim);line-height:1.7}
 .process-card-line{display:none}

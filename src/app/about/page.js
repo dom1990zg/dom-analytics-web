@@ -134,7 +134,7 @@ export default function About() {
         <LineReveal><p className="section-label">{t.values.label}</p></LineReveal>
         <h2 className="section-title"><SplitText>{t.values.title}</SplitText></h2>
         <StaggerChildren className="values-grid">
-          {t.values.items.map((v, i) => (<div key={i} className="value-card"><span className="process-card-num" style={{ display: 'block', marginBottom: 20 }}>{String(i + 1).padStart(2, '0')}</span><h3 className="value-title">{v.title}</h3><p className="value-desc">{v.desc}</p></div>))}
+          {t.values.items.map((v, i) => (<div key={i} className="value-card"><span className="process-card-num" style={{ display: 'block', marginBottom: 20 }}>{i + 1}</span><h3 className="value-title">{v.title}</h3><p className="value-desc">{v.desc}</p></div>))}
         </StaggerChildren>
       </section>
 

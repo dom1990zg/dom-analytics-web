@@ -381,7 +381,7 @@ export default function NotFound() {
         <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: 6, color: '#00c2cb', marginBottom: 8 }}>ERROR 404</p>
         <h1 style={{ fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 800, color: '#fff', marginBottom: 8 }}>Page not found</h1>
         <p style={{ fontSize: 15, color: '#7a7a8e' }}>
-          {gameOver ? `Game Over! Score: ${score}${score > highScore ? ' — New High Score!' : ''}` :
+          {gameOver ? `Game Over! Score: ${score}${score > highScore ? ' - New High Score!' : ''}` :
            !gameStarted ? 'The page got lost in space. Play while we find it?' : 'Move mouse to steer • Click to shoot'}
         </p>
       </div>
