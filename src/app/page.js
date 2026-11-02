@@ -31,7 +31,7 @@ const translations = {
     ]},
     tech: { label: 'OUR STACK', title: 'Technologies', sub: 'We leverage best-in-class tools and frameworks to deliver robust, scalable solutions.' },
     contact: { label: 'GET IN TOUCH', title: 'Let\'s build\nsomething great', sub: 'Ready to transform your business with AI and data? Let\'s talk.', name: 'Your name', email: 'Email address', message: 'Tell us about your project', send: 'Send message', sending: 'Sending...', sent: 'Message sent!', error: 'Failed to send. Try again.', info: 'Or reach us directly' },
-    footer: { desc: 'Fractional CDO services, data strategy, AI implementation and BI. Turning data into competitive advantage since 2023.', nav: 'Navigation', home: 'Home', servicesLink: 'Services', telecomLink: 'Telecom', techLink: 'Technologies', aboutLink: 'About', projectsLink: 'Projects', connect: 'Connect', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privacy', terms: 'Terms' },
+    footer: { desc: 'Fractional CDO services, data strategy, AI implementation and BI. Turning data into competitive advantage since 2023.', nav: 'Navigation', home: 'Home', servicesLink: 'Services', telecomLink: 'Telecom', techLink: 'Technologies', aboutLink: 'About', projectsLink: 'Projects', connect: 'Connect', rights: '\u00a9 2026 Dom Analytics', explore: 'Explore on your own' },
   },
   hr: {
     nav: { services: 'Usluge', telecom: 'Telecom', tech: 'Tehnologije', about: 'O nama', projects: 'Projekti', contact: 'Kontakt' },
@@ -59,7 +59,7 @@ const translations = {
     ]},
     tech: { label: 'NA\u0160 STACK', title: 'Tehnologije', sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rje\u0161enja.' },
     contact: { label: 'KONTAKTIRAJTE NAS', title: 'Izgradimo ne\u0161to\nveliko zajedno', sub: 'Spremni za transformaciju poslovanja s AI-em i podacima? Razgovarajmo.', name: 'Va\u0161e ime', email: 'Email adresa', message: 'Opi\u0161ite nam svoj projekt', send: 'Po\u0161alji poruku', sending: '\u0160aljem...', sent: 'Poruka poslana!', error: 'Slanje neuspjelo. Poku\u0161ajte ponovo.', info: 'Ili nas kontaktirajte direktno' },
-    footer: { desc: 'AI konzalting, analitika podataka i razvoj prilago\u0111enog softvera. Gradimo inteligentna rje\u0161enja od 2023.', nav: 'Navigacija', home: 'Po\u010detna', servicesLink: 'Usluge', telecomLink: 'Telecom', techLink: 'Tehnologije', aboutLink: 'O nama', projectsLink: 'Projekti', connect: 'Pove\u017ei se', rights: '\u00a9 2026 Dom Analytics', privacy: 'Privatnost', terms: 'Uvjeti' },
+    footer: { desc: 'AI konzalting, analitika podataka i razvoj prilago\u0111enog softvera. Gradimo inteligentna rje\u0161enja od 2023.', nav: 'Navigacija', home: 'Po\u010detna', servicesLink: 'Usluge', telecomLink: 'Telecom', techLink: 'Tehnologije', aboutLink: 'O nama', projectsLink: 'Projekti', connect: 'Pove\u017ei se', rights: '\u00a9 2026 Dom Analytics', explore: 'Istra\u017ei sam' },
   },
 };
  
@@ -165,12 +165,12 @@ function BigFooter({ t }) {
       <div className="big-footer-inner">
         <div className="big-footer-cta"><h3 className="big-footer-cta-title">Ready to transform your business?</h3><p className="big-footer-cta-sub">Let&apos;s discuss how AI and data can accelerate your growth.</p><Link href="/#contact" className="cta-btn">Get in touch</Link></div>
         <div className="big-footer-top">
-          <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">{t.footer.desc}</p><div className="big-footer-social"><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">in</a><a href="mailto:info@domanalytics.com">@</a></div></div>
+          <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">{t.footer.desc}</p><div className="big-footer-social"><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg></a><a href="mailto:info@domanalytics.com" aria-label="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></div></div>
           <div className="big-footer-col"><h4>{t.footer.nav}</h4><Link href="/">{t.footer.home}</Link><Link href="/#services">{t.footer.servicesLink}</Link><Link href="/telecom">{t.footer.telecomLink}</Link><Link href="/about">{t.footer.aboutLink}</Link><Link href="/projects">{t.footer.projectsLink}</Link></div>
           <div className="big-footer-col"><h4>{t.footer.connect}</h4><a href="mailto:info@domanalytics.com">info@domanalytics.com</a><a href="https://www.linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
-          <div className="big-footer-col"><h4>Location</h4><a href="#">Pore&#269;, Croatia</a><a href="#">Zagreb, Croatia</a><a href="#">Global Remote</a></div>
+          <div className="big-footer-col"><h4>Location</h4><span>Pore&#269;, Croatia</span><span>Zagreb, Croatia</span><span>Global Remote</span></div>
         </div>
-        <div className="big-footer-bottom"><span>{t.footer.rights}</span><div><a href="#">{t.footer.privacy}</a><a href="#">{t.footer.terms}</a></div></div>
+        <div className="big-footer-bottom"><span>{t.footer.rights}</span><div><a href="/universe-game.html">{t.footer.explore}</a></div></div>
       </div>
     </footer>
   );
@@ -256,39 +256,6 @@ export default function Home() {
             </TiltCard>
           ))}
         </StaggerChildren>
-        <div style={{ textAlign: 'center', marginTop: '48px' }}>
-          <a
-            href="/universe-game.html"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              background: 'transparent',
-              border: '1px solid rgba(0,229,255,0.35)',
-              color: '#00e5ff',
-              padding: '14px 36px',
-              borderRadius: '6px',
-              fontFamily: 'monospace',
-              fontSize: '0.78rem',
-              letterSpacing: '0.12em',
-              textDecoration: 'none',
-              textTransform: 'uppercase',
-              transition: 'all 0.25s',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(0,229,255,0.08)'
-              e.currentTarget.style.borderColor = '#00e5ff'
-              e.currentTarget.style.boxShadow = '0 0 24px rgba(0,229,255,0.2)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = 'transparent'
-              e.currentTarget.style.borderColor = 'rgba(0,229,255,0.35)'
-              e.currentTarget.style.boxShadow = 'none'
-            }}
-          >
-            Explore on Your Own
-          </a>
-        </div>
       </section>
  
       <div className="section-divider" />

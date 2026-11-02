@@ -206,12 +206,12 @@ export default function Projects() {
         <div className="big-footer-mesh"><div className="big-footer-orb" /><div className="big-footer-orb" /></div>
         <div className="big-footer-inner">
           <div className="big-footer-top">
-            <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">Fractional CDO services, data strategy, AI implementation and BI analytics.</p><div className="big-footer-social"><a href="https://linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">in</a><a href="mailto:info@domanalytics.com">@</a></div></div>
+            <div className="big-footer-brand"><div className="big-footer-logo">Dom<span>Analytics</span></div><p className="big-footer-desc">Fractional CDO services, data strategy, AI implementation and BI analytics.</p><div className="big-footer-social"><a href="https://linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg></a><a href="mailto:info@domanalytics.com" aria-label="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></div></div>
             <div className="big-footer-col"><h4>Navigation</h4><Link href="/">Home</Link><Link href="/#services">Services</Link><Link href="/telecom">Telecom</Link><Link href="/about">About</Link><Link href="/projects">Projects</Link></div>
             <div className="big-footer-col"><h4>Connect</h4><a href="mailto:info@domanalytics.com">Email</a><a href="https://linkedin.com/company/dom-analytics" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
-            <div className="big-footer-col"><h4>Location</h4><a href="#">Poreč, Croatia</a><a href="#">Global Remote</a></div>
+            <div className="big-footer-col"><h4>Location</h4><span>Poreč, Croatia</span><span>Global Remote</span></div>
           </div>
-          <div className="big-footer-bottom"><span>© 2026 Dom Analytics</span><div><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+          <div className="big-footer-bottom"><span>© 2026 Dom Analytics</span><div><a href="/universe-game.html">Explore on your own</a></div></div>
         </div>
       </footer>
     </>
