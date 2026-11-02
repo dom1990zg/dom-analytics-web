@@ -26,7 +26,7 @@ const translations = {
     why: { label: 'WHY DOM ANALYTICS', title: 'What\'s in it for you', items: [
       { icon: '🧠', title: 'Data Leadership Experience', desc: 'Over 15 years of hands-on data and telecom experience across 40+ countries. We have sat in the CDO seat, built BI departments from scratch and turned data chaos into strategic clarity for enterprise clients.' },
       { icon: '📊', title: 'Data Enablement First', desc: 'We don\'t just analyze, we enable. We clean, structure, govern and activate your data so every team in your organization can make faster, smarter decisions every single day.' },
-      { icon: '💰', title: 'Proven Revenue Impact', desc: 'Our data monetization work delivered 300% revenue growth on a telecom network in MENA and 1500% revenue increase on a network optimization initiative in APAC. Data done right pays for itself.' },
+      { icon: '💰', title: 'Proven Revenue Impact', desc: 'Our A2P SMS monetization work delivered 400% revenue growth with a mobile operator in MENA and 1500% with a mobile operator in APAC, by structuring the operator partnership, the commercial terms and the pricing. Commercial work done right pays for itself.' },
       { icon: '🤖', title: 'AI Built on Solid Data', desc: 'AI is only as good as the data underneath it. We build the data foundation first: governance, pipelines, quality, then layer AI and ML on top for results that actually last.' },
     ]},
     tech: { label: 'OUR STACK', title: 'Technologies', sub: 'We leverage best-in-class tools and frameworks to deliver robust, scalable solutions.' },
@@ -54,7 +54,7 @@ const translations = {
     why: { label: 'ZA\u0160TO DOM ANALYTICS', title: '\u0160to dobivate s nama', items: [
       { icon: '🧠', title: 'Data leadership iskustvo', desc: 'Vi\u0161e od 15 godina prakti\u010dnog iskustva u podacima i telekomu u 40+ zemalja. Sjedili smo na CDO poziciji, gradili BI odjele od nule i pretvarali podatkovni kaos u strate\u0161ku jasno\u0107u za enterprise klijente.' },
       { icon: '📊', title: 'Data enablement na prvom mjestu', desc: 'Ne samo analiziramo, enable-iramo. \u010cistimo, strukturiramo, upravljamo i aktiviramo va\u0161e podatke kako bi svaki tim u organizaciji mogao donositi br\u017ee i pametnije odluke svaki dan.' },
-      { icon: '💰', title: 'Dokazan utjecaj na prihod', desc: 'Na\u0161 data monetizacijski rad donio je 300% rast prihoda na telekom mre\u017ei u MENA regiji i 1500% rast na optimizacijskoj inicijativi u APAC regiji. Podaci dobro iskori\u0161teni vra\u0107aju sami sebe.' },
+      { icon: '💰', title: 'Dokazan utjecaj na prihod', desc: 'Na\u0161 A2P SMS monetizacijski rad donio je 400% rast prihoda s mobilnim operatorom u MENA regiji i 1500% s mobilnim operatorom u APAC regiji, kroz strukturiranje operatorskog partnerstva, komercijalnih uvjeta i cijena. Komercijalni posao dobro odra\u0111en vra\u0107a sam sebe.' },
       { icon: '🤖', title: 'AI izgra\u0111en na solidnoj dati', desc: 'AI je samo toliko dobar koliko su dobri podaci ispod njega. Prvo gradimo temelje, governance, pipeline, kvalitetu, pa tek onda slojemo AI i ML za rezultate koji stvarno traju.' },
     ]},
     tech: { label: 'NA\u0160 STACK', title: 'Tehnologije', sub: 'Koristimo vrhunske alate i frameworke za isporuku robusnih, skalabilnih rje\u0161enja.' },
@@ -336,7 +336,7 @@ export default function Home() {
       <section id="results" className="section">
         <LineReveal><p className="section-label">{lang === 'hr' ? 'DOKAZANI REZULTATI' : 'PROVEN RESULTS'}</p></LineReveal>
         <h2 className="section-title"><SplitText>{lang === 'hr' ? 'Što data može napraviti' : 'What data can do'}</SplitText></h2>
-        <LineReveal delay={0.2}><p className="section-sub">{lang === 'hr' ? 'Ovi rezultati nisu teorija. Svaki broj je rezultat stvarnog data enablement rada: čišćenja, arhitekture, strategije i prave monetizacije podataka.' : 'These numbers are not theory. Every figure is the result of real data enablement work: cleaning, architecture, strategy and true data monetization.'}</p></LineReveal>
+        <LineReveal delay={0.2}><p className="section-sub">{lang === 'hr' ? 'Ovi rezultati nisu teorija. Svaki broj dolazi iz A2P SMS monetizacijskog rada s mobilnim operatorima: struktura partnerstva, komercijalni uvjeti, cijene i pregovori.' : 'These numbers are not theory. Every figure comes from A2P SMS monetization work with mobile operators: partnership structure, commercial terms, pricing and negotiation.'}</p></LineReveal>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginTop: '48px' }}>
           <div style={{ background: 'rgba(0,229,255,0.04)', border: '1px solid rgba(0,229,255,0.15)', borderRadius: '12px', padding: '36px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, transparent, #00e5ff, transparent)' }} />
