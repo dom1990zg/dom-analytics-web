@@ -24,7 +24,7 @@ const translations = {
       { title: 'Follow-up', desc: 'Monthly check-ins on the metrics we agreed at the start. We adjust when the business changes, and we say so when something is not working.' },
     ]},
     why: { label: 'WHY DOM ANALYTICS', title: 'Why work with us', items: [
-      { title: 'We have sat in the chair', desc: '15+ years in data and telecom. We have led BI and strategy departments, built BI departments from scratch and owned the revenue line, so advice comes from having done it, not from a framework.' },
+      { title: 'We have sat in the chair', desc: '15+ years in data and telecom. We have led BI and strategy departments, built them from scratch and owned the revenue line, so advice comes from having done it, not from a framework.' },
       { title: 'Foundation before dashboards', desc: 'We clean, structure and govern the data before anyone builds on it. Reports and AI on bad data give you confident wrong answers.' },
       { title: 'Revenue you can trace', desc: 'A2P SMS monetization work delivered 400% revenue growth with a mobile operator in MENA and 1500% with a mobile operator in APAC, through partnership structure, commercial terms and pricing.' },
       { title: 'AI where it pays off', desc: 'We build AI on governed data and only where a model beats a simpler rule. No AI for the sake of the slide.' },
@@ -52,7 +52,7 @@ const translations = {
       { title: 'Praćenje', desc: 'Mjesečne provjere metrika koje smo dogovorili na početku. Prilagođavamo se kad se posao promijeni i kažemo kad nešto ne radi.' },
     ]},
     why: { label: 'ZA\u0160TO DOM ANALYTICS', title: 'Zašto raditi s nama', items: [
-      { title: 'Sjedili smo u toj stolici', desc: 'Više od 15 godina u podacima i telekomu. Vodili smo BI i strateške odjele, gradili BI odjele od nule i odgovarali za liniju prihoda, pa savjet dolazi iz iskustva, ne iz frameworka.' },
+      { title: 'Sjedili smo u toj stolici', desc: 'Više od 15 godina u podacima i telekomu. Vodili smo BI i strateške odjele, gradili ih od nule i odgovarali za liniju prihoda, pa savjet dolazi iz iskustva, ne iz frameworka.' },
       { title: 'Temelj prije dashboarda', desc: 'Čistimo, strukturiramo i upravljamo podacima prije nego itko na njima gradi. Izvještaji i AI na lošim podacima daju vam samouvjereno krive odgovore.' },
       { title: 'Prihod koji se može pratiti', desc: 'A2P SMS monetizacijski rad donio je 400% rast prihoda s mobilnim operatorom u MENA regiji i 1500% s mobilnim operatorom u APAC regiji, kroz strukturu partnerstva, komercijalne uvjete i cijene.' },
       { title: 'AI tamo gdje se isplati', desc: 'AI gradimo na upravljanim podacima i samo tamo gdje model pobjeđuje jednostavnije pravilo. Bez AI-a radi slajda.' },
